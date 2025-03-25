@@ -1,0 +1,170 @@
+---
+title: 'Getting Started'
+description: 'Getting started with Gumnut'
+icon: '🚀'
+---
+
+# Getting Started with Gumnut
+
+This guide will walk you through the process of setting up Gumnut in your project and creating a simple collaborative text editor.
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- A basic understanding of JavaScript and web components
+
+## Installation
+
+Install the Gumnut package using npm or yarn:
+
+```bash
+npm install gumnut-v0-api
+# or
+yarn add gumnut-v0-api
+```
+
+## Basic Setup
+
+### 1. Import the necessary modules
+
+```javascript
+import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+import 'gumnut-v0-api/dom';
+```
+
+### 2. Connect to Gumnut
+
+First, create an AbortController to manage the lifecycle of your Gumnut connection:
+
+```javascript
+const controller = new AbortController();
+```
+
+Next, establish a connection to the Gumnut server:
+
+```javascript
+const gumnut = connectToGumnut(controller.signal, {
+  projectId: 'your-project-id',
+  // For local development:
+  // localDevKey: 'your-dev-key',
+  // host: 'localhost:8080'
+});
+```
+
+### 3. Authenticate with a token
+
+```javascript
+// For development/testing
+const token = buildTestToken('user-123', { 
+  name: 'John Doe', 
+  email: 'john@example.com' 
+});
+
+// Provide the token to Gumnut
+gumnut.provideToken(token);
+```
+
+### 4. Join a document
+
+```javascript
+// Join an existing document or create a new one
+const doc = gumnut.join(controller.signal, 'my-first-document');
+
+// Wait for the document to be ready
+await doc.ready;
+```
+
+### 5. Create a node within the document
+
+```javascript
+// Create or access a node within the document
+const textNode = doc.forNode('main-text');
+```
+
+## Using Gumnut with HTML
+
+The simplest way to integrate Gumnut is to use the built-in web components:
+
+```html
+<gumnut-textarea id="editor"></gumnut-textarea>
+```
+
+Then, link it to your Gumnut node:
+
+```javascript
+// Assign the node to the textarea component
+document.getElementById('editor').node = textNode;
+```
+
+## Complete Example
+
+Here's a full example that sets up a collaborative text editor:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gumnut Collaborative Editor</title>
+  <style>
+    gumnut-textarea {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>Collaborative Editor</h1>
+  <gumnut-textarea id="editor"></gumnut-textarea>
+  <gumnut-status id="status"></gumnut-status>
+
+  <script type="module">
+    import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+    import 'gumnut-v0-api/dom';
+
+    // Setup the connection
+    const controller = new AbortController();
+    const gumnut = connectToGumnut(controller.signal, {
+      projectId: 'your-project-id'
+    });
+
+    // Authenticate
+    const userId = `user-${Math.floor(Math.random() * 1000)}`;
+    const token = buildTestToken(userId, { 
+      name: `User ${userId}`, 
+      email: `${userId}@example.com` 
+    });
+    gumnut.provideToken(token);
+
+    // Show connection status
+    document.getElementById('status').gumnutApi = gumnut;
+
+    // Join a document
+    const doc = gumnut.join(controller.signal, 'shared-document');
+    
+    // Connect the textarea to a node in the document
+    document.getElementById('editor').node = doc.forNode('text-content');
+
+    // Optional: Create a snapshot when the page unloads
+    window.addEventListener('beforeunload', () => {
+      doc.snapshot();
+      controller.abort();
+    });
+  </script>
+</body>
+</html>
+```
+
+## Next Steps
+
+Now that you have a basic setup working, you can:
+
+- Learn about [authentication](/guides/authentication) for securing your collaborative sessions
+- Explore the various [Gumnut components](/components) for different use cases
+- Understand the concepts behind [real-time collaboration](/concepts/real-time-collaboration)
+- Check out the complete [API reference](/api-reference) for advanced usage
+
+For troubleshooting and more in-depth information, refer to the individual component and API documentation.

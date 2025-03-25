@@ -1,0 +1,86 @@
+---
+title: 'Operational Transformation'
+description: 'Operational Transformation in Gumnut'
+---
+
+# Operational Transformation in Gumnut
+
+Operational Transformation (OT) is the algorithm that powers Gumnut's real-time collaborative editing. It allows multiple users to concurrently edit the same document without conflicts, ensuring that all users eventually see the same content regardless of network latency or the order in which edits are made.
+
+## How Operational Transformation Works
+
+At its core, Operational Transformation works by:
+
+1. Representing document changes as operations (e.g., insert text, delete text)
+2. Transforming concurrent operations to maintain consistency
+3. Ensuring that all clients converge to the same final document state
+
+### Basic Concepts
+
+#### Operations
+
+In Gumnut, text operations are represented primarily as:
+
+- **Insert**: Adding text at a specific position
+- **Delete**: Removing text at a specific position
+- **Cursor**: Representing a user's cursor and selection position
+
+Each operation contains:
+
+- **at**: The position where the operation should be applied
+- **insert**: Optional text to insert
+- **delete**: Optional number of characters to delete
+- **cursor**: Optional cursor position (for user presence)
+
+#### Transformation
+
+When concurrent operations occur, they need to be transformed against each other to maintain consistency. For example:
+
+- User A inserts "hello" at position 0
+- User B concurrently inserts "world" at position 0
+
+Without transformation, the second operation would insert "world" at position 0, resulting in "worldhello" instead of the expected "helloworld".
+
+With transformation, when User B's operation reaches User A, it is transformed to insert "world" at position 5 (after "hello"), resulting in the expected "helloworld".
+
+## Gumnut's Implementation
+
+Gumnut implements a client-server model of operational transformation:
+
+1. **Client Operations**:
+   - Generated when users make changes
+   - Sent to the server
+   - Applied locally immediately (optimistic updates)
+
+2. **Server Operations**:
+   - Received from clients
+   - Applied to the server's document state
+   - Broadcast to all connected clients
+
+3. **Transformation**:
+   - When a client receives operations from the server, it transforms any pending local operations against the server operations
+   - This ensures that local operations are correctly applied in the context of server operations
+
+### The `transform` Function
+
+The heart of OT is the `transform` function, which takes an operation and transforms it against another operation:
+
+```javascript
+function transform(author, op, over) {
+  // Calculate how the operation should be modified
+  // to maintain consistency when applied after 'over'
+  // ...
+  return transformedOp;
+}
+```
+
+## Benefits in Collaborative Editing
+
+Operational Transformation in Gumnut provides several key benefits:
+
+1. **Real-time Collaboration**: Multiple users can edit simultaneously without conflicts
+2. **Consistency**: All users eventually see the same document content
+3. **Responsive Editing**: Changes appear immediately for the local user, with no waiting for server validation
+4. **Conflict Resolution**: Automatically resolves conflicts between concurrent edits
+5. **User Presence**: Tracks and displays cursor positions of all collaborators
+

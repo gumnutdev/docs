@@ -1,0 +1,173 @@
+---
+title: 'GumnutNode'
+description: 'A node in a Gumnut document'
+---
+
+# GumnutNode
+
+The `GumnutNode` represents a specific piece of content within a Gumnut document. Nodes can contain text, structured data (like a dropdown or slider), and are the primary units that can be edited collaboratively.
+
+## Import
+
+You don't directly import GumnutNode. Instead, you get a GumnutNode instance from the `forNode` method of a GumnutDoc:
+
+```javascript
+import { connectToGumnut } from 'gumnut-v0-api';
+
+const gumnut = connectToGumnut(signal, { projectId: 'your-project' });
+const doc = gumnut.join(signal, 'document-id');
+const node = doc.forNode('node-id');
+```
+
+## Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `projectId` | `string` | The ID of the project |
+| `docId` | `string` | The ID of the document containing this node |
+| `node` | `string` | The ID of this node |
+
+## Usage with Web Components
+
+The most common way to use GumnutNode is with Gumnut's custom elements:
+
+```javascript
+// Get a reference to a node
+const textNode = doc.forNode('text-content');
+
+// Assign it to a Gumnut component
+document.querySelector('gumnut-textarea').node = textNode;
+```
+
+## Advanced Usage
+
+For more advanced usage, Gumnut provides an internal API to work directly with nodes.
+
+### Internal Node API
+
+To access the internal node API, you need to use the `useNode` symbol (though this is generally not necessary for most use cases and is primarily used by Gumnut's built-in components).
+
+The internal node API provides methods for:
+
+- Performing operations on the node
+- Reading the document contents
+- Adding listeners for changes
+- Working with cursors and selections
+
+## Working with Nodes Programmatically
+
+If you need to work with nodes programmatically without using Gumnut's web components, here's how you can approach it:
+
+### Get Node Content
+
+```javascript
+import { internalForNode } from 'gumnut-v0-api/dom';
+
+function getNodeContent(signal, node) {
+  const internalNode = internalForNode(signal, node);
+  return internalNode.document().contents;
+}
+
+// Example usage
+const controller = new AbortController();
+const textNode = doc.forNode('text-content');
+const content = getNodeContent(controller.signal, textNode);
+console.log('Node content:', content);
+```
+
+### Update Node Content
+
+```javascript
+function updateNodeContent(signal, node, newContent) {
+  const internalNode = internalForNode(signal, node);
+  return internalNode.perform({
+    t: {
+      at: 0,
+      delete: -1,  // Delete all existing content
+      insert: newContent
+    }
+  });
+}
+
+// Example usage
+updateNodeContent(controller.signal, textNode, 'New content for the node');
+```
+
+### Listen for Node Changes
+
+```javascript
+function listenToNodeChanges(signal, node, callback) {
+  const internalNode = internalForNode(signal, node);
+  internalNode.addListener((update) => {
+    const content = internalNode.document().contents;
+    callback(content, update);
+  }, signal);
+}
+
+// Example usage
+listenToNodeChanges(controller.signal, textNode, (content, update) => {
+  console.log('Node updated:', content);
+});
+```
+
+## Examples
+
+### Basic Node Usage with Components
+
+```javascript
+import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+import 'gumnut-v0-api/dom';
+
+// Setup connection
+const controller = new AbortController();
+const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project' });
+gumnut.provideToken(buildTestToken('user-123'));
+
+// Join document and get node
+const doc = gumnut.join(controller.signal, 'my-document');
+await doc.ready;
+const textNode = doc.forNode('main-text');
+
+// Connect node to components
+document.querySelector('gumnut-textarea').node = textNode;
+document.querySelector('gumnut-input').node = doc.forNode('title');
+```
+
+### Working with Multiple Nodes
+
+```javascript
+// After setting up connection and joining document
+const titleNode = doc.forNode('title');
+const contentNode = doc.forNode('content');
+const metadataNode = doc.forNode('metadata');
+
+// Connect to respective components
+document.querySelector('#title-input').node = titleNode;
+document.querySelector('#content-editor').node = contentNode;
+document.querySelector('#metadata-field').node = metadataNode;
+
+// Create a snapshot before leaving
+window.addEventListener('beforeunload', () => {
+  doc.snapshot();
+});
+```
+
+### Dynamic Node Creation
+
+```javascript
+function addNewSection() {
+  const sectionId = `section-${Date.now()}`;
+  const sectionNode = doc.forNode(sectionId);
+  
+  // Create a new editor component for this section
+  const editor = document.createElement('gumnut-textarea');
+  editor.className = 'section-editor';
+  editor.node = sectionNode;
+  
+  document.querySelector('#sections-container').appendChild(editor);
+}
+
+document.querySelector('#add-section-button').addEventListener('click', addNewSection);
+```
+
+Remember that nodes are created implicitly when you first access them with `doc.forNode()`. The node will only be visible to other users once you start adding content to it.

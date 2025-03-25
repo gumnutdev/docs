@@ -1,0 +1,251 @@
+---
+title: 'GumnutStatus'
+description: 'A component for monitoring the connection status of a Gumnut instance'
+---
+
+# GumnutStatus
+
+The `<gumnut-status>` component provides a way to monitor and display the connection status of a Gumnut instance. It helps users understand when there are connection issues with collaborative documents.
+
+## Import
+
+```javascript
+// Import all Gumnut DOM components
+import 'gumnut-v0-api/dom';
+```
+
+## Usage
+
+```html
+<gumnut-status id="connection-status"></gumnut-status>
+```
+
+```javascript
+// Create a Gumnut instance
+const controller = new AbortController();
+const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project-id' });
+
+// Assign the Gumnut instance to the status component
+document.getElementById('connection-status').gumnutApi = gumnut;
+```
+
+## Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `gumnutApi` | `GumnutApi` | The Gumnut API instance to monitor |
+
+## Features
+
+### Connection Status Monitoring
+
+The `<gumnut-status>` component automatically:
+
+- Displays errors when documents fail to connect
+- Shows which documents are experiencing issues
+- Updates in real-time as connection status changes
+
+### Styling
+
+The component creates a shadow DOM with basic styling. By default, error messages are displayed in red. You can customize the appearance using CSS:
+
+```css
+gumnut-status {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background-color: #fff4f4;
+  border: 1px solid #ffcdd2;
+  color: #b71c1c;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+/* Hide when no errors */
+gumnut-status:empty {
+  display: none;
+}
+```
+
+## Examples
+
+### Basic Usage
+
+```html
+<div class="app-header">
+  <h1>Collaborative Document Editor</h1>
+  <gumnut-status id="connection-status"></gumnut-status>
+</div>
+
+<script type="module">
+  import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+  import 'gumnut-v0-api/dom';
+  
+  const controller = new AbortController();
+  const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project-id' });
+  
+  // Authenticate
+  gumnut.provideToken(buildTestToken('user-123'));
+  
+  // Assign the Gumnut instance to the status component
+  document.getElementById('connection-status').gumnutApi = gumnut;
+</script>
+```
+
+### Custom Status Styling
+
+```html
+<style>
+  /* Custom styles for connection status */
+  .status-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 300px;
+  }
+  
+  gumnut-status {
+    display: block;
+    padding: 12px 16px;
+    background-color: #fef8e7;
+    border-left: 4px solid #f9a825;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  gumnut-status:empty {
+    display: none;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="editor-container">
+  <gumnut-textarea id="document-editor"></gumnut-textarea>
+</div>
+
+<div class="status-container">
+  <gumnut-status id="connection-status"></gumnut-status>
+</div>
+```
+
+### Status with Reconnection Button
+
+```html
+<div class="connection-panel">
+  <gumnut-status id="connection-status"></gumnut-status>
+  <button id="reconnect-button" style="display: none;">Reconnect</button>
+</div>
+
+<script type="module">
+  import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+  import 'gumnut-v0-api/dom';
+  
+  let controller = new AbortController();
+  let gumnut = connectToGumnut(controller.signal, { projectId: 'your-project-id' });
+  
+  // Authenticate
+  const token = buildTestToken('user-123');
+  gumnut.provideToken(token);
+  
+  // Assign the Gumnut instance to the status component
+  const statusElement = document.getElementById('connection-status');
+  statusElement.gumnutApi = gumnut;
+  
+  // Show reconnect button when there are errors
+  const reconnectButton = document.getElementById('reconnect-button');
+  
+  // Monitor for connection issues
+  const observer = new MutationObserver(() => {
+    reconnectButton.style.display = statusElement.textContent ? 'block' : 'none';
+  });
+  
+  observer.observe(statusElement, { childList: true, characterData: true, subtree: true });
+  
+  // Handle reconnection
+  reconnectButton.addEventListener('click', () => {
+    // Clean up old connection
+    controller.abort();
+    
+    // Create a new connection
+    controller = new AbortController();
+    gumnut = connectToGumnut(controller.signal, { projectId: 'your-project-id' });
+    gumnut.provideToken(token);
+    
+    // Update status component reference
+    statusElement.gumnutApi = gumnut;
+    
+    // Reconnect document nodes and reassign them to components
+    // ... (document reconnection code)
+  });
+</script>
+```
+
+### Status with Multiple Document Monitoring
+
+```html
+<div class="app-header">
+  <h1>Multi-Document Workspace</h1>
+  <div class="status-wrapper">
+    <gumnut-status id="connection-status"></gumnut-status>
+  </div>
+</div>
+
+<div class="document-list">
+  <!-- Document items will be added here -->
+</div>
+
+<script type="module">
+  import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+  import 'gumnut-v0-api/dom';
+  
+  const controller = new AbortController();
+  const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project-id' });
+  
+  // Authenticate
+  gumnut.provideToken(buildTestToken('user-123'));
+  
+  // Assign the Gumnut instance to the status component
+  document.getElementById('connection-status').gumnutApi = gumnut;
+  
+  // Function to add a document to the workspace
+  function addDocument(docId, title) {
+    // Create document element
+    const docElement = document.createElement('div');
+    docElement.className = 'document-item';
+    
+    const docTitle = document.createElement('h3');
+    docTitle.textContent = title;
+    
+    const editor = document.createElement('gumnut-textarea');
+    
+    docElement.appendChild(docTitle);
+    docElement.appendChild(editor);
+    document.querySelector('.document-list').appendChild(docElement);
+    
+    // Join the document and connect to the editor
+    const doc = gumnut.join(controller.signal, docId);
+    editor.node = doc.forNode('content');
+    
+    return doc;
+  }
+  
+  // Add some documents
+  const docs = [
+    addDocument('doc-a', 'Project Overview'),
+    addDocument('doc-b', 'Technical Specifications'),
+    addDocument('doc-c', 'Meeting Notes')
+  ];
+  
+  // The status component will automatically show issues with any of these documents
+</script>
+```

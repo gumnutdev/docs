@@ -1,0 +1,218 @@
+---
+title: 'GumnutInput'
+description: 'A collaborative single-line text input component for Gumnut'
+---
+
+# GumnutInput
+
+The `<gumnut-input>` component provides a collaborative single-line text input that allows multiple users to edit the same content simultaneously with real-time updates.
+
+## Import
+
+```javascript
+// Import all Gumnut DOM components
+import 'gumnut-v0-api/dom';
+```
+
+## Usage
+
+```html
+<gumnut-input id="title-input"></gumnut-input>
+```
+
+```javascript
+// Get a node from a Gumnut document
+const doc = gumnut.join(signal, 'document-id');
+const titleNode = doc.forNode('title');
+
+// Assign the node to the input
+document.getElementById('title-input').node = titleNode;
+```
+
+## Attributes
+
+| Attribute | Type | Description |
+| --------- | ---- | ----------- |
+| `disabled` | `boolean` | When present, makes the input non-editable |
+| `readonly` | `boolean` | When present, allows viewing but not editing the content |
+
+## Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `node` | `GumnutNode` | The Gumnut node to connect to this input |
+| `value` | `string` | Get or set the current text content |
+| `disabled` | `boolean` | Get or set whether the input is disabled |
+| `readOnly` | `boolean` | Get or set whether the input is read-only |
+
+## Features
+
+### Real-time Collaboration
+
+The `<gumnut-input>` component automatically:
+
+- Synchronizes text content among all connected users
+- Shows other users' cursors and selections
+- Handles conflict resolution using operational transformation
+- Displays user presence information (who is currently editing)
+
+### Styling
+
+The component creates a shadow DOM with styling that can be customized using CSS variables:
+
+```css
+gumnut-input {
+  /* Set the size */
+  width: 100%;
+  height: 40px;
+  
+  /* Add a border */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+  /* Add padding inside the input */
+  --gumnut-padding: 0 10px;
+}
+```
+
+## Events
+
+The component inherits standard events from the underlying input element:
+
+- `input`: Fired when the content changes
+- `focus`: Fired when the input gains focus
+- `blur`: Fired when the input loses focus
+
+## Form Integration
+
+`<gumnut-input>` is registered as a form-associated custom element, allowing it to be used within forms.
+
+## Examples
+
+### Basic Usage
+
+```html
+<gumnut-input id="title-input" placeholder="Enter title..."></gumnut-input>
+
+<script type="module">
+  import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
+  import 'gumnut-v0-api/dom';
+  
+  const controller = new AbortController();
+  const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project' });
+  
+  // Authenticate
+  gumnut.provideToken(buildTestToken('user-123'));
+  
+  // Join document and connect to input
+  const doc = gumnut.join(controller.signal, 'document-id');
+  document.getElementById('title-input').node = doc.forNode('title');
+</script>
+```
+
+### Usage with Read-only Mode
+
+```html
+<gumnut-input id="viewer" readonly></gumnut-input>
+
+<script type="module">
+  // After connecting to Gumnut and joining a document
+  document.getElementById('viewer').node = doc.forNode('title');
+  
+  // You can also toggle readonly programmatically
+  document.getElementById('edit-button').addEventListener('click', () => {
+    const viewer = document.getElementById('viewer');
+    viewer.readOnly = !viewer.readOnly;
+  });
+</script>
+```
+
+### Styling Example
+
+```html
+<style>
+  /* Custom styles for different inputs */
+  .input-title {
+    width: 100%;
+    height: 50px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    --gumnut-padding: 0 16px;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .input-subtitle {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    --gumnut-padding: 0 12px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-style: italic;
+  }
+</style>
+
+<gumnut-input id="title" class="input-title" placeholder="Enter title..."></gumnut-input>
+<gumnut-input id="subtitle" class="input-subtitle" placeholder="Enter subtitle..."></gumnut-input>
+```
+
+### Form Integration Example
+
+```html
+<form id="document-form">
+  <div class="form-group">
+    <label for="doc-title">Title</label>
+    <gumnut-input id="doc-title" name="title" required></gumnut-input>
+  </div>
+  
+  <div class="form-group">
+    <label for="doc-author">Author</label>
+    <gumnut-input id="doc-author" name="author"></gumnut-input>
+  </div>
+  
+  <button type="submit">Save</button>
+</form>
+
+<script type="module">
+  // After connecting to Gumnut and joining a document
+  const doc = gumnut.join(controller.signal, 'document-form');
+  
+  document.getElementById('doc-title').node = doc.forNode('title');
+  document.getElementById('doc-author').node = doc.forNode('author');
+  
+  // Form submission handling
+  document.getElementById('document-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    // Create a snapshot to ensure all changes are persisted
+    doc.snapshot();
+    
+    // Additional form processing here...
+    console.log('Title:', document.getElementById('doc-title').value);
+    console.log('Author:', document.getElementById('doc-author').value);
+  });
+</script>
+```
+
+### Multiple Inputs Example
+
+```javascript
+// Join a document
+const doc = gumnut.join(controller.signal, 'form-document');
+
+// Connect form inputs to different nodes
+const formFields = [
+  { id: 'input-name', node: 'name' },
+  { id: 'input-email', node: 'email' },
+  { id: 'input-phone', node: 'phone' },
+  { id: 'input-company', node: 'company' }
+];
+
+// Connect each input to its corresponding node
+formFields.forEach(field => {
+  document.getElementById(field.id).node = doc.forNode(field.node);
+});
+```

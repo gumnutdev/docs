@@ -16,21 +16,20 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "development"
-            ]
+            "pages": ["introduction", "quickstart", "complete-guide"]
           },
           {
-            "group": "Essentials",
+            "group": "Guides",
+            "pages": ["guides/authentication", "guides/collaborative-editing"]
+          },
+          {
+            "group": "Components",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "components/index",
+              "components/gumnut-input",
+              "components/gumnut-textarea",
+              "components/gumnut-data",
+              "components/gumnut-status"
             ]
           }
         ]
@@ -41,16 +40,16 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/gumnut-api",
+              "api-reference/gumnut-doc",
+              "api-reference/gumnut-node"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Concepts",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "concepts/real-time-collaboration",
+              "concepts/operational-transformation"
             ]
           }
         ]
@@ -77,8 +76,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg",
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png",
     "href": "https://gumnut.dev"
   },
   "navbar": {
