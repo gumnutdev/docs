@@ -58,11 +58,6 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://docs.gumnut.dev",
-          "icon": "book-open-cover"
-        },
-        {
           "anchor": "Community",
           "href": "https://discord.gg/yu3u87AUNR",
           "icon": "discord"
