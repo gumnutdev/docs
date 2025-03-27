@@ -21,6 +21,7 @@
           {
             "group": "Guides",
             "pages": [
+              "guides/getting-started",
               "guides/authentication",
               "guides/collaborative-editing",
               "guides/complete-guide"
