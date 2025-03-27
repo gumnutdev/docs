@@ -1,7 +1,7 @@
 ---
 title: 'Quick Start'
 description: 'Quick Start with Gumnut'
-icon: '🚀'
+icon: 'download'
 ---
 
 Getting started and connected to Gumnut should only take a few minutes.
@@ -23,7 +23,9 @@ const controller = new AbortController();
 
 // Connect to Gumnut
 const gumnut = connectToGumnut(controller.signal, {
-  projectId: 'your-project-id'
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  
 });
 
 // Provide authentication token
@@ -34,7 +36,7 @@ gumnut.provideToken(token);
 const doc = gumnut.join(controller.signal, 'doc-123');
 
 // Use the document with a Gumnut component
-document.querySelector('gumnut-textarea').document = doc.forNode('text-content');
+document.querySelector('gumnut-textarea').node = doc.forNode('text-content');
 ```
 In your HTML you'll need to use a `<gumnut-textarea>` element instead of a regular `<textarea>`.
 

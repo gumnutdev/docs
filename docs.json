@@ -10,9 +10,9 @@
   },
   "favicon": "/favicon.png",
   "navigation": {
-    "tabs": [
+    "dropdowns": [
       {
-        "tab": "Guides",
+        "dropdown": "Guides",
         "groups": [
           {
             "group": "Get Started",
@@ -25,17 +25,36 @@
           {
             "group": "Components",
             "pages": [
-              "components/index",
-              "components/gumnut-input",
-              "components/gumnut-textarea",
-              "components/gumnut-data",
-              "components/gumnut-status"
+              {
+                "group": "Frameworks",
+                "icon": "code",
+                "pages": [
+                  "components/react",
+                  "components/vue",
+                  "components/svelte"
+                ]
+              },
+              {
+                "group": "Components",
+                "icon": "code",
+                "pages": [
+                  "components/gumnut-data",
+                  "components/gumnut-status",
+                  "components/gumnut-textarea",
+                  "components/gumnut-input",
+                  "components/gumnut-button",
+                  "components/gumnut-checkbox",
+                  "components/gumnut-radio",
+                  "components/gumnut-select",
+                  "components/gumnut-slider"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "dropdown": "API Reference",
         "groups": [
           {
             "group": "API Documentation",
