@@ -10,17 +10,21 @@
   },
   "favicon": "/favicon.png",
   "navigation": {
-    "dropdowns": [
+    "tabs": [
       {
-        "dropdown": "Guides",
+        "tab": "Guides",
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["introduction", "quickstart", "complete-guide"]
+            "pages": ["introduction", "quickstart"]
           },
           {
             "group": "Guides",
-            "pages": ["guides/authentication", "guides/collaborative-editing"]
+            "pages": [
+              "guides/authentication",
+              "guides/collaborative-editing",
+              "guides/complete-guide"
+            ]
           },
           {
             "group": "Components",
@@ -41,12 +45,7 @@
                   "components/gumnut-data",
                   "components/gumnut-status",
                   "components/gumnut-textarea",
-                  "components/gumnut-input",
-                  "components/gumnut-button",
-                  "components/gumnut-checkbox",
-                  "components/gumnut-radio",
-                  "components/gumnut-select",
-                  "components/gumnut-slider"
+                  "components/gumnut-input"
                 ]
               }
             ]
@@ -54,7 +53,7 @@
         ]
       },
       {
-        "dropdown": "API Reference",
+        "tab": "API Reference",
         "groups": [
           {
             "group": "API Documentation",
