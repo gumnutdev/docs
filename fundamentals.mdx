@@ -1,0 +1,151 @@
+---
+title: Fundamentals
+icon: 'book'
+---
+
+# Fundamentals
+
+There are a few fundamental concepts that you should know to optimize how you use Gumnut in your application.
+
+## Connection Flow
+
+At a high level, the connection flow inside your application to Gumnut will look like this:
+
+![Connection Flow](/images/architecture-diagram.svg)
+
+Gumnut needs to know who is typing what, so we can attribute actions to the correct user. Gumnut does not provide its own authentication, instead we use your existing login, and pass a JWT (JSON Web Token) to Gumnut. 
+
+This is the basic flow, as described in the above diagram.
+
+1. The frontend GET and loads the Gumnut forms from the backend
+2. The frontend sends a POST request to the backend asking for a JWT
+3. The backend generates a JWT and returns it to the frontend
+4. The frontend connects to Gumnut using the JWT
+
+For testing, you can use a dev key to connect to your Gumnut project without a JWT. So you can test your environment and collaborate on the frontend without any authentication. However, in a production environment, you will need to provide your own JWT, otherwise you will leak your data, and you probably don't want that.
+
+
+## Projects
+
+Projects are the core unit of organization in Gumnut. They are the main way to store and share data in Gumnut.
+
+To create a project, you can use the admin interface.
+
+![Create Project](/images/create-project.png)
+
+Each projects has a name and ID. The ID is part of the domain to access it in the admin interface.
+
+## Documents
+
+Once a project is created, you can add documents to it, and each document (which could be all the fields of a HTML form), will be collaborative and have full history and attribution.
+
+So a 'document' is not a single text field (even though it can be), it's all the elements of a form that you want to track changes over time and understand who did what. That includes, checkboxes, sliders, etc.
+
+Documents are described in the [Documents](/api-reference/gumnut-doc) section.
+
+
+## Actions
+
+Actions are things that you perform on a document. There are 3 actions: 
+
+- Load
+- Snapshot
+- Clear changes
+
+### Load
+
+Load is when you want to load the current state of a document.
+
+### Snapshot
+
+Snapshot is when you want to save the current state of a document.
+
+### Clear changes
+
+Clear changes is when you want to clear the changes that have been made to a document.
+
+### Status indicators
+
+The status indicator by default tells you what 'state' the document is in. It appears 'red' when the document is 'dirty', which basically means that there are changes have have not been saved.
+
+More info about the status indicator and how to style it can be found in the [status indicator](/components/gumnut-status) section.
+
+
+# Gumnut Document Operations: Load, Snapshot & Clear Changes
+
+This document explains how to perform key document operations in the Gumnut collaboration system: loading document content, taking snapshots, and clearing changes.
+
+## Loading Document Content
+
+When you need to initialize a document with specific content or replace its entire contents:
+
+```javascript
+// Get the document node
+const node = await gumnutApi.node('my-document-id');
+
+// Load content into the document (replaces any existing content)
+node.load('Initial document content goes here');
+```
+
+The `load` operation completely replaces any existing content in the document with the provided string. This is useful for:
+
+- Initializing documents with default content
+- Restoring documents from saved states
+- Resetting a document to a known state
+
+**Note:** The load operation will be synchronized to all connected clients, and their views will update to show the new content.
+
+## Taking Document Snapshots
+
+To capture the current state of a document:
+
+```javascript
+// Get the document node
+const project = gumnut.join(c.signal, 'my-project')
+
+// assuming you have a document will all the fields here and you just want to save it
+
+const saveButton = document.getElementById('save-button');
+if (saveButton) {
+    saveButton.addEventListener('click', () => {
+        const snapshot = project.snapshot();
+        console.log(snapshot);
+    })
+}
+```
+
+The snapshot will then be visible for project admins in the admin interface.
+
+## Clearing Changes
+
+To reset a document's change history while keeping its current content:
+
+```javascript
+// Get the document node
+const node = await gumnutApi.node('my-document-id');
+
+// Clear the change history
+node.clearChanges();
+```
+
+The `clearChanges` operation:
+
+- Preserves the current document content
+- Resets the document's change history
+- Creates a clean starting point for future changes
+- Reduces memory usage for documents with long edit histories
+
+This is particularly useful for long-lived documents that don't need to retain their full edit history.
+
+## Complete Example
+
+Here's how to use all three operations in a typical workflow:
+
+```javascript
+// Initialize Gumnut
+const signal = new AbortController().signal;
+const gumnutApi = connectToGumnut(signal, {
+  projectId: 'your-project-id'
+});
+
+// Authenticate

@@ -33,11 +33,7 @@
               {
                 "group": "Frameworks",
                 "icon": "code",
-                "pages": [
-                  "components/react",
-                  "components/vue",
-                  "components/svelte"
-                ]
+                "pages": ["components/react", "components/vue"]
               },
               {
                 "group": "Components",
