@@ -56,9 +56,10 @@ yarn add gumnut-v0-api
 
 ## Basic Setup
 
-### 1. Import the necessary modules
+### 1. Import the necessary modules in client.js
 
 ```javascript
+// client.js
 import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
 import 'gumnut-v0-api/dom';
 ```
@@ -71,29 +72,37 @@ First, create an AbortController to manage the lifecycle of your Gumnut connecti
 const controller = new AbortController();
 ```
 
-Next, establish a connection to the Gumnut server:
+Next, establish a connection to the Gumnut server, providing the project ID and Dev Key you generated earlier.
 
 ```javascript
 const gumnut = connectToGumnut(controller.signal, {
   projectId: 'your-project-id',
-  // For local development:
-  // localDevKey: 'your-dev-key',
-  // host: 'localhost:8080'
+  localDevKey: 'your-dev-key',
+  host: "v0-collab.dev.gumnut.dev",
 });
 ```
 
-### 3. Authenticate with a token
+Finally, you need to tell Gumnut which user is accessing this document. This is what allows changes to be attributed to individual users.
+
+<note>In a production environment, your server should request a secure JWT token for the relevant user before rendering the page. We're skipping that step for simplicity, which is insecure!</note>
 
 ```javascript
 // For development/testing
-const token = buildTestToken('user-123', { 
-  name: 'John Doe', 
-  email: 'john@example.com' 
+const token = buildTestToken('bandit-h', { 
+  name: 'Bandit Heeler', 
+  email: 'Bandit.h@gumnut.dev' 
 });
 
 // Provide the token to Gumnut
 gumnut.provideToken(token);
 ```
+
+<Note>Don't use dev keys in Production. Your security team will be sad, and we'll have to charge you a lot of money if Internet Idiots get a hold of it.</Note>
+
+
+### 3. Authenticate with a token
+
+
 
 ### 4. Join a document
 
