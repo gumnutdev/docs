@@ -40,7 +40,21 @@ It would be great if multiple users could describe doggos at once, so we're goin
 - Each of the checkboxes under *Winning Features* (`floppyEars`, `boopableSnoot` and `toeBeans`)
 - The `goodDogRange` slider
 
-## Project Setup
+## API Keys and Tokens
+
+In order to edit a document, you need two kinds of access credentials:
+
+- Firstly, an API key to connect to the Gumnut API
+- Secondly, a token for each user which edits 
+
+Let's generate the first one now by logging in to the Gumnut dashboard and clicking on "API Keys", then "(local) dev key ✅".
+
+<Frame caption="Generating a new dev key">
+  ![Generating a new dev key](/images/getting-started/step-1-dashboard.png)
+</Frame>
+
+Click "Generate API Key" and copy the value from the "Local Dev Key" field; we'll need it in Step 2, below.
+
 
 //TODO This is where we describe setting up the project in the Dashboard, generating keys. Screenshots probably go here.
 
@@ -54,67 +68,54 @@ npm install gumnut-v0-api
 yarn add gumnut-v0-api
 ```
 
-## Basic Setup
+<Tip>Gumnut follows [Semantic Versioning](https://semver.org/) and is under rapid development; You might want to pin a specific version during the beta.</Tip>
 
-### 1. Import the necessary modules in client.js
+## Adding basic Gumnut features
 
-```javascript
-// client.js
+### 1. Establish a connection to Gumnut
+
+After importing Gumnut at the top of `client.js`, then use Gumnut's `AbortController` (which controls Gumnut's lifecycle) to establish a connection using the local dev key you created earlier.
+
+```javascript client.js: Establishing a connection to Gumnut
 import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
 import 'gumnut-v0-api/dom';
-```
 
-### 2. Connect to Gumnut
-
-First, create an AbortController to manage the lifecycle of your Gumnut connection:
-
-```javascript
 const controller = new AbortController();
-```
 
-Next, establish a connection to the Gumnut server, providing the project ID and Dev Key you generated earlier.
-
-```javascript
 const gumnut = connectToGumnut(controller.signal, {
   projectId: 'your-project-id',
   localDevKey: 'your-dev-key',
   host: "v0-collab.dev.gumnut.dev",
 });
+
 ```
 
-Finally, you need to tell Gumnut which user is accessing this document. This is what allows changes to be attributed to individual users.
+### 2. Authenticate the user
 
-<note>In a production environment, your server should request a secure JWT token for the relevant user before rendering the page. We're skipping that step for simplicity, which is insecure!</note>
+Gumnut is designed to be totally transparent to users; there's nothing for them to install, no permissions to grant and no 3rd party login required. Instead unique user tokens are used to join a Document for editing.
 
-```javascript
-// For development/testing
+In Production, this token takes the form of a JWT generated server-side with a call to Gumnut's API. For development (and demo) purposes, we'll use the completely insecure `buildTestToken` method instead.
+
+<Note>It's worth repeating: don't use `buildTestToken`in Production. Your security team will be sad and we'll have to charge you a lot of money if jerks on the Internet use it to cram your documents with nonsense.</Note>
+
+Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is a unique ID (which is also shown to other users during editing.) The second parameter is an object whose properties are displayed in the Gumnut dashboard.
+
+Once the token is provided, calling `gumnut.join` with the AbortController and a document ID will join that document (and create it, if it's new! Handy.) 
+
+```javascript client.js Generating a user token (insecurely)
 const token = buildTestToken('bandit-h', { 
   name: 'Bandit Heeler', 
   email: 'Bandit.h@gumnut.dev' 
 });
 
-// Provide the token to Gumnut
 gumnut.provideToken(token);
-```
 
-<Note>Don't use dev keys in Production. Your security team will be sad, and we'll have to charge you a lot of money if Internet Idiots get a hold of it.</Note>
-
-
-### 3. Authenticate with a token
-
-
-
-### 4. Join a document
-
-```javascript
-// Join an existing document or create a new one
 const doc = gumnut.join(controller.signal, 'my-first-document');
-
-// Wait for the document to be ready
 await doc.ready;
 ```
 
-### 5. Create a node within the document
+
+### 4. Create a node within the document
 
 ```javascript
 // Create or access a node within the document
