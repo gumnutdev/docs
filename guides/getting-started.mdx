@@ -6,13 +6,43 @@ icon: 'rocket'
 
 # Getting Started with Gumnut
 
-This guide will walk you through the process of setting up Gumnut in your project and creating a simple collaborative text editor.
+This guide will walk you through the process of enhancing an existing project with Gumnut, a collaborative editor that drops in anywhere, makes your products stickier, easier-to-use, plus providing full character-level attribution and history over time through its powerful database layer.
 
 ## Prerequisites
 
+// TODO is this version correct?
 - Node.js (v14 or later)
 - npm or yarn
 - A basic understanding of JavaScript and web components
+
+You'll also need to sign up for a free account; Head to https://gumnut.dev/ to join the waitlist.
+
+## The Example Site
+
+We're going to add Gumnut's editing features to "Good Dogs with Gumnut", a one page VanillaJS app which you can clone from Gtihub:
+
+```bash
+git clone https://github.com/gumnutdev/good-dogs-demo.git good-dogs
+cd good-dogs
+npm install
+```
+
+If you look in the `/src/client` directory, you'll see the app consists of a pretty standard `index.html` page, some CSS, and an empty file called `client.js`. Those are all we need to change; Gumnut is entirely framework agnostic.
+
+For now, start the app and check it out in your browser at http://localhost:3000
+
+`npm run dev`
+
+It would be great if multiple users could describe doggos at once, so we're going to add Gumnut's collaborative editing capabilities to all four sets of input:
+
+- The `dogName` text field
+- The `description` text area
+- Each of the checkboxes under *Winning Features* (`floppyEars`, `boopableSnoot` and `toeBeans`)
+- The `goodDogRange` slider
+
+## Project Setup
+
+//TODO This is where we describe setting up the project in the Dashboard, generating keys. Screenshots probably go here.
 
 ## Installation
 
@@ -26,9 +56,10 @@ yarn add gumnut-v0-api
 
 ## Basic Setup
 
-### 1. Import the necessary modules
+### 1. Import the necessary modules in client.js
 
 ```javascript
+// client.js
 import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
 import 'gumnut-v0-api/dom';
 ```
@@ -41,29 +72,37 @@ First, create an AbortController to manage the lifecycle of your Gumnut connecti
 const controller = new AbortController();
 ```
 
-Next, establish a connection to the Gumnut server:
+Next, establish a connection to the Gumnut server, providing the project ID and Dev Key you generated earlier.
 
 ```javascript
 const gumnut = connectToGumnut(controller.signal, {
   projectId: 'your-project-id',
-  // For local development:
-  // localDevKey: 'your-dev-key',
-  // host: 'localhost:8080'
+  localDevKey: 'your-dev-key',
+  host: "v0-collab.dev.gumnut.dev",
 });
 ```
 
-### 3. Authenticate with a token
+Finally, you need to tell Gumnut which user is accessing this document. This is what allows changes to be attributed to individual users.
+
+<note>In a production environment, your server should request a secure JWT token for the relevant user before rendering the page. We're skipping that step for simplicity, which is insecure!</note>
 
 ```javascript
 // For development/testing
-const token = buildTestToken('user-123', { 
-  name: 'John Doe', 
-  email: 'john@example.com' 
+const token = buildTestToken('bandit-h', { 
+  name: 'Bandit Heeler', 
+  email: 'Bandit.h@gumnut.dev' 
 });
 
 // Provide the token to Gumnut
 gumnut.provideToken(token);
 ```
+
+<Note>Don't use dev keys in Production. Your security team will be sad, and we'll have to charge you a lot of money if Internet Idiots get a hold of it.</Note>
+
+
+### 3. Authenticate with a token
+
+
 
 ### 4. Join a document
 
