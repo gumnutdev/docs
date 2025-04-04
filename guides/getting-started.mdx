@@ -10,8 +10,7 @@ This guide will walk you through the process of enhancing an existing project wi
 
 ## Prerequisites
 
-// TODO is this version correct?
-- Node.js (v14 or later)
+- A Node.JS dev environment
 - npm or yarn
 - A basic understanding of JavaScript and web components
 
@@ -98,9 +97,9 @@ In Production, this token takes the form of a JWT generated server-side with a c
 
 <Note>It's worth repeating: don't use `buildTestToken`in Production. Your security team will be sad and we'll have to charge you a lot of money if jerks on the Internet use it to cram your documents with nonsense.</Note>
 
-Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is a unique ID (which is also shown to other users during editing.) The second parameter is an object whose properties are displayed in the Gumnut dashboard.
+Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is the user's unique ID; the second parameter is an object containing name and email, which will be displayed to other users.
 
-Once the token is provided, calling `gumnut.join` with the AbortController and a document ID will join that document (and create it, if it's new! Handy.) 
+Once the token is provided, calling `gumnut.join` with the AbortController and a document ID will join that Document (or create it if it doesn't exist! Handy). 
 
 ```javascript client.js Generating a user token (insecurely)
 const token = buildTestToken('bandit-h', { 
@@ -115,12 +114,50 @@ await doc.ready;
 ```
 
 
-### 4. Create a node within the document
+### 3. Working with Text Inputs using `<gumnut-text>`
 
-```javascript
-// Create or access a node within the document
-const textNode = doc.forNode('main-text');
+For each input we want to collaborate on, we need a Node. Nodes are named properties that store a value your users can edit; Documents are made up of collections of Nodes. Each independent value needs its own Node, which Gumnut creates the first time it's used.
+
+Let's start with the `dogName` field. We'll replace the existing element with the built-in web component `<gumnut-text>` element; this will let us keep track of changes and also add a cursor showing where each connected user is editing.
+
+```html index.html replacing the dogName field
+// Replace this
+<input type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName"></input>
+
+// With this
+<gumnut-text type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName"></gumnut-text>
 ```
+
+Next, create/retrieve a node from the Document, and associate it with the input field.
+
+```javascript client.js creating and associating a node
+document.getElementById('dogName').node = doc.forNode('dogName');
+```
+
+Next, let's do the same for the `description` textarea. The process is the same, except we need to add the `multiline` attribute to `<gumnut-text>`:
+
+<CodeGroup>
+```html index.html
+// Replace this
+ <textarea name="description" placeholder="Dog-shaped with a dog aroma and a dog personality. Very good dog." ...></textarea>
+
+// With this
+ <gumnut-text multiline="true" name="description" placeholder="Dog-shaped with a dog aroma and a dog personality. Very good dog." ... ></gumnut-text>
+```
+
+```javascript client.js
+document.getElementById('description').node = doc.forNode('description');
+```
+</CodeGroup>
+
+And you're done. That's all it takes to start editing a field with Gumnut. Open the page in two browser windows and you should see changes in one window seamlessly replicate in the other.
+
+### 4. Working with Other Inputs using `<gumnut-data>`
+
+Because our remaining elements aren't text (and thus don't need a cursor have individual characters), we'll instead use `<gumnut-data>` elements to manage them.
+
+
+
 
 ## Using Gumnut with HTML
 
