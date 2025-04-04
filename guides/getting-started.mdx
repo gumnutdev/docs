@@ -196,6 +196,32 @@ document.getElementById('goodDogRange').node = goodDogRangeNode;
 ```
 </CodeGroup>
 
+### 5. Commiting Changes.
+
+Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/project/good-dogs/data) of the dashboard side-by-side with your app, you'll see all the changes users are making while they're being made.
+
+<Frame caption="Changes are reflected in the dashboard as users type">
+  ![Generating a new dev key](/images/getting-started/step-5-dashboard-pending.gif)
+</Frame>
+
+Gumnut tracks changes to your Document over time as a series of revisions.  The `pending` revision shows all changes made to a document since the last time changes were comitted. You can ask Gumnut to create a Snapshot revision with a timestamp and the contents of the document at that point by calling `doc.actions.commit`.
+
+This function takes a callback which you can use to submit data to your application. The `commit` function passes the callback an object whose properties are the changed nodes. If the callback succeeds, Gumnut captures a Snapshot; if it fails, it doesn't.
+
+```javascript client.js: saving snapshots
+document.getElementById('save').addEventListener('click', async () => {
+    try {
+        await doc.actions.commit(async (changes) => {
+            console.log('Beep Boop, Saving to Your Database:', changes);
+        });
+
+        console.log('Document snapshot created'); 
+    } catch (error) {
+        console.error("Error saving document", error);
+    }
+});
+```
+
 ## Using Gumnut with HTML
 
 The simplest way to integrate Gumnut is to use the built-in web components:
