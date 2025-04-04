@@ -100,7 +100,7 @@ Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associate
 
 Once the token is provided, calling `gumnut.join` with the AbortController and a document ID will join that Document (or create it if it doesn't exist! Handy). 
 
-```javascript client.js Generating a user token (insecurely)
+```javascript client.js: Generating a user token (insecurely)
 const token = buildTestToken('bandit-h', { 
   name: 'Bandit Heeler', 
   email: 'Bandit.h@gumnut.dev' 
@@ -108,7 +108,7 @@ const token = buildTestToken('bandit-h', {
 
 gumnut.provideToken(token);
 
-const doc = gumnut.join(controller.signal, 'my-first-document');
+const doc = gumnut.join(controller.signal, 'good-dogs');
 await doc.ready;
 ```
 
@@ -117,9 +117,9 @@ await doc.ready;
 
 For each input we want to collaborate on, we need a Node. Nodes are named properties that store a value your users can edit; Documents are made up of collections of Nodes. Each independent value needs its own Node, which Gumnut creates the first time it's used.
 
-Let's start with the `dogName` field. We'll replace the existing element with the built-in web component `<gumnut-text>` element; this will let us keep track of changes and also add a cursor showing where each connected user is editing.
+Let's start with the `dogName` field. We'll replace the existing element with the built-in  `<gumnut-text>`  web component; this will let us keep track of changes and also add a cursor showing where each connected user is editing.
 
-```html index.html replacing the dogName field
+```html index.html: replacing the dogName field
 // Replace this
 <input type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName"></input>
 
@@ -129,7 +129,7 @@ Let's start with the `dogName` field. We'll replace the existing element with th
 
 Next, create/retrieve a node from the Document, and associate it with the input field.
 
-```javascript client.js creating and associating a node
+```javascript client.js: creating and associating a node
 document.getElementById('dogName').node = doc.forNode('dogName');
 ```
 
@@ -153,10 +153,48 @@ And you're done. That's all it takes to start editing a field with Gumnut. Open 
 
 ### 4. Working with Other Inputs using `<gumnut-data>`
 
-Because our remaining elements aren't text (and thus don't need a cursor have individual characters), we'll instead use `<gumnut-data>` elements to manage them.
+When a text value changes, we need to know what part of the value (eg, which characters) changed and indicate those changes with a cursor; this is what the `<gumnut-text>` element does for us. For other inputs, we only need to track changes to the value as a whole. That's where the `<gumnut-data>` element comes in. It wraps around `input` or `select` element with atomic values (eg, those which change from one value to another "all at once").
 
+Let's use `<gumnut-data>` elements to track changes to the Winning Features checkboxes and the Good Dog range slider.
 
+<CodeGroup>
+```html index.html: Wrap elements with gumnut-data
+<gumnut-data id="floppyEars">  
+    <input class="checkbox" type="checkbox" name="floppyEars" checked />
+    <p class="text-sm">Floppy Ears</p>
+</gumnut-data>
 
+<gumnut-data id="boopableSnoot">
+    <input class="checkbox" type="checkbox" name="boopableSnoot" />
+    <p class="text-sm">Boopable Snoot</p>
+</gumnut-data>
+
+<gumnut-data id="toeBeans">
+    <input class="checkbox" type="checkbox" name="toeBeans" />
+    <p class="text-sm">Toe Beans</p>
+</gumnut-data>
+
+<other-markup-omitted />
+
+<gumnut-data id="goodDogRange" class="grow">
+    <input class="input" type="range" id="goodDog" name="goodDog" value="150" min="100" max="200">
+</gumnut-data>
+```
+
+```javascript client.js: Attach nodes
+const floppyEarsNode = doc.forNode('floppyEars')
+document.getElementById('floppyEars').node = floppyEarsNode;
+
+const boopableSnootNode = doc.forNode('boopableSnoot')
+document.getElementById('boopableSnoot').node = boopableSnootNode;
+
+const toeBeansNode = doc.forNode('toeBeans')
+document.getElementById('toeBeans').node = toeBeansNode;
+
+const goodDogRangeNode = doc.forNode('goodDogRange')
+document.getElementById('goodDogRange').node = goodDogRangeNode;
+```
+</CodeGroup>
 
 ## Using Gumnut with HTML
 
