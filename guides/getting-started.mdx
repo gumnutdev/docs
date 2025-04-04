@@ -24,15 +24,14 @@ We're going to add Gumnut's editing features to "Good Dogs with Gumnut", a one p
 git clone https://github.com/gumnutdev/good-dogs-demo.git good-dogs
 cd good-dogs
 npm install
+npm run dev
 ```
 
-If you look in the `/src/client` directory, you'll see the app consists of a pretty standard `index.html` page, some CSS, and an empty file called `client.js`. Those are all we need to change; Gumnut is entirely framework agnostic.
+Great, now our app is running at http://localhost:3000, and it'll live-reload when we save changes (thanks, [Vite](https://vite.dev)!)
 
-For now, start the app and check it out in your browser at http://localhost:3000
+The app consists of a pretty standard `index.html` page, some CSS, and an empty file called `client.js`, all served from the `/src/client` directory. Those are all we need to change; Gumnut is framework agnostic and requires almost no changes to your backend.
 
-`npm run dev`
-
-It would be great if multiple users could describe doggos at once, so we're going to add Gumnut's collaborative editing capabilities to all four sets of input:
+We're going to add Gumnut's editing features to all four sets of input:
 
 - The `dogName` text field
 - The `description` text area
