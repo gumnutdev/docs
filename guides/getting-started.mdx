@@ -228,67 +228,6 @@ Now, each revision shows up in our dashboard as a Snapshot. Neat!
   ![Generating a new dev key](/images/getting-started/step-5-dashboard-snapshots.gif)
 </Frame>
 
-## Complete Example
-
-Here's a full example that sets up a collaborative text editor:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Gumnut Collaborative Editor</title>
-  <style>
-    gumnut-textarea {
-      width: 100%;
-      height: 300px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-  </style>
-</head>
-<body>
-  <h1>Collaborative Editor</h1>
-  <gumnut-textarea id="editor"></gumnut-textarea>
-  <gumnut-status id="status"></gumnut-status>
-
-  <script type="module">
-    import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
-    import 'gumnut-v0-api/dom';
-
-    // Setup the connection
-    const controller = new AbortController();
-    const gumnut = connectToGumnut(controller.signal, {
-      projectId: 'your-project-id'
-    });
-
-    // Authenticate
-    const userId = `user-${Math.floor(Math.random() * 1000)}`;
-    const token = buildTestToken(userId, { 
-      name: `User ${userId}`, 
-      email: `${userId}@example.com` 
-    });
-    gumnut.provideToken(token);
-
-    // Show connection status
-    document.getElementById('status').gumnutApi = gumnut;
-
-    // Join a document
-    const doc = gumnut.join(controller.signal, 'shared-document');
-    
-    // Connect the textarea to a node in the document
-    document.getElementById('editor').node = doc.forNode('text-content');
-
-    // Optional: Create a snapshot when the page unloads
-    window.addEventListener('beforeunload', () => {
-      doc.snapshot();
-      controller.abort();
-    });
-  </script>
-</body>
-</html>
-```
-
 ## Next Steps
 
 Now that you have a basic setup working, you can:
