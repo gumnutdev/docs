@@ -254,14 +254,43 @@ document.getElementById('descriptionFocus').node = descriptionNode;
 ```
 </CodeGroup>
 
+The `<gumnut-status>` element is invisible unless an error is encountered communicating with Gumnut. It doesn't require any configuration, just add it to a document and it will report errors for all active documents.
+
+By default, it shows an attention-catching red box which is great for debugging. You can also use a the custom `:state(error)` selector to style other components, which you can see in the example below.
+
+<CodeBlock>
+```html index.html: Adding a status element to the header
+<h1 class="h1 flex items-center">
+  <...>
+  <span>
+    <gumnut-status id="connection-status"></gumnut-status>
+    <span>Something went wrong connecting to Gumnut.dev</span>
+  </span>
+</h1>
+```
+
+```css styles.css
+/* Show an adjacent span when gumnut-status's state is 'error' */
+gumnut-status:state(error) + span {
+  display: block;
+}
+
+/* Hide adjacent span when gumnut-status's state is not 'error' */
+gumnut-status:not(:state(error)) + span {
+  display: none;
+}
+```
+</CodeBlock>
+
+And .... that's it! That's everything needed to add Gumnut's full suite of features to our site.
 
 ## Next Steps
 
-Now that you have a basic setup working, you can:
+If you're ready to go to production, you should check out the [Authentication guide](/guides/authentication).
 
-- Learn about [authentication](/guides/authentication) for securing your collaborative sessions
+Or, learn more about how Gumnut works:
 - Explore the various [Gumnut components](/components) for different use cases
 - Understand the concepts behind [real-time collaboration](/concepts/real-time-collaboration)
 - Check out the complete [API reference](/api-reference) for advanced usage
 
-For troubleshooting and more in-depth information, refer to the individual component and API documentation.
+For troubleshooting and more in-depth information, refer to the individual [component](/components) and API documentation.
