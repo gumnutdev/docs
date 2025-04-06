@@ -21,8 +21,7 @@ You'll also need to sign up for a free account; Head to https://gumnut.dev/ to j
 We're going to add Gumnut's editing features to "Good Dogs with Gumnut", a one page VanillaJS app which you can clone from Gtihub:
 
 ```bash
-git clone https://github.com/gumnutdev/good-dogs-demo.git good-dogs
-cd good-dogs
+git clone https://github.com/gumnutdev/good-dogs-demo.git good-dogs && cd good-dogs
 npm install
 npm run dev
 ```
@@ -53,71 +52,53 @@ Let's generate the first one now by logging in to the Gumnut dashboard and click
 
 Click "Generate API Key" and copy the value from the "Local Dev Key" field; we'll need it in Step 2, below.
 
-
-//TODO This is where we describe setting up the project in the Dashboard, generating keys. Screenshots probably go here.
-
 ## Installation
 
 Install the Gumnut package using npm or yarn:
 
 ```bash
-npm install gumnut-v0-api
+npm install gumnut-v0-api@~0.2.9
 # or
-yarn add gumnut-v0-api
+yarn add gumnut-v0-api@~0.2.9
 ```
 
 <Tip>Gumnut follows [Semantic Versioning](https://semver.org/) and is under rapid development; You might want to pin a specific version during the beta.</Tip>
 
 ## Adding basic Gumnut features
 
-### 1. Establish a connection to Gumnut
+### 1. Authenticate and Connect
 
-After importing Gumnut at the top of `client.js`, then use Gumnut's `AbortController` (which controls Gumnut's lifecycle) to establish a connection using the local dev key you created earlier.
+After importing Gumnut at the top of `client.js`, call `connectToGumnutDoc` to tell Gumnut we want to start tracking this document. This methods takes two parameters:
+- A document ID which Gumnut will join (or create if it doesn't exist) 
+- A function which generates an authentication token
 
 ```javascript client.js: Establishing a connection to Gumnut
-import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
-import 'gumnut-v0-api/dom';
+import { connectToGumnutDoc, buildTestToken } from 'gumnut-v0-api';
 
-const controller = new AbortController();
+const doc = connectToGumnutDoc({
+    docId: "good-dogs",
+    getToken: () => buildTestToken('bandit-h', {
+        name: 'Bandit',
+        email: 'bandit.h@gumnut.dev'
+    })
+}).doc
 
-const gumnut = connectToGumnut(controller.signal, {
-  projectId: 'your-project-id',
-  localDevKey: 'your-dev-key',
-  host: "v0-collab.dev.gumnut.dev",
-});
-
+await doc.ready;
 ```
 
-### 2. Authenticate the user
+Now, about that `getToken` property. Gumnut is designed to be totally transparent to users; there's nothing to install, no permissions to grant and no login required. Instead, Gumnut calls the function passed as `getToken` to retrieve unique user tokens.
 
-Gumnut is designed to be totally transparent to users; there's nothing for them to install, no permissions to grant and no 3rd party login required. Instead unique user tokens are used to join a Document for editing.
-
-In Production, this token takes the form of a JWT generated server-side with a call to Gumnut's API. For development (and demo) purposes, we'll use the completely insecure `buildTestToken` method instead.
+In Production, these take the form of a JWT generated via your backend with a call to Gumnut's API. For development (and demo) purposes, we're using the completely insecure `buildTestToken` method instead. For more on how Authentication in Gumnut works, see the [Authentication Guide](/guides/authentication).
 
 <Note>It's worth repeating: don't use `buildTestToken`in Production. Your security team will be sad and we'll have to charge you a lot of money if jerks on the Internet use it to cram your documents with nonsense.</Note>
 
 Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is the user's unique ID; the second parameter is an object containing name and email, which will be displayed to other users.
 
-Once the token is provided, calling `gumnut.join` with the AbortController and a document ID will join that Document (or create it if it doesn't exist! Handy). 
-
-```javascript client.js: Generating a user token (insecurely)
-const token = buildTestToken('bandit-h', { 
-  name: 'Bandit Heeler', 
-  email: 'Bandit.h@gumnut.dev' 
-});
-
-gumnut.provideToken(token);
-
-const doc = gumnut.join(controller.signal, 'good-dogs');
-await doc.ready;
-```
-
-
-### 3. Working with Text Inputs using `<gumnut-text>`
+### 2. Working with Text Inputs using `<gumnut-text>`
 
 For each input we want to collaborate on, we need a Node. Nodes are named properties that store a value your users can edit; Documents are made up of collections of Nodes. Each independent value needs its own Node, which Gumnut creates the first time it's used.
 
-Let's start with the `dogName` field. We'll replace the existing element with the built-in  `<gumnut-text>`  web component; this will let us keep track of changes and also add a cursor showing where each connected user is editing.
+Let's start with the `dogName` field. We'll replace the existing element with the built-in `<gumnut-text>` web component; this will let us keep track of changes and also add a cursor showing where each connected user is editing.
 
 ```html index.html: replacing the dogName field
 // Replace this
