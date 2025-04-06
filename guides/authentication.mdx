@@ -6,30 +6,26 @@ icon: 'key'
 
 # Authentication in Gumnut
 
-Gumnut uses token-based authentication to identify users and manage access to collaborative documents. This guide covers how to set up authentication for your Gumnut implementation.
-
-
-- Firstly, by using public/private keypairs to connect to the Gumnut API.
-- Secondly, by 
+Gumnut uses token-based authentication to identify users and manage access to collaborative documents.
 
 ## Authentication Flow
 
-The authentication flow in Gumnut is straightforward:
+When connecting to Gumnut, you need to provide the `getToken` property with a method to call to obtain secure tokens: 
 
-1. A user connects to Gumnut
-2. Your application provides a token to identify the user
-3. Gumnut validates the token and associates the user with their edits
-4. Other users can see who made which changes
+```javascript
+const doc = connectToGumnutDoc({
+    docId: "good-dogs",
+    getToken: () => someTokenMethod
+    )
+}).doc
+```
 
-## Token Format
+Gumnut will call this method whenever it needs a new token (on startup, or if an existing token expires):
 
-Gumnut uses JSON Web Tokens (JWT) for authentication. A valid token contains:
-
-- A subject claim (`sub`) that uniquely identifies the user
-- Optional claims for user information (`name`, `email`)
-- A signature (for production tokens)
-
-## Authentication Methods
+2. Gumnut calls the method
+3. Your backend generates and returns a token
+5. Gumnut validates the token and associates the user with their edits
+6. Other users can see who made which changes
 
 ### Development Tokens
 
@@ -38,14 +34,13 @@ For development and testing, Gumnut provides a helper function to create test to
 ```javascript
 import { buildTestToken } from 'gumnut-v0-api';
 
-// Create a test token with a specific user ID
-const token = buildTestToken('user-123', {
-  name: 'Test User',
-  email: 'test@example.com'
-});
-
-// Provide the token to Gumnut
-gumnut.provideToken(token);
+const doc = connectToGumnutDoc({
+    docId: "good-dogs",
+    getToken: () => buildTestToken('bandit-h', {
+        name: 'Bandit',
+        email: 'bandit.h@gumnut.dev'
+    })
+}).doc
 ```
 
 > ⚠️ **Important**: Test tokens should only be used during development. They are not secure for production use.
@@ -58,11 +53,6 @@ In production, you should generate proper JWT tokens on your server:
 2. Your server generates a JWT token with the user's ID and info
 3. Your client receives this token and provides it to Gumnut
 
-```javascript
-// On your client
-const token = await fetchTokenFromYourServer();
-gumnut.provideToken(token);
-```
 
 ## User Identity
 
@@ -79,56 +69,6 @@ Gumnut uses the provided tokens to identify who is making each edit. This enable
 - Displaying the name or email of users currently editing
 - Showing colored cursors and selections for each user
 - Attributing text to the users who wrote it
-
-## Example: Complete Authentication Flow
-
-Here's a complete example of authenticating with Gumnut:
-
-```javascript
-import { connectToGumnut } from 'gumnut-v0-api';
-import 'gumnut-v0-api/dom';
-
-// Create a controller
-const controller = new AbortController();
-
-// Connect to Gumnut
-const gumnut = connectToGumnut(controller.signal, {
-  projectId: 'your-project-id'
-});
-
-// In development: Use a test token
-if (process.env.NODE_ENV === 'development') {
-  import { buildTestToken } from 'gumnut-v0-api';
-  const devToken = buildTestToken('dev-user', {
-    name: 'Developer',
-    email: 'dev@example.com'
-  });
-  gumnut.provideToken(devToken);
-} 
-// In production: Get a real token from your auth system
-else {
-  async function authenticateUser() {
-    try {
-      // This would be your actual authentication API
-      const response = await fetch('/api/auth/gumnut-token');
-      const { token } = await response.json();
-      
-      // Provide the token to Gumnut
-      gumnut.provideToken(token);
-      
-      // Now you can join documents
-      const doc = gumnut.join(controller.signal, 'your-document-id');
-      
-      // Connect UI components
-      document.querySelector('gumnut-textarea').node = doc.forNode('content');
-    } catch (error) {
-      console.error('Authentication failed:', error);
-    }
-  }
-  
-  authenticateUser();
-}
-```
 
 ## Security Considerations
 
@@ -178,48 +118,3 @@ If you encounter authentication issues:
 1. **Invalid Token**: Check that your token is properly formatted and signed
 2. **Expired Token**: Verify that the token hasn't expired
 3. **User ID Mismatch**: Ensure you're not trying to change user IDs during a session
-4. **Token Not Provided**: Confirm that `provideToken` is being called before joining documents
-
-## JWT Structure Example
-
-A JWT consists of three parts separated by dots (`.`):
-1. Header (algorithm & token type)
-2. Payload (data)
-3. Signature
-
-Here's an example of a decoded JWT token for Gumnut:
-
-```javascript
-// Header
-{
-  "alg": "HS256",  // Algorithm used for signing
-  "typ": "JWT"     // Token type
-}
-
-// Payload
-{
-  "sub": "user-123456",        // Required: User ID (must be unique)
-  "name": "Jane Doe",          // Optional: User's display name
-  "email": "jane@example.com", // Optional: User's email
-  "iat": 1646461548,           // Issued at timestamp
-  "exp": 1646547948            // Expiration timestamp
-}
-
-// Signature
-// HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
-```
-
-The encoded JWT would look something like this:
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEyMzQ1NiIsIm5hbWUiOiJKYW5lIERvZSIsImVtYWlsIjoiamFuZUBleGFtcGxlLmNvbSIsImlhdCI6MTY0NjQ2MTU0OCwiZXhwIjoxNjQ2NTQ3OTQ4fQ.JpwZPgNMHPnR7RQ4SyJnxAw9NUDgZMgpHZMYKxNQCoc
-```
-
-When Gumnut receives this token, it extracts the user information from the payload and uses the `sub` claim to identify the user. The `name` and `email` fields are used for displaying user presence information in the collaborative UI.
-
-## Next Steps
-
-Once you have authentication set up, you can:
-
-- [Get started with collaborative editing](/guides/collaborative-editing)
-- [Explore the Gumnut components](/components)
-- [Learn about the Gumnut API](/api-reference)
