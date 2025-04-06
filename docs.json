@@ -16,15 +16,12 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["introduction", "quickstart"]
+            "pages": ["introduction", "quickstart", "walkthrough"]
           },
           {
             "group": "Guides",
             "pages": [
-              "guides/getting-started",
-              "guides/authentication",
-              "guides/collaborative-editing",
-              "guides/complete-guide"
+              "guides/authentication"
             ]
           },
           {
