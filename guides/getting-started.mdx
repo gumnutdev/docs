@@ -228,6 +228,33 @@ Now, each revision shows up in our dashboard as a Snapshot. Neat!
   ![Generating a new dev key](/images/getting-started/step-5-dashboard-snapshots.gif)
 </Frame>
 
+### 6. Focus & Status.
+
+Gumnut also provides two elements which surface information about the current document: `<gumnut-focus>` and `<gumnut-status>`.
+
+When a `<gumnut-focus>` element is assigned to a node, it shows an icon for each user currently editing that node. You can place a `<gumnut-focus>` element anywhere on the page, but it typically makes the most sense to place them next to the input bound to the same node. 
+
+<CodeGroup>
+``html index.html: add gumnut-focus elements for dogName and description
+<gumnut-text type="text" id="dogName" name="dogName"></gumnut-text>
+<gumnut-focus id="dogNameFocus"></gumnut-focus>
+
+<gumnut-text multiline="true" resize="auto" id="description" name="description" rows="4"></gumnut-text>
+<gumnut-focus id="descriptionFocus"></gumnut-focus>
+``
+
+```javascript client.js: setting nodes for dogNameFocus and description
+const dogNameNode = doc.forNode('dogName')
+document.getElementById('dogName').node = dogNameNode;
+document.getElementById('dogNameFocus').node = dogNameNode;
+
+const descriptionNode = doc.forNode('description')
+document.getElementById('description').node = descriptionNode;
+document.getElementById('descriptionFocus').node = descriptionNode;
+```
+<CodeGroup>
+
+
 ## Next Steps
 
 Now that you have a basic setup working, you can:
