@@ -11,7 +11,7 @@ This guide will walk you through the process of enhancing an existing project wi
 ## Prerequisites
 
 - A Node.JS dev environment
-- npm or yarn
+- npm (or your package manager of choice)
 - A basic understanding of JavaScript and web components
 
 You'll also need to sign up for a free account; Head to https://gumnut.dev/ to join the waitlist.
@@ -37,6 +37,14 @@ We're going to add Gumnut's editing features to all four sets of input:
 - Each of the checkboxes under *Winning Features* (`floppyEars`, `boopableSnoot` and `toeBeans`)
 - The `goodDogRange` slider
 
+## Projects in Gumnut
+
+Everything in Gumnut connects to a `Project` - which can contain a collection of Documents. First we need an account and create a new project.
+
+<Frame caption="Creating a new project">
+  ![Creating a new project](/images/create-project.png)
+</Frame>
+
 ## API Keys and Tokens
 
 In order to edit a document, you need two kinds of access credentials:
@@ -50,49 +58,70 @@ Let's generate the first one now by logging in to the Gumnut dashboard and click
   ![Generating a new dev key](/images/getting-started/step-1-dashboard.png)
 </Frame>
 
-Click "Generate API Key" and copy the value from the "Local Dev Key" field; we'll need it in Step 2, below.
+Click "Generate API Key" and copy the value from the "Local Dev Key" field; we'll need it in Step 1, below.
 
 ## Installation
 
-Install the Gumnut package using npm or yarn:
+Install the Gumnut package using npm (or your package manager of choice):
 
 ```bash
-npm install gumnut-v0-api@~0.2.9
-# or
-yarn add gumnut-v0-api@~0.2.9
+npm install @gumnutdev/api
 ```
 
 <Tip>Gumnut follows [Semantic Versioning](https://semver.org/) and is under rapid development; You might want to pin a specific version during the beta.</Tip>
 
 ## Adding basic Gumnut features
 
-### 1. Authenticate and Connect
+### 1. Configure Gumnut
 
-After importing Gumnut at the top of `client.js`, call `connectToGumnutDoc` to tell Gumnut we want to start tracking this document. This methods takes two parameters:
-- A document ID which Gumnut will join (or create if it doesn't exist) 
-- A function which generates an authentication token
+The first think we need to do is `configureGumnut`, we need: host server, the projectId, and the apiKey. We can add all our necessary imports and configure Gumnut at the top of `client.js`.
 
-```javascript client.js: Establishing a connection to Gumnut
-import { connectToGumnutDoc, buildTestToken } from 'gumnut-v0-api';
+We also need to import the Gumnut DOM elements.
 
-const doc = connectToGumnutDoc({
+```javascript client.js: Configure Gumnut
+import { configureGumnut, connectToGumnutDoc, buildTestToken } from '@gumnutdev/api';
+
+// import the DOM elements so <gumnut-text> etc. work in the HTML
+import "@gumnutdev/api/dom";
+
+configureGumnut({
+    remoteHost: 'v0-collab.dev.gumnut.dev',
+    projectId: 'your-project-id',       // Demo uses 'good-dogs'
+    localDevKey: 'your-api-key'        // Paste your Local Dev Key here
+});
+```
+
+This should connect to your Gumnut project. 
+
+<Tip>This function can be skipped if you include these values as environment variables.</Tip>
+
+### 2. Authenticate and Connect
+
+Next we `connectToGumnutDoc` to tell Gumnut we want to start tracking this document. This methods takes two parameters:
+- `docId`: A document ID which Gumnut will join (or create if it doesn't exist) 
+- `getToken`: A function which generates an authentication token
+
+```javascript client.js: Connect to Document
+
+const gumnutDoc = connectToGumnutDoc({
     docId: "good-dogs",
     getToken: () => buildTestToken('bandit-h', {
-        name: 'Bandit',
+        name: 'Bandit Heeler',
         email: 'bandit.h@gumnut.dev'
+        // picture: base64 image will include a picture of the user
     })
-}).doc
+}).doc; // the doc here is important!
 
-await doc.ready;
+await gumnutDoc.ready;
 ```
 
 Now, about that `getToken` property. Gumnut is designed to be totally transparent to users; there's nothing to install, no permissions to grant and no login required. Instead, Gumnut calls the function passed as `getToken` to retrieve unique user tokens.
 
 In Production, these take the form of a JWT generated via your backend with a call to Gumnut's API. For development (and demo) purposes, we're using the completely insecure `buildTestToken` method instead. For more on how Authentication in Gumnut works, see the [Authentication Guide](/guides/authentication).
 
-<Note>It's worth repeating: don't use `buildTestToken`in Production. Your security team will be sad and we'll have to charge you a lot of money if jerks on the Internet use it to cram your documents with nonsense.</Note>
+<Note>It's worth repeating: don't use `buildTestToken` in Production. Your security team will be sad and we'll have to charge you a lot of money if jerks on the Internet use it to cram your documents with nonsense.</Note>
 
-Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is the user's unique ID; the second parameter is an object containing name and email, which will be displayed to other users.
+Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is the user's unique ID; the second parameter is an object containing the users details, which will be displayed to other users.
 
 ### 2. Working with Text Inputs using `<gumnut-text>`
 
@@ -102,17 +131,26 @@ Let's start with the `dogName` field. We'll replace the existing element with th
 
 ```html index.html: replacing the dogName field
 // Replace this
-<input type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName"></input>
+<input type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName" />
 
 // With this
-<gumnut-text type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName"></gumnut-text>
+<gumnut-text type="text" class="p-3 input border-[1px] border-surface-300-700" placeholder="Rover" id="dogName" name="dogName" />
 ```
 
 Next, create/retrieve a node from the Document, and associate it with the input field.
 
 ```javascript client.js: creating and associating a node
-document.getElementById('dogName').node = doc.forNode('dogName');
+document.getElementById('dogName').node = gumnutDoc.useNode('dogName');
 ```
+
+
+That should be all you need to see it works! Let's check by opening a new tab and typing stuff.
+
+<Frame caption="Test it out!">
+  ![Test it out!](/images/getting-started/typing-gumnut.gif)
+</Frame>
+
+Woohoo! 🥳
 
 Next, let's do the same for the `description` textarea. The process is the same, except we need to add the `multiline` attribute to `<gumnut-text>`:
 
@@ -122,11 +160,11 @@ Next, let's do the same for the `description` textarea. The process is the same,
  <textarea name="description" placeholder="Dog-shaped with a dog aroma and a dog personality. Very good dog." ...></textarea>
 
 // With this
- <gumnut-text multiline="true" name="description" placeholder="Dog-shaped with a dog aroma and a dog personality. Very good dog." ... ></gumnut-text>
+ <gumnut-text multiline name="description" placeholder="Dog-shaped with a dog aroma and a dog personality. Very good dog." ... ></gumnut-text>
 ```
 
 ```javascript client.js
-document.getElementById('description').node = doc.forNode('description');
+document.getElementById('description').node = gumnutDoc.useNode('description');
 ```
 </CodeGroup>
 
@@ -163,23 +201,17 @@ Let's use `<gumnut-data>` elements to track changes to the Winning Features chec
 ```
 
 ```javascript client.js: Attach nodes
-const floppyEarsNode = doc.forNode('floppyEars')
-document.getElementById('floppyEars').node = floppyEarsNode;
-
-const boopableSnootNode = doc.forNode('boopableSnoot')
-document.getElementById('boopableSnoot').node = boopableSnootNode;
-
-const toeBeansNode = doc.forNode('toeBeans')
-document.getElementById('toeBeans').node = toeBeansNode;
-
-const goodDogRangeNode = doc.forNode('goodDogRange')
-document.getElementById('goodDogRange').node = goodDogRangeNode;
+document.getElementById("floppyEars").node = gumnutDoc.useNode("floppyEars");
+document.getElementById("boopableSnoot").node = gumnutDoc.useNode("boopableSnoot");
+document.getElementById("toeBeans").node = gumnutDoc.useNode("toeBeans");
+document.getElementById("goodDogRange").node =gumnutDoc.useNode("goodDogRange");
 ```
 </CodeGroup>
 
 ### 5. Commiting Changes.
 
-Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/project/good-dogs/data) of the dashboard side-by-side with your app, you'll see all the changes users are making while they're being made.
+Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/), navigate to your projects, and click the Data tab, and open it side-by-side with your app, you'll see all the changes users are making while they're being made.
+
 
 <Frame caption="Changes are reflected in the dashboard as users type">
   ![Generating a new dev key](/images/getting-started/step-5-dashboard-pending.gif)
@@ -192,7 +224,7 @@ This function takes a callback which you can use to submit data to your applicat
 ```javascript client.js: saving snapshots
 document.getElementById('save').addEventListener('click', async () => {
     try {
-        await doc.actions.commit(async (changes) => {
+        await gumnutDoc.actions.commit(async (changes) => {
             console.log('Beep Boop, Saving to Your Database:', changes);
         });
 
@@ -225,11 +257,11 @@ When a `<gumnut-focus>` element is assigned to a node, it shows an icon for each
 ``
 
 ```javascript client.js: setting nodes for dogNameFocus and description
-const dogNameNode = doc.forNode('dogName')
+const dogNameNode = gumnutDoc.useNode('dogName')
 document.getElementById('dogName').node = dogNameNode;
 document.getElementById('dogNameFocus').node = dogNameNode;
 
-const descriptionNode = doc.forNode('description')
+const descriptionNode = gumnutDoc.useNode('description')
 document.getElementById('description').node = descriptionNode;
 document.getElementById('descriptionFocus').node = descriptionNode;
 ```
