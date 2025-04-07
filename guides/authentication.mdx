@@ -14,10 +14,9 @@ When connecting to Gumnut, you need to provide the `getToken` property with a me
 
 ```javascript
 const doc = connectToGumnutDoc({
-    docId: "good-dogs",
-    getToken: () => someTokenMethod
-    )
-}).doc
+  docId: "good-dogs",
+  getToken: someTokenMethod,
+}).doc;
 ```
 
 Gumnut will call this method whenever it needs a new token (on startup, or if an existing token expires):
@@ -32,14 +31,14 @@ Gumnut will call this method whenever it needs a new token (on startup, or if an
 For development and testing, Gumnut provides a helper function to create test tokens:
 
 ```javascript
-import { buildTestToken } from 'gumnut-v0-api';
+import { buildTestToken } from '@gumnutdev/api';
 
 const doc = connectToGumnutDoc({
-    docId: "good-dogs",
-    getToken: () => buildTestToken('bandit-h', {
-        name: 'Bandit',
-        email: 'bandit.h@gumnut.dev'
-    })
+  docId: "good-dogs",
+  getToken: () => buildTestToken('bandit-h', {
+      name: 'Bandit',
+      email: 'bandit.h@gumnut.dev'
+  }),
 }).doc
 ```
 
@@ -50,17 +49,17 @@ const doc = connectToGumnutDoc({
 In production, you should generate proper JWT tokens on your server:
 
 1. Your server authenticates users through your normal auth flow
-2. Your server generates a JWT token with the user's ID and info
-3. Your client receives this token and provides it to Gumnut
-
+2. Your server generates a JWT that matches a public key you upload to Gumnut
+3. This JWT has the client's userId and any other information (name, email etc)
+4. Your client receives this token and provides it to Gumnut
 
 ## User Identity
 
 When a token is provided, Gumnut extracts the user identity from it:
 
 - The `sub` claim becomes the user's unique ID
-- The `name` claim (if present) is used to show the user's name in the UI
-- The `email` claim (if present) can be shown in user presence indicators
+- The `name` and `email` claim (if present) is used to show the user's details in the UI
+- The `picture` claim (if present) can be shown in user presence indicators
 
 ## Multiple Users and Presence
 
@@ -78,7 +77,7 @@ When implementing authentication for Gumnut, keep these security best practices 
 2. **Token Expiration**: Set appropriate expiration times for tokens
 3. **HTTPS**: Always use HTTPS in production to protect tokens in transit
 4. **Scoped Access**: Consider generating tokens that are scoped to specific documents
-5. **Token Storage**: Store tokens securely; don't store in localStorage for sensitive applications
+5. **Token Storage**: Store tokens securely; don't store in `localStorage` for sensitive applications
 
 ## Server-side JWT Generation
 

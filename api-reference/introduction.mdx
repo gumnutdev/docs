@@ -10,7 +10,7 @@ Gumnut is a lightweight, real-time collaborative editing framework that enables 
 ## Key Features
 
 - **Real-time collaboration** - Multiple users can edit documents simultaneously with changes synced in real-time
-- **Custom web components** - Ready-to-use UI components like `<gumnut-input>` and `<gumnut-textarea>` for immediate integration 
+- **Custom web components** - Ready-to-use UI components like `<gumnut-input>` and `<gumnut-text>` for immediate integration 
 - **Other components** - `<gumnut-data>` for syncing data between users, `<gumnut-status>` for showing the status of a document, and more
 - **Cursor presence** - See other users' cursors and selections with automatic visual indicators
 - **Flexible architecture** - Support for custom document structures and multi-user editing
@@ -42,14 +42,14 @@ Gumnut is ideal for applications that require:
 ## Installation
 
 ```bash
-npm install gumnut-v0-api
+npm install @gumnutdev/api
 ```
 
 ## Quick Start
 
 ```javascript
-import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
-import 'gumnut-v0-api/dom';
+import { connectToGumnut, buildTestToken } from '@gumnutdev/api';
+import '@gumnutdev/api/dom';
 
 // Create an AbortController to manage the connection lifecycle
 const controller = new AbortController();
@@ -67,7 +67,7 @@ gumnut.provideToken(token);
 const doc = gumnut.join(controller.signal, 'doc-123');
 
 // Use the document with a Gumnut component
-document.querySelector('gumnut-textarea').document = doc.forNode('text-content');
+document.querySelector('gumnut-text').document = doc.forNode('text-content');
 ```
 
 Ready to get started? Check out the [Getting Started guide](/guides/getting-started) for a more detailed walkthrough.

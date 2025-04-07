@@ -5,19 +5,21 @@ description: 'Gumnut Documents explained'
 
 # Gumnut Document
 
-The `GumnutDoc` class represents a document in Gumnut that can contain multiple nodes. It provides methods for managing the document, accessing nodes, and monitoring changes.
+The `GumnutDoc` class represents a document in Gumnut that can contain multiple nodes, and is the primary way to connect and interact with Gumnut.
+It provides methods for managing the document, accessing nodes, and monitoring changes.
 
-A document in Gumnut is analagous to a form in a normal web app. It contains multiple nodes (fields), that contain different types of data and can be edited by different users.
+A document in Gumnut is analagous to a form in a normal web app.
+It contains multiple nodes (fields), that contain different types of data and can be edited by different users.
 
 ## Import
 
-You don't directly import GumnutDoc. Instead, you get a GumnutDoc instance from the `join` method of GumnutAPI:
+Create a `GumnutDoc` instance by calling `connectToGumnutDoc()`.
 
 ```javascript
-import { connectToGumnut } from 'gumnut-v0-api';
+import { connectToGumnutDoc } from '@gumnutdev/api';
 
-const gumnut = connectToGumnut(signal, { projectId: 'your-project' });
-const doc = gumnut.join(signal, 'document-id');
+const api = connectToGumnutDoc({ docId: 'document-id', getToken: ... });
+const { doc, shutdown } = api;
 ```
 
 ## Properties
@@ -30,12 +32,12 @@ const doc = gumnut.join(signal, 'document-id');
 
 ## Methods
 
-### forNode(node)
+### useNode(node)
 
 Gets a reference to a node within the document. If the node doesn't exist, it will be created automatically when data is written to it.
 
 ```javascript
-const textNode = doc.forNode('text-content');
+const textNode = doc.useNode('text-content');
 ```
 
 | Parameter | Type | Description |
@@ -50,10 +52,10 @@ Returns a [`GumnutNode`](/api-reference/gumnut-node) instance representing the r
 
 ```javascript
 // Access a text node
-const mainText = doc.forNode('main-text');
+const mainText = doc.useNode('main-text');
 
 // Access a data node
-const settingsNode = doc.forNode('settings');
+const settingsNode = doc.useNode('settings');
 ```
 
 ### nodes()
@@ -77,133 +79,54 @@ for (const nodeId of doc.nodes()) {
 }
 ```
 
-### snapshot()
+### commit()
 
-Requests that the server create a snapshot of the current document state. This can be useful to ensure all changes are persisted.
+Requests that the server create a snapshot of the current document state, while giving you a chance to write them to your own backend.
+This can be useful to ensure all changes are persisted.
 
 ```javascript
-doc.snapshot();
+doc.commit(async ({ changes }) => {
+  // TODO: write your changes to your own backend here
+  // if this throws, no Gumnut snapshot will be taken
+});
 ```
 
 #### Example
 
 ```javascript
-// Create a snapshot when the user leaves the page
-window.addEventListener('beforeunload', () => {
-  doc.snapshot();
+// Handle a "save" button
+saveButton.addEventListener('click', async () => {
+  await doc.commit(async ({ changes }) => {
+    await saveToYourDatabase('your-document-id', changes);
+  });
 });
 ```
 
-### addListener(cb, signal)
+### addListener(type, cb, signal)
 
-Adds a listener for document structure changes, such as adding or removing nodes.
+Adds a listener for various events.
 
 ```javascript
-doc.addListener(callback, signal);
+doc.addListener(type, callback, signal);
 ```
 
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
-| `cb` | `() => void` | Callback function to invoke when document structure changes |
+| `type` | various | The type of the event to listen to |
+| `cb` | `() => void` | Callback function to invoke when something changes |
 | `signal` | `AbortSignal` | Signal to control the lifecycle of the listener |
+
+You can listen to the "error" (an error has occured), "ready" (the document is loaded from Gumnut) or "clients" events (different clients are accessing the document).
 
 #### Example
 
 ```javascript
 const controller = new AbortController();
 
-doc.addListener(() => {
-  console.log('Document structure changed');
-  console.log('Current nodes:', [...doc.nodes()]);
+doc.addListener('clients', () => {
+  console.log('The current set of clients here is', doc.clients());
 }, controller.signal);
 
 // Later, to remove the listener
 controller.abort();
-```
-
-## Events
-
-The `addListener` method allows you to subscribe to structural changes in the document. The callback is invoked whenever:
-
-- New nodes are added to the document
-- Existing nodes are removed from the document
-- The document is replaced entirely
-
-## Document Lifecycle
-
-The typical lifecycle of a document includes:
-
-1. **Joining** - Using `gumnut.join(signal, docId)`
-2. **Waiting for ready** - Await `doc.ready`
-3. **Accessing nodes** - Using `doc.forNode(nodeId)`
-4. **Working with nodes** - Interacting with GumnutNode instances
-5. **Creating snapshots** - Calling `doc.snapshot()` at appropriate times
-6. **Closing** - Aborting the signal passed to `gumnut.join()`
-
-## Examples
-
-### Basic Document Usage
-
-```javascript
-import { connectToGumnut, buildTestToken } from 'gumnut-v0-api';
-
-// Setup connection
-const controller = new AbortController();
-const gumnut = connectToGumnut(controller.signal, { projectId: 'your-project' });
-gumnut.provideToken(buildTestToken('user-123'));
-
-// Join a document
-const doc = gumnut.join(controller.signal, 'my-document');
-
-// Wait for the document to be ready
-await doc.ready;
-
-// Access nodes
-const titleNode = doc.forNode('title');
-const contentNode = doc.forNode('content');
-
-// List all nodes
-console.log('Available nodes:');
-for (const nodeId of doc.nodes()) {
-  console.log(` - ${nodeId}`);
-}
-```
-
-### Monitoring Document Structure Changes
-
-```javascript
-// Setup a listener for document structure changes
-const listenerController = new AbortController();
-
-doc.addListener(() => {
-  const nodeList = document.getElementById('node-list');
-  nodeList.innerHTML = '';
-  
-  for (const nodeId of doc.nodes()) {
-    const item = document.createElement('li');
-    item.textContent = nodeId;
-    nodeList.appendChild(item);
-  }
-}, listenerController.signal);
-
-// Later, remove the listener
-listenerController.abort();
-```
-
-### Creating Periodic Snapshots
-
-```javascript
-// Create snapshots every 5 minutes
-const snapshotInterval = setInterval(() => {
-  doc.snapshot();
-}, 5 * 60 * 1000);
-
-// Clean up when done
-function cleanup() {
-  clearInterval(snapshotInterval);
-  controller.abort();
-}
-
-// Handle page unload
-window.addEventListener('beforeunload', cleanup);
 ```

@@ -6,6 +6,7 @@ description: 'Gumnut components for collaborative editing'
 # Gumnut Components
 
 Gumnut provides a set of ready-to-use web components that make it easy to integrate collaborative editing into your applications. These components are built on top of the Gumnut API and handle all the complexities of real-time synchronization for you.
+If you'd like to use React, check out [its API docs](/components/react).
 
 ## Available Components
 
@@ -13,16 +14,17 @@ Gumnut includes the following web components:
 
 ### Text Editing Components
 
-- [**GumnutTextArea**](/components/gumnut-textarea): A multi-line text editing component for collaborative document editing
-- [**GumnutInput**](/components/gumnut-input): A single-line text input for collaborative editing of titles, labels, or short text
+- [**GumnutTextElement**](/components/gumnut-text): A multi-line text editing component for collaborative document editing
+- [**GumnutInputElement**](/components/gumnut-input): A single-line text input for collaborative editing of titles, labels, or short text
 
 ### Data Components
 
-- [**GumnutData**](/components/gumnut-data): A component for synchronizing form controls like checkboxes and range inputs
+- [**GumnutDataElement**](/components/gumnut-data): A component for synchronizing form controls like checkboxes and range inputs
 
 ### Utility Components
 
-- [**GumnutStatus**](/components/gumnut-status): A component for monitoring and displaying connection status
+- [**GumnutStatusElement**](/components/gumnut-status): A component for monitoring and displaying connection status
+- [**GumnutFocusElement**](/components/gumnut-focus): A component for monitoring and displaying connection status
 
 ## Importing Components
 
@@ -30,19 +32,19 @@ To use Gumnut components, import them in your JavaScript:
 
 ```javascript
 // Import all Gumnut DOM components
-import 'gumnut-v0-api/dom';
+import '@gumnutdev/api/dom';
 ```
 
 After importing, you can use the components in your HTML:
 
 ```html
-<gumnut-textarea id="editor"></gumnut-textarea>
+<gumnut-text id="editor"></gumnut-text>
 <gumnut-input id="title"></gumnut-input>
 ```
 
 ## Common Usage Pattern
 
-All Gumnut components follow a similar pattern for connecting to Gumnut nodes:
+Gumnut components typically follow a similar pattern for use:
 
 1. Create the component in your HTML
 2. Get a node from a Gumnut document
@@ -50,11 +52,10 @@ All Gumnut components follow a similar pattern for connecting to Gumnut nodes:
 
 ```javascript
 // Get a node from a document
-const doc = gumnut.join(signal, 'document-id');
-const textNode = doc.forNode('text-content');
+const api = connectToGumnutDoc({ docId: 'your-doc', getToken: ... });
 
 // Assign the node to a component
-document.getElementById('editor').node = textNode;
+document.getElementById('editor').node = api.doc.useNode('text-content');
 ```
 
 ## Component Features
@@ -68,20 +69,21 @@ All Gumnut components automatically provide:
 
 ## Styling Components
 
-Gumnut components use Shadow DOM and can be styled using CSS variables. Common styling properties include:
+Gumnut components use Shadow DOM to render their contents, but can be styled using regular CSS: they start unstyled.
+Common styling properties include:
 
 ```css
-gumnut-textarea, gumnut-input {
+gumnut-text, gumnut-input {
   /* Dimensions */
   width: 100%;
   height: 300px;
-  
-  /* Border and padding */
+
+/* Border and padding */
   border: 1px solid #ccc;
   border-radius: 4px;
-  --gumnut-padding: 10px;
-  
-  /* Typography */
+  padding: 10px;
+
+/* Typography */
   font-family: 'Arial', sans-serif;
   font-size: 16px;
 }
