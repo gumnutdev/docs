@@ -137,15 +137,3 @@ The `clearChanges` operation:
 
 This is particularly useful for long-lived documents that don't need to retain their full edit history.
 
-## Complete Example
-
-Here's how to use all three operations in a typical workflow:
-
-```javascript
-// Initialize Gumnut
-const signal = new AbortController().signal;
-const gumnutApi = connectToGumnut(signal, {
-  projectId: 'your-project-id'
-});
-
-// Authenticate

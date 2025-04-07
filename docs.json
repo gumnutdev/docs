@@ -38,7 +38,7 @@
                 "pages": [
                   "components/gumnut-data",
                   "components/gumnut-status",
-                  "components/gumnut-textarea",
+                  "components/gumnut-text",
                   "components/gumnut-input"
                 ]
               }
