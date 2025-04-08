@@ -20,9 +20,7 @@
           },
           {
             "group": "Guides",
-            "pages": [
-              "guides/authentication"
-            ]
+            "pages": ["guides/authentication"]
           },
           {
             "group": "Components",
@@ -38,8 +36,7 @@
                 "pages": [
                   "components/gumnut-data",
                   "components/gumnut-status",
-                  "components/gumnut-text",
-                  "components/gumnut-input"
+                  "components/gumnut-text"
                 ]
               }
             ]
