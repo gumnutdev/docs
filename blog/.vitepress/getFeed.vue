@@ -7,23 +7,29 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
-    loading.value = true;
-    // Use fetch to get the posts data from a JSON file
-    // This will be generated during the build process
     const response = await fetch('/posts.json');
-    if (response.ok) {
-      posts.value = await response.json();
-    } else {
-      console.error('Failed to load posts:', response.statusText);
-      error.value = `Failed to load posts: ${response.statusText}`;
+    if (!response.ok) {
+      throw new Error(`Failed to load posts: ${response.statusText}`);
     }
-  } catch (error) {
-    console.error('Error loading posts:', error);
-    error.value = `Error loading posts: ${error.message}`;
+    posts.value = await response.json();
+  } catch (err) {
+    console.error('Error loading posts:', err);
+    error.value = err.message;
   } finally {
     loading.value = false;
   }
 });
+
+// Format date to a readable string
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
 </script>
 
 <template>
@@ -41,7 +47,10 @@ onMounted(async () => {
     <ul v-else-if="posts.length > 0">
       <li v-for="post in posts" :key="post.url">
         <a :href="post.url">{{ post.frontmatter.title || 'Untitled' }}</a>
-        <span v-if="post.frontmatter.author">by {{ post.frontmatter.author }}</span>
+        <div class="post-meta">
+          <span v-if="post.frontmatter.date" class="date">{{ formatDate(post.frontmatter.date) }}</span>
+          <span v-if="post.frontmatter.author" class="author">by {{ post.frontmatter.author }}</span>
+        </div>
         <p v-if="post.frontmatter.description">{{ post.frontmatter.description }}</p>
       </li>
     </ul>
@@ -89,8 +98,17 @@ a:hover {
   text-decoration: underline;
 }
 
-span {
+.post-meta {
+  margin-top: 0.5rem;
   color: var(--vp-c-text-2);
+  font-size: 0.9rem;
+}
+
+.date {
+  margin-right: 1rem;
+}
+
+.author {
   margin-left: 0.5rem;
 }
 

@@ -37,9 +37,19 @@ export default defineConfig({
       render: true,
       excerpt: true,
       transform(rawData) {
-        return rawData.sort((a, b) => {
-          return +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date);
-        });
+        return rawData
+          .sort((a, b) => {
+            return (
+              +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
+            );
+          })
+          .map((page) => {
+            return {
+              url: page.url,
+              frontmatter: page.frontmatter,
+              excerpt: page.excerpt,
+            };
+          });
       },
     });
 

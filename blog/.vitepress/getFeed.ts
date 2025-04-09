@@ -55,14 +55,9 @@ export async function getFeed(posts: Post[]) {
   // Write feed to file
   fs.writeFileSync(resolve(distDir, "rss.xml"), feed.rss2());
 
-  // Also write posts data to a JSON file for the Vue component
-  // Save it in the public directory so it's accessible at runtime
-  const publicDir = resolve(__dirname, "dist");
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir, { recursive: true });
-  }
+  // Write posts data to a JSON file for the Vue component
   fs.writeFileSync(
-    resolve(publicDir, "posts.json"),
+    resolve(distDir, "posts.json"),
     JSON.stringify(posts, null, 2)
   );
 }
