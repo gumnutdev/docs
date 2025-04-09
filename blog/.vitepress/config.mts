@@ -1,4 +1,6 @@
 import { defineConfig } from "vitepress";
+import { getFeed } from "./getFeed";
+import { createContentLoader } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,13 +13,9 @@ export default defineConfig({
       dark: "/logo/dark.svg",
       alt: "Gumnut Logo",
     },
-    nav: [{ text: "Home", link: "/" }],
-
-    sidebar: [
-      {
-        text: "Articles",
-        items: [{ text: "Welcome", link: "/articles/article-1" }],
-      },
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Articles", link: "/articles" },
     ],
 
     socialLinks: [
@@ -31,5 +29,23 @@ export default defineConfig({
         link: "https://discord.gg/yu3u87AUNR",
       },
     ],
+  },
+  async buildEnd() {
+    // Create content loader for blog posts
+    const postsLoader = createContentLoader("articles/*.md", {
+      includeSrc: true,
+      render: true,
+      excerpt: true,
+      transform(rawData) {
+        return rawData.sort((a, b) => {
+          return +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date);
+        });
+      },
+    });
+
+    // Load posts data
+    const posts = await postsLoader.load();
+    // Generate RSS feed
+    await getFeed(posts);
   },
 });
