@@ -19,7 +19,7 @@ features:
     title: Real-time Collaboration
     details: Simultaneous editing, change attribution, and version history
   - icon: 🔒
-    title: Full revisition history
+    title: Full revision history
     details: Get full version history of all documents out of the box
   - icon: 🚀
     title: Easy Integration
