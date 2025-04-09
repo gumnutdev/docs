@@ -1,10 +1,9 @@
 ---
-title: '<gumnut-text>'
-description: 'A collaborative text area component for Gumnut'
-icon: 'italic'
+title: "<gumnut-text>"
+description: "A collaborative text area component for Gumnut"
 ---
 
-# GumnutTextElement
+# `<gumnut-text>`
 
 The `<gumnut-text>` component provides a collaborative text area that allows multiple users to edit the same content simultaneously with real-time updates.
 
@@ -12,7 +11,7 @@ The `<gumnut-text>` component provides a collaborative text area that allows mul
 
 ```javascript
 // Import all Gumnut DOM components
-import '@gumnutdev/api/dom';
+import "@gumnutdev/api/dom";
 ```
 
 ## Usage
@@ -32,19 +31,19 @@ document.getElementById('editor').node = textNode;
 
 ## Attributes
 
-| Attribute | Type | Description |
-| --------- | ---- | ----------- |
-| `disabled` | `boolean` | When present, makes the textarea non-editable |
+| Attribute  | Type      | Description                                              |
+| ---------- | --------- | -------------------------------------------------------- |
+| `disabled` | `boolean` | When present, makes the textarea non-editable            |
 | `readonly` | `boolean` | When present, allows viewing but not editing the content |
 
 ## Properties
 
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| `node` | `GumnutNode` | The Gumnut node to connect to this textarea |
-| `value` | `string` | Get or set the current text content |
-| `disabled` | `boolean` | Get or set whether the textarea is disabled |
-| `readOnly` | `boolean` | Get or set whether the textarea is read-only |
+| Property   | Type         | Description                                  |
+| ---------- | ------------ | -------------------------------------------- |
+| `node`     | `GumnutNode` | The Gumnut node to connect to this textarea  |
+| `value`    | `string`     | Get or set the current text content          |
+| `disabled` | `boolean`    | Get or set whether the textarea is disabled  |
+| `readOnly` | `boolean`    | Get or set whether the textarea is read-only |
 
 ## Features
 
@@ -67,7 +66,7 @@ gumnut-text {
   width: 100%;
   height: 300px;
 
-/* Add a border */
+  /* Add a border */
   border: 1px solid #ccc;
   border-radius: 4px;
 
@@ -96,14 +95,17 @@ The component inherits standard events from the underlying textarea element:
 <gumnut-text id="editor"></gumnut-text>
 
 <script type="module">
-  import { connectToGumnutDoc, buildTestToken } from '@gumnutdev/api';
-  import '@gumnutdev/api/dom';
+  import { connectToGumnutDoc, buildTestToken } from "@gumnutdev/api";
+  import "@gumnutdev/api/dom";
 
-  const api = connectToGumnutDoc({ docId: 'some-doc', getToken: buildTestToken('user-123') });
+  const api = connectToGumnutDoc({
+    docId: "some-doc",
+    getToken: buildTestToken("user-123"),
+  });
   const { doc } = api;
 
   // Join document and connect to textarea
-  document.getElementById('editor').node = doc.useNode('input1');
+  document.getElementById("editor").node = doc.useNode("input1");
 </script>
 ```
 
@@ -114,11 +116,11 @@ The component inherits standard events from the underlying textarea element:
 
 <script type="module">
   // After connecting to Gumnut and joining a document
-  document.getElementById('viewer').node = doc.useNode('content');
-  
+  document.getElementById("viewer").node = doc.useNode("content");
+
   // You can also toggle readonly programmatically
-  document.getElementById('edit-button').addEventListener('click', () => {
-    const viewer = document.getElementById('viewer');
+  document.getElementById("edit-button").addEventListener("click", () => {
+    const viewer = document.getElementById("viewer");
     viewer.readOnly = !viewer.readOnly;
   });
 </script>
@@ -143,34 +145,40 @@ As well as support for many built-in properties, you can also set the following 
     border: 2px solid #3498db;
     border-radius: 8px;
     padding: 16px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     font-size: 16px;
   }
-  
+
   .editor-notes {
     width: 100%;
     height: 200px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-   padding: 8px;
-    font-family: 'Courier New', monospace;
+    padding: 8px;
+    font-family: "Courier New", monospace;
     font-size: 14px;
   }
 </style>
 
 <gumnut-text id="main-editor" class="editor-main"></gumnut-text>
-<gumnut-text id="notes-editor" class="editor-notes" multiline rows="4"></gumnut-text>
+<gumnut-text
+  id="notes-editor"
+  class="editor-notes"
+  multiline
+  rows="4"
+></gumnut-text>
 ```
 
 ### Connecting Multiple Textareas to Different Nodes
 
 ```javascript
 // Join a document
-const doc = gumnut.join(controller.signal, 'multi-section-document');
+const doc = gumnut.join(controller.signal, "multi-section-document");
 
 // Connect different textareas to different nodes
-document.getElementById('title-editor').node = doc.useNode('title');
-document.getElementById('introduction-editor').node = doc.useNode('introduction');
-document.getElementById('content-editor').node = doc.useNode('content');
-document.getElementById('conclusion-editor').node = doc.useNode('conclusion');
+document.getElementById("title-editor").node = doc.useNode("title");
+document.getElementById("introduction-editor").node =
+  doc.useNode("introduction");
+document.getElementById("content-editor").node = doc.useNode("content");
+document.getElementById("conclusion-editor").node = doc.useNode("conclusion");
 ```

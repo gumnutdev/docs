@@ -1,8 +1,3 @@
----
-title: 'Gumnut Document'
-description: 'Gumnut Documents explained'
----
-
 # Gumnut Document
 
 The `GumnutDoc` class represents a document in Gumnut that can contain multiple nodes, and is the primary way to connect and interact with Gumnut.
@@ -24,11 +19,11 @@ const { doc, shutdown } = api;
 
 ## Properties
 
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| `projectId` | `string` | The ID of the project that contains this document |
-| `docId` | `string` | The ID of this document |
-| `ready` | `Promise<void>` | A promise that resolves when the document is ready for use |
+| Property    | Type            | Description                                                |
+| ----------- | --------------- | ---------------------------------------------------------- |
+| `projectId` | `string`        | The ID of the project that contains this document          |
+| `docId`     | `string`        | The ID of this document                                    |
+| `ready`     | `Promise<void>` | A promise that resolves when the document is ready for use |
 
 ## Methods
 
@@ -37,12 +32,12 @@ const { doc, shutdown } = api;
 Gets a reference to a node within the document. If the node doesn't exist, it will be created automatically when data is written to it.
 
 ```javascript
-const textNode = doc.useNode('text-content');
+const textNode = doc.useNode("text-content");
 ```
 
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `node` | `string` | The ID of the node to access |
+| Parameter | Type     | Description                  |
+| --------- | -------- | ---------------------------- |
+| `node`    | `string` | The ID of the node to access |
 
 #### Returns
 
@@ -52,10 +47,10 @@ Returns a [`GumnutNode`](/api-reference/gumnut-node) instance representing the r
 
 ```javascript
 // Access a text node
-const mainText = doc.useNode('main-text');
+const mainText = doc.useNode("main-text");
 
 // Access a data node
-const settingsNode = doc.useNode('settings');
+const settingsNode = doc.useNode("settings");
 ```
 
 ### nodes()
@@ -95,9 +90,9 @@ doc.commit(async ({ changes }) => {
 
 ```javascript
 // Handle a "save" button
-saveButton.addEventListener('click', async () => {
+saveButton.addEventListener("click", async () => {
   await doc.commit(async ({ changes }) => {
-    await saveToYourDatabase('your-document-id', changes);
+    await saveToYourDatabase("your-document-id", changes);
   });
 });
 ```
@@ -110,11 +105,11 @@ Adds a listener for various events.
 doc.addListener(type, callback, signal);
 ```
 
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `type` | various | The type of the event to listen to |
-| `cb` | `() => void` | Callback function to invoke when something changes |
-| `signal` | `AbortSignal` | Signal to control the lifecycle of the listener |
+| Parameter | Type          | Description                                        |
+| --------- | ------------- | -------------------------------------------------- |
+| `type`    | various       | The type of the event to listen to                 |
+| `cb`      | `() => void`  | Callback function to invoke when something changes |
+| `signal`  | `AbortSignal` | Signal to control the lifecycle of the listener    |
 
 You can listen to the "error" (an error has occured), "ready" (the document is loaded from Gumnut) or "clients" events (different clients are accessing the document).
 
@@ -123,9 +118,13 @@ You can listen to the "error" (an error has occured), "ready" (the document is l
 ```javascript
 const controller = new AbortController();
 
-doc.addListener('clients', () => {
-  console.log('The current set of clients here is', doc.clients());
-}, controller.signal);
+doc.addListener(
+  "clients",
+  () => {
+    console.log("The current set of clients here is", doc.clients());
+  },
+  controller.signal
+);
 
 // Later, to remove the listener
 controller.abort();

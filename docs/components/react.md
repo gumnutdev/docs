@@ -1,7 +1,6 @@
 ---
-title: 'React'
-description: 'React components for Gumnut'
-icon: 'react'
+title: "React"
+description: "React components for Gumnut"
 ---
 
 # React
@@ -21,11 +20,13 @@ At a high-level, you have to perform a few steps to use Gumnut:
 3. Add `<GumnutText>` (for collaborative text) or `<GumunutData>` (for managed input fields, e.g., a slider or checkbox) to your components using the result from `useGumnutDoc`
 
 4. Call `actions.load()` with your initial data (e.g., in a dependency-free `useEffect`, or a [Remix `clientLoader`](https://remix.run/docs/en/main/route/client-loader))
-  - Gumnut is about editing your server data, and you need to provide it
-  - Every user will provide the same data, which is a no-op
+
+- Gumnut is about editing your server data, and you need to provide it
+- Every user will provide the same data, which is a no-op
 
 5. Later, call `actions.commit()` to enact a change, and you'll be given a callback where you can commit to your database
-  - If this commit is successful, Gumnut will take a snapshot, recording attributed changes over time
+
+- If this commit is successful, Gumnut will take a snapshot, recording attributed changes over time
 
 ## In-Detail
 
@@ -35,18 +36,18 @@ Before you start, you'll need to:
 - create a project on [the dashboard](https://dashboard.dev.gumnut.dev), including creating a "local dev key" under API Keys
 
 Note also that this library has not been completely tested with SSR approaches to React.
-Please contact us if you have trouble&mdash;we'd love to fix it.
+Please contact us if you have trouble—we'd love to fix it.
 
 ### 1. Provide Global Configuration
 
 In your project, be sure to call `configureGumnut` somewhere, e.g., in your entrypoint:
 
 ```ts
-import { configureGumnut } from '@gumnutdev/react';
+import { configureGumnut } from "@gumnutdev/react";
 
 configureGumnut({
-  projectId: 'your-project-id-here',
-  localDevKey: '...', // get this from dashboard during local dev only
+  projectId: "your-project-id-here",
+  localDevKey: "...", // get this from dashboard during local dev only
 });
 ```
 
@@ -58,11 +59,11 @@ This might be safer than specifying this in code, as your `localDevKey` gives da
 In a component, such as a form, set up a connection to a document of your choice:
 
 ```tsx
-import { useGumnutDoc, buildTestToken } from '@gumnutdev/react';
+import { useGumnutDoc, buildTestToken } from "@gumnutdev/react";
 
 function YourComponent() {
   const getToken = () => buildTestToken();
-  const scope = useGumnutDoc({ getToken, docId: 'your-document-id' });
+  const scope = useGumnutDoc({ getToken, docId: "your-document-id" });
   // ...
 }
 ```
@@ -75,33 +76,37 @@ If you like, this method accepts arguments such as a fixed UID and the user's na
 To use Gumnut, you'll have to add a collaborative component, such as `<GumnutText>`.
 This has a number of options including auto-resize and multiline.
 
-> ⚠️ Note that this is completely unstyled by default, so the example below includes a `border` quite literally so you can see where the component is!
+::: warning
+Note that this is completely unstyled by default, so the example below includes a `border` quite literally so you can see where the component is!
+:::
 
 ```tsx
-import { useGumnutDoc, buildTestToken, GumnutText } from '@gumnutdev/react';
+import { useGumnutDoc, buildTestToken, GumnutText } from "@gumnutdev/react";
 
 function YourComponent() {
   // ... setup here
 
-  return <>
-    <GumnutText
-      control={scope.control}
-      name="an-input"
-      rows={4}
-      resize="auto"
-      multiline
-      placeholder="Some data goes here"
-      style={{
-        background: 'white',
-        border: '2px solid #eee',
-        borderRadius: '4px',
-      }}
-    />
-  </>
+  return (
+    <>
+      <GumnutText
+        control={scope.control}
+        name="an-input"
+        rows={4}
+        resize="auto"
+        multiline
+        placeholder="Some data goes here"
+        style={{
+          background: "white",
+          border: "2px solid #eee",
+          borderRadius: "4px",
+        }}
+      />
+    </>
+  );
 }
 ```
 
-Unlike regular form elements, you do not provide a `value` here&mdash;this is automatically bound to the Gumnut state.
+Unlike regular form elements, you do not provide a `value` here—this is automatically bound to the Gumnut state.
 
 Now, you should open your page in several tabs and try typing: you should see your other selves' cursors!
 Be sure to also open [the dashboard](https://dashboard.dev.gumnut.dev) and watch the edits on the "Data Index" page.
@@ -120,24 +125,26 @@ You should probably _not_ use this for text, as you'll only have "last-person-wi
 Use it like this:
 
 ```tsx
-import { useGumnutDoc, buildTestToken, GumnutData } from '@gumnutdev/react';
+import { useGumnutDoc, buildTestToken, GumnutData } from "@gumnutdev/react";
 
 function YourComponent() {
   // ... setup here
 
-  return <>
-    <GumnutData
-      control={scope.control}
-      name="an-input"
-      render={(arg) => (
-        <select {...arg.field}>
-          <option value="">Default</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-        </select>
-      )}
-    />
-  </>
+  return (
+    <>
+      <GumnutData
+        control={scope.control}
+        name="an-input"
+        render={(arg) => (
+          <select {...arg.field}>
+            <option value="">Default</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+          </select>
+        )}
+      />
+    </>
+  );
 }
 ```
 

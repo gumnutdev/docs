@@ -1,8 +1,3 @@
----
-title: 'Introduction'
-description: 'Introduction to Gumnut - a real-time collaborative editing framework'
----
-
 # Introduction to Gumnut
 
 Gumnut is a lightweight, real-time collaborative editing framework that enables multiple users to simultaneously edit the same document or form. It provides both a JavaScript API and web components for easily implementing collaborative features in your applications.
@@ -10,7 +5,7 @@ Gumnut is a lightweight, real-time collaborative editing framework that enables 
 ## Key Features
 
 - **Real-time collaboration** - Multiple users can edit documents simultaneously with changes synced in real-time
-- **Custom web components** - Ready-to-use UI components like `<gumnut-input>` and `<gumnut-text>` for immediate integration 
+- **Custom web components** - Ready-to-use UI components like `<gumnut-input>` and `<gumnut-text>` for immediate integration
 - **Other components** - `<gumnut-data>` for syncing data between users, `<gumnut-status>` for showing the status of a document, and more
 - **Cursor presence** - See other users' cursors and selections with automatic visual indicators
 - **Flexible architecture** - Support for custom document structures and multi-user editing
@@ -48,57 +43,29 @@ npm install @gumnutdev/api
 ## Quick Start
 
 ```javascript
-import { connectToGumnut, buildTestToken } from '@gumnutdev/api';
-import '@gumnutdev/api/dom';
+import { connectToGumnut, buildTestToken } from "@gumnutdev/api";
+import "@gumnutdev/api/dom";
 
 // Create an AbortController to manage the connection lifecycle
 const controller = new AbortController();
 
 // Connect to Gumnut
 const gumnut = connectToGumnut(controller.signal, {
-  projectId: 'your-project-id'
+  projectId: "your-project-id",
 });
 
 // Provide authentication token
-const token = buildTestToken('user-123', { name: 'User Name', email: 'user@example.com' });
+const token = buildTestToken("user-123", {
+  name: "User Name",
+  email: "user@example.com",
+});
 gumnut.provideToken(token);
 
 // Join a document
-const doc = gumnut.join(controller.signal, 'doc-123');
+const doc = gumnut.join(controller.signal, "doc-123");
 
 // Use the document with a Gumnut component
-document.querySelector('gumnut-text').document = doc.forNode('text-content');
+document.querySelector("gumnut-text").document = doc.forNode("text-content");
 ```
 
 Ready to get started? Check out the [Getting Started guide](/guides/getting-started) for a more detailed walkthrough.
-
-
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

@@ -3,22 +3,28 @@
 layout: home
 
 hero:
-  name: "Gumnut Documentation"
-  text:
-  tagline: "Documentation for Gumnut - the modern textbox"
+  name: "Gumnut"
+  text: "The modern textbox"
+  tagline: "Add real-time collaboration anywhere"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Get Started
+      link: /introduction
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Sign up
+      link: https://gumnut.dev
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: ⚡️
+    title: Real-time Collaboration
+    details: Simultaneous editing, change attribution, and version history
+  - icon: 🔒
+    title: Full revisition history
+    details: Get full version history of all documents out of the box
+  - icon: 🚀
+    title: Easy Integration
+    details: Quick integration with React, Vue or pure JS
+  - icon: 🛠️
+    title: Complete document attribution
+    details: Know exactly who-typed-what for audit and compliance purposes
 ---

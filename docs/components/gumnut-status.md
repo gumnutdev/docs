@@ -1,10 +1,9 @@
 ---
-title: '<gumnut-status>'
-description: 'A component for monitoring the connection status of a Gumnut instance'
-icon: 'signal'
+title: "<gumnut-status>"
+description: "A component for monitoring the connection status of a Gumnut instance"
 ---
 
-# GumnutStatus
+# `<gumnut-status>`
 
 The `<gumnut-status>` component provides a way to monitor and display the connection status of a Gumnut instance.
 It helps users understand when there are connection issues with collaborative documents.
@@ -13,13 +12,13 @@ It has no configuration options and displays itself in _giant red text_ when the
 You may want to use it only during development.
 
 Gumnut, in general, attempts to reconnect automatically and there is no special intervention you need to undertake if there is an error.
-Unrelated to this element, you can also listen to the "error" event on the low-level <code>GumnutDoc</code> type.
+Unrelated to this element, you can also listen to the "error" event on the low-level `GumnutDoc` type.
 
 ## Import
 
 ```javascript
 // Import all Gumnut DOM components
-import '@gumnutdev/api/dom';
+import "@gumnutdev/api/dom";
 ```
 
 ## Usage
@@ -72,7 +71,7 @@ gumnut-status:empty {
 </div>
 
 <script type="module">
-  import '@gumnutdev/api/dom';
+  import "@gumnutdev/api/dom";
 </script>
 ```
 
@@ -88,7 +87,7 @@ gumnut-status:empty {
     z-index: 1000;
     max-width: 300px;
   }
-  
+
   gumnut-status {
     display: block;
     padding: 12px 16px;
@@ -96,7 +95,7 @@ gumnut-status:empty {
     border-left: 4px solid #f9a825;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     line-height: 1.4;
   }

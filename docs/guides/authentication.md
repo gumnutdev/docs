@@ -1,16 +1,10 @@
----
-title: 'Authentication'
-description: 'Authentication in Gumnut'
-icon: 'key'
----
-
 # Authentication in Gumnut
 
 Gumnut uses token-based authentication to identify users and manage access to collaborative documents.
 
 ## Authentication Flow
 
-When connecting to Gumnut, you need to provide the `getToken` property with a method to call to obtain secure tokens: 
+When connecting to Gumnut, you need to provide the `getToken` property with a method to call to obtain secure tokens:
 
 ```javascript
 const doc = connectToGumnutDoc({
@@ -21,28 +15,31 @@ const doc = connectToGumnutDoc({
 
 Gumnut will call this method whenever it needs a new token (on startup, or if an existing token expires):
 
-2. Gumnut calls the method
-3. Your backend generates and returns a token
-5. Gumnut validates the token and associates the user with their edits
-6. Other users can see who made which changes
+1. Gumnut calls the method
+2. Your backend generates and returns a token
+3. Gumnut validates the token and associates the user with their edits
+4. Other users can see who made which changes
 
 ### Development Tokens
 
 For development and testing, Gumnut provides a helper function to create test tokens:
 
 ```javascript
-import { buildTestToken } from '@gumnutdev/api';
+import { buildTestToken } from "@gumnutdev/api";
 
 const doc = connectToGumnutDoc({
   docId: "good-dogs",
-  getToken: () => buildTestToken('bandit-h', {
-      name: 'Bandit',
-      email: 'bandit.h@gumnut.dev'
-  }),
-}).doc
+  getToken: () =>
+    buildTestToken("bandit-h", {
+      name: "Bandit",
+      email: "bandit.h@gumnut.dev",
+    }),
+}).doc;
 ```
 
-> ⚠️ **Important**: Test tokens should only be used during development. They are not secure for production use.
+::: warning Important
+Test tokens should only be used during development. They are not secure for production use.
+:::
 
 ### Production Tokens
 
@@ -85,26 +82,26 @@ Here's an example of how you might generate a JWT on your server (Node.js exampl
 
 ```javascript
 // Server-side code
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 function generateGumnutToken(user) {
   // Create the payload
   const payload = {
     sub: user.id,
     name: user.displayName,
-    email: user.email
+    email: user.email,
   };
-  
+
   // Sign the token with your secret key
   const token = jwt.sign(payload, process.env.GUMNUT_JWT_SECRET, {
-    expiresIn: '24h'
+    expiresIn: "24h",
   });
-  
+
   return token;
 }
 
 // In your API route handler
-app.get('/api/auth/gumnut-token', authenticate, (req, res) => {
+app.get("/api/auth/gumnut-token", authenticate, (req, res) => {
   const token = generateGumnutToken(req.user);
   res.json({ token });
 });
