@@ -148,7 +148,8 @@ function YourComponent() {
 }
 ```
 
-While out of scope of this brief tutorial, `<GumnutData>` can also power focus indicators and the "dirty bit": it does not have to render data, but rather, it can render its metadata.
+While out of scope of this brief tutorial, `<GumnutData>` can also power focus indicators and the "dirty bit": it does not have to render data or components at all, but rather, it can render metadata for this node, such as who has their cursor here.
+Be sure to load up its documentation by ctrl-clicking in VSCode or your preferred editor.
 
 ### 4. Call `actions.load()`
 
@@ -203,6 +204,8 @@ function YourComponent() {
 
 If the callback you pass to `commit()` throws an exception, Gumnut will not take a snapshot.
 If, however, it succeeds, all your fields will be marked "clean" and the snapshot will appear in [the dashboard](https://dashboard.dev.gumnut.dev).
+
+You can also call `revertAll()` to abandon all changes and reset to your last loaded state (e.g., you might wire this up to a form reset button).
 
 ## Fin
 
