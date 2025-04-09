@@ -7,12 +7,13 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      light: "/logo/light.png",
-      dark: "/logo/dark.png",
+      light: "/logo/light.svg",
+      dark: "/logo/dark.svg",
       alt: "Gumnut Logo",
     },
-    nav: [{ text: "Support", link: "mailto:hello@gumnut.dev" }],
+    // nav: [{ text: "Support", link: "mailto:hello@gumnut.dev" }],
     socialLinks: [
+      { icon: "discord", link: "https://discord.gg/yu3u87AUNR" },
       { icon: "github", link: "https://github.com/gumnutdev" },
       {
         icon: "linkedin",
@@ -67,8 +68,7 @@ export default defineConfig({
       },
     ],
     footer: {
-      message: "Made with ❤️ by Gumnut",
-      copyright: "Copyright © 2024-present Gumnut",
+      copyright: "Copyright © 2025 Gumnut Dev Pty Ltd",
     },
   },
 });

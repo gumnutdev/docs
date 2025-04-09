@@ -7,8 +7,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      light: "/logo/light.png",
-      dark: "/logo/dark.png",
+      light: "/logo/light.svg",
+      dark: "/logo/dark.svg",
       alt: "Gumnut Logo",
     },
     nav: [{ text: "Home", link: "/" }],
