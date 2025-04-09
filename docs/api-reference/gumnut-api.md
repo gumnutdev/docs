@@ -68,4 +68,4 @@ const doc = gumnut.join(controller.signal, "doc-123");
 document.querySelector("gumnut-text").document = doc.forNode("text-content");
 ```
 
-Ready to get started? Check out the [Getting Started guide](/guides/getting-started) for a more detailed walkthrough.
+Ready to get started? Check out the [Walkthrough](/walkthrough) for a more detailed walkthrough.

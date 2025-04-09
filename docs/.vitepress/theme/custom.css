@@ -19,6 +19,12 @@
 
   /* Additional tip color */
   --color-tip: #22863a;
+
+  --vp-c-brand: #646cff;
+  --vp-c-brand-light: #747bff;
+  --vp-c-brand-lighter: #9499ff;
+  --vp-c-brand-dark: #535bf2;
+  --vp-c-brand-darker: #454ce1;
 }
 
 .VPButton.brand {
@@ -28,3 +34,5 @@
 .VPButton.brand:hover {
   background-color: #c0488a !important;
 }
+
+/* Add any additional custom styles below */

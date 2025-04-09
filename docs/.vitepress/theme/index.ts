@@ -1,3 +1,4 @@
-import { VPCarbon } from "vitepress-carbon";
+import DefaultTheme from "vitepress/theme";
 import "./custom.css";
-export default VPCarbon;
+
+export default DefaultTheme;

@@ -25,7 +25,7 @@ npm install
 npm run dev
 ```
 
-Great, now our app is running at http://localhost:3000, and it'll live-reload when we save changes (thanks, [Vite](https://vite.dev)!)
+Great, now our app is running at `localhost:3000`, and it'll live-reload when we save changes (thanks, [Vite](https://vite.dev)!)
 
 The app consists of a pretty standard `index.html` page, some CSS, and an empty file called `client.js`, all served from the `/src/client` directory. Those are all we need to change; Gumnut is framework agnostic and requires almost no changes to your backend.
 
