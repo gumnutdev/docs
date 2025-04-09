@@ -1,0 +1,26 @@
+{
+  "hosting": [
+    {
+      "target": "docs",
+      "public": "docs/.vitepress/dist",
+      "ignore": [],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "blog",
+      "public": "blog/.vitepress/dist",
+      "ignore": [],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
