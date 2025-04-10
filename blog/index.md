@@ -7,7 +7,7 @@ hero:
   text: "the modern textbox"
   tagline: Adventures in building a real-time editor
   image:
-    src: ./images/hero.png
+    src: ./images/hero.svg
     alt: Building Gumnut hero image
   actions:
     - theme: brand
