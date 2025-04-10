@@ -6,10 +6,13 @@ hero:
   name: "Building Gumnut"
   text: "the modern textbox"
   tagline: Adventures in building a real-time editor
+  image:
+    src: ./images/hero.svg
+    alt: Building Gumnut hero image
   actions:
     - theme: brand
       text: Articles
-      link: /articles/article-1
+      link: /articles
     - theme: alt
       text: Docs
       link: https://docs.gumnut.dev

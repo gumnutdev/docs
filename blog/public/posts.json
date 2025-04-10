@@ -1,0 +1,11 @@
+[
+  {
+    "url": "/articles/article-1.html",
+    "frontmatter": {
+      "title": "Hello World",
+      "date": "2025-04-09T00:00:00.000Z",
+      "description": "Welcome to the Gumnut blog"
+    },
+    "excerpt": ""
+  }
+]
