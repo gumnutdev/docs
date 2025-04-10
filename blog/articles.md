@@ -3,7 +3,11 @@ title: Articles
 ---
 
 <script setup>
-import GetFeed from '.vitepress/getFeed.vue';
+import GetFeed from '.vitepress/getFeed.vue'
 </script>
 
-<GetFeed />
+# Articles
+
+<ClientOnly>
+  <GetFeed />
+</ClientOnly>

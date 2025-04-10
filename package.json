@@ -11,6 +11,6 @@
     "docs:preview": "vitepress preview docs",
     "blog:dev": "vitepress dev blog",
     "blog:build": "vitepress build blog",
-    "blog:preview": "vitepress preview blog"
+    "blog:preview": "vitepress build blog && vitepress preview blog"
   }
 }

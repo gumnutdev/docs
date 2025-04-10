@@ -1,14 +1,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useData } from 'vitepress';
 
+const { site } = useData();
 const posts = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
 onMounted(async () => {
   try {
-    const response = await fetch('/posts.json');
+    // Try to load posts.json from the current path
+    const response = await fetch('./posts.json');
     if (!response.ok) {
+      if (response.status === 404) {
+        // If posts.json doesn't exist yet, show empty state
+        posts.value = [];
+        return;
+      }
       throw new Error(`Failed to load posts: ${response.statusText}`);
     }
     posts.value = await response.json();
@@ -55,7 +63,7 @@ function formatDate(dateString) {
       </li>
     </ul>
     
-    <p v-else>No posts found.</p>
+    <p v-else>No posts found. Check back soon for new articles!</p>
   </div>
 </template>
 
