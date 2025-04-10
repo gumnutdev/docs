@@ -9,8 +9,8 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
-    // Try to load posts.json from the current path
-    const response = await fetch('./posts.json');
+    // Use absolute path to fetch posts.json
+    const response = await fetch('/posts.json');
     if (!response.ok) {
       if (response.status === 404) {
         // If posts.json doesn't exist yet, show empty state
