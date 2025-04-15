@@ -4,6 +4,22 @@ import { createContentLoader } from "vitepress";
 import fs from "fs";
 import { resolve } from "path";
 
+// Helper function to parse dates consistently
+function parseDate(dateStr: any): Date {
+  if (!dateStr) {
+    return new Date(0); // Return a very old date if no date is provided
+  }
+  if (typeof dateStr !== "string") {
+    return new Date(dateStr); // Try to parse whatever we got
+  }
+  // If the date string is already in ISO format, use it directly
+  if (dateStr.includes("T")) {
+    return new Date(dateStr);
+  }
+  // Otherwise, assume it's in YYYY-MM-DD format and add time
+  return new Date(`${dateStr}T00:00:00.000Z`);
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Gumnut Blog",
@@ -21,7 +37,6 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
       {
         icon: "linkedin",
         link: "https://www.linkedin.com/company/gumnut-dev/",
@@ -42,9 +57,9 @@ export default defineConfig({
         transform(rawData) {
           return rawData
             .sort((a, b) => {
-              return (
-                +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
-              );
+              const dateA = parseDate(a.frontmatter.date);
+              const dateB = parseDate(b.frontmatter.date);
+              return dateA.getTime() - dateB.getTime();
             })
             .map((page) => {
               return {
@@ -92,9 +107,9 @@ export default defineConfig({
       transform(rawData) {
         return rawData
           .sort((a, b) => {
-            return (
-              +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
-            );
+            const dateA = parseDate(a.frontmatter.date);
+            const dateB = parseDate(b.frontmatter.date);
+            return dateA.getTime() - dateB.getTime();
           })
           .map((page) => {
             return {
