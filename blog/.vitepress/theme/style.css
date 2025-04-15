@@ -136,3 +136,19 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/**
+ * Component: Figures
+ * -------------------------------------------------------------------------- */
+
+figure img {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+figure figcaption {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--vp-c-text-2);
+  margin-top: 0.5em;
+}

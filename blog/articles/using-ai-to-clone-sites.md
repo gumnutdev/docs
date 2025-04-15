@@ -16,17 +16,17 @@ But we wanted to build a tool that can _show_ you what it looks like, to get the
 
 So we built our demo page, sorry for the cheesy copy.
 
-![Demo Site Screenshot](/images/demo-site-screenshot.png "Demo site landing page")
+![Demo Site Screenshot](/images/demo-site-screenshot.png)
 
 ## How it works
 
 Hopefully this is an example of a Good Use of AI™. The workflow should be:
 
-![Workflow Diagram 1](/images/workflow-1.png)
+!["The journey"](/images/workflow-1.png)
 
 We're using Google's stack so our architecture is a couple of steps over Firebase and friends:
 
-![Workflow Diagram 2](/images/workflow-2.png)
+![Process to create the demo](/images/workflow-2.png)
 
 ## Screenshot to HTML
 
