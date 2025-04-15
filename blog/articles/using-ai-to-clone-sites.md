@@ -6,7 +6,7 @@ date: 2024-04-15
 
 # Using AI to clone sites
 
-At Gumnut, we have built the modern textbox, helping old-school HTML forms grow up.
+At [Gumnut](https://gumnut.dev), we have built the modern textbox, helping old-school HTML forms grow up.
 
 ::: info
 Gumnut adds real-time collaboration, version control and attribution anywhere. Improving productivity, quality and compliance with data.
@@ -16,7 +16,7 @@ But we wanted to build a tool that can _show_ you what it looks like, to get the
 
 So we built our demo page, sorry for the cheesy copy.
 
-![Demo Site Screenshot](/images/demo-site-screenshot.png)
+![Demo Site Screenshot](/images/demo-site-screenshot.png "Demo site landing page")
 
 ## How it works
 

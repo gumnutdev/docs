@@ -3,7 +3,7 @@ import { getFeed } from "./getFeed";
 import { createContentLoader } from "vitepress";
 import fs from "fs";
 import { resolve } from "path";
-
+import implicitFigures from "markdown-it-implicit-figures";
 // Helper function to parse dates consistently
 function parseDate(dateStr: any): Date {
   if (!dateStr) {
@@ -47,6 +47,15 @@ export default defineConfig({
       },
     ],
   },
+  markdown: {
+    config: (md) => {
+      md.use(implicitFigures, {
+        figcaption: true,
+        copyAttrs: "^class$",
+      });
+    },
+  },
+
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
       // Create content loader for blog posts

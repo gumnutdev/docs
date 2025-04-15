@@ -12,5 +12,8 @@
     "blog:dev": "vitepress dev blog",
     "blog:build": "vitepress build blog",
     "blog:preview": "vitepress build blog && vitepress preview blog"
+  },
+  "dependencies": {
+    "markdown-it-implicit-figures": "^0.12.0"
   }
 }
