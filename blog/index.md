@@ -17,3 +17,9 @@ hero:
       text: Docs
       link: https://docs.gumnut.dev
 ---
+
+<script setup>
+import RecentPosts from './.vitepress/theme/components/RecentPosts.vue'
+</script>
+
+<RecentPosts />

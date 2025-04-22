@@ -59,6 +59,11 @@ export default defineConfig({
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
       // Create content loader for blog posts
+      if (pageData.frontmatter.image) {
+        pageData.frontmatter.class = "has-header-image";
+      }
+
+      // Create content loader for blog posts
       const postsLoader = createContentLoader("articles/*.md", {
         includeSrc: true,
         render: true,
