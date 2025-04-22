@@ -52,7 +52,7 @@
   --vp-c-brand-1: #da509a;
   --vp-c-brand-2: #c0488a;
   --vp-c-brand-3: #a63f75;
-  --vp-c-brand-soft: #da509a;
+  --vp-c-brand-soft: rgba(218, 80, 154, 0.15);
 
   --vp-c-tip-1: var(--vp-c-green-1);
   --vp-c-tip-2: var(--vp-c-green-2);
@@ -135,4 +135,35 @@
 
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+/**
+ * Component: Figures
+ * -------------------------------------------------------------------------- */
+
+figure img {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+figure figcaption {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--vp-c-text-2);
+  margin-top: 0.5em;
+}
+
+.has-header-image .vp-doc {
+  padding-top: 0;
+}
+
+.has-header-image .vp-doc > :first-child {
+  margin-top: 0;
+}
+
+.has-header-image .vp-doc > :first-child img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  margin-bottom: 2rem;
 }

@@ -3,7 +3,8 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "feed": "^4.2.2",
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
@@ -12,5 +13,9 @@
     "blog:dev": "vitepress dev blog",
     "blog:build": "vitepress build blog",
     "blog:preview": "vitepress build blog && vitepress preview blog"
+  },
+  "dependencies": {
+    "markdown-it-implicit-figures": "^0.12.0",
+    "posthog-js": "^1.236.4"
   }
 }

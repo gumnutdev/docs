@@ -6,7 +6,7 @@ date: 2024-04-15
 
 # Using AI to clone sites
 
-At Gumnut, we have built the modern textbox, helping old-school HTML forms grow up.
+At [Gumnut](https://gumnut.dev), we have built the modern textbox, helping old-school HTML forms grow up.
 
 ::: info
 Gumnut adds real-time collaboration, version control and attribution anywhere. Improving productivity, quality and compliance with data.
@@ -22,11 +22,11 @@ So we built our demo page, sorry for the cheesy copy.
 
 Hopefully this is an example of a Good Use of AI™. The workflow should be:
 
-![Workflow Diagram 1](/images/workflow-1.png)
+!["The journey"](/images/workflow-1.png)
 
 We're using Google's stack so our architecture is a couple of steps over Firebase and friends:
 
-![Workflow Diagram 2](/images/workflow-2.png)
+![Process to create the demo](/images/workflow-2.png)
 
 ## Screenshot to HTML
 
