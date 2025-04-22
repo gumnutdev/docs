@@ -55,7 +55,7 @@ export default defineConfig({
       });
     },
   },
-
+  head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
       // Create content loader for blog posts

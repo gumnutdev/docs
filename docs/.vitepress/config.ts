@@ -71,4 +71,5 @@ export default defineConfig({
       copyright: "Copyright © 2025 Gumnut Dev Pty Ltd",
     },
   },
+  head: [["link", { rel: "icon", href: "/logo/favicon.ico" }]],
 });
