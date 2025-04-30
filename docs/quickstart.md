@@ -19,38 +19,85 @@ npm install @gumnutdev/api
 
 To add a managed text area to your document, you can copy and paste the snippet below (copying in the relevant details):
 
-```javascript
+::: code-group
+
+```html [index.html]
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gumnut Quick Start</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body></body>
+</html>
+```
+
+```css [styles.css]
+body {
+  font-family: Segoe UI, system-ui, -apple-system, sans-serif;
+}
+
+gumnut-text {
+  border: 1px solid #ccc8;
+  margin: 1px;
+  border-radius: 4px;
+  line-height: 19px;
+  font-size: 16px;
+
+  min-width: 200px;
+  min-height: 80px;
+
+  --gumnut-padding: 4px 8px;
+
+  &:focus-within {
+    border-color: blue;
+    margin: 0px;
+    border-width: 2px;
+  }
+}
+```
+
+```javascript [script.js]
 import {
-  configureGumnut,
-  connectToGumnutDoc,
   buildTestToken,
+  connectToGumnutDoc,
+  configureGumnut,
 } from "@gumnutdev/api";
 import { GumnutTextElement } from "@gumnutdev/api/dom";
 
-// Configure Gumnut
-configureGumnut(controller.signal, {
+configureGumnut({
+  remoteHost: "v0-collab.dev.gumnut.dev",
   projectId: "your-project-id",
-  localDevKey: "your-local-dev-key",
+  localDevKey: "your-dev-key",
 });
 
-// Provide test authentication token
-const token = buildTestToken("user-123", {
-  name: "User Name",
-  email: "user@example.com",
-});
+const token = () => buildTestToken(undefined, { name: "User" });
 
-// Connect to Gumnut
-const api = connectToGumnutDoc({ docId: "your-document", getToken: token });
+const doc = connectToGumnutDoc({
+  docId: "some-doc",
+  getToken: token,
+}).doc;
 
-// Use the document with a Gumnut component
-const gt = new GumnutTextElement();
-gt.node = api.doc.useNode("text-content");
-document.body.append(gt);
+// Create a "gumnut-textarea" element, which is a multi-line text input.
+const textareaEl = new GumnutTextElement();
+document.body.append(textareaEl);
+
+// Connect the textarea to the field "new-input" of the document we joined before.
+textareaEl.node = doc.useNode("new-input");
 ```
 
-This will create a `<gumnut-text>` element as opposed to a regular `<textarea>` or `<input>`.
+:::
 
-That should be it!
-You should now be connected to Gumnut and ready to start collaborating.
+To get it working
+
+1. Copy these 3 files into a directory
+2. update `projectId` and `localDevKey` from your [dashboard](https://dashboard.gumnut.dev).
+3. `npm install @gumnutdev/api`
+4. Run a local web server (we use `vite`)
+
+If you do all those things it should Just Work™!
+
+Login to the [dashboard](https://dashboard.gumnut.dev) and see yourself typing in real-time on the server. It's fun and gives you a satisfied feeling inside.
 
 If you'd like to integrate with React, check out [its API docs](/components/react).
