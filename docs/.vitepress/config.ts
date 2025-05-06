@@ -47,6 +47,7 @@ export default defineConfig({
             text: "Components",
             items: [
               { text: "Gumnut Data", link: "/components/gumnut-data" },
+              { text: "Gumnut Focus", link: "/components/gumnut-focus" },
               { text: "Gumnut Status", link: "/components/gumnut-status" },
               { text: "Gumnut Text", link: "/components/gumnut-text" },
             ],

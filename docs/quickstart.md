@@ -21,6 +21,35 @@ To add a managed text area to your document, you can copy and paste the snippet 
 
 ::: code-group
 
+```javascript [script.js]
+import {
+  buildTestToken,
+  connectToGumnutDoc,
+  configureGumnut,
+} from "@gumnutdev/api";
+import { GumnutTextElement } from "@gumnutdev/api/dom";
+
+configureGumnut({
+  remoteHost: "v0-collab.dev.gumnut.dev",
+  projectId: "your-project-id",
+  localDevKey: "your-dev-key",
+});
+
+const token = () => buildTestToken(undefined, { name: "User" });
+
+const doc = connectToGumnutDoc({
+  docId: "some-doc",
+  getToken: token,
+}).doc;
+
+// Create a "gumnut-textarea" element, which is a multi-line text input.
+const textareaEl = new GumnutTextElement();
+document.body.append(textareaEl);
+
+// Connect the textarea to the field "new-input" of the document we joined before.
+textareaEl.node = doc.useNode("new-input");
+```
+
 ```html [index.html]
 <!DOCTYPE html>
 <html>
@@ -56,35 +85,6 @@ gumnut-text {
     border-width: 2px;
   }
 }
-```
-
-```javascript [script.js]
-import {
-  buildTestToken,
-  connectToGumnutDoc,
-  configureGumnut,
-} from "@gumnutdev/api";
-import { GumnutTextElement } from "@gumnutdev/api/dom";
-
-configureGumnut({
-  remoteHost: "v0-collab.dev.gumnut.dev",
-  projectId: "your-project-id",
-  localDevKey: "your-dev-key",
-});
-
-const token = () => buildTestToken(undefined, { name: "User" });
-
-const doc = connectToGumnutDoc({
-  docId: "some-doc",
-  getToken: token,
-}).doc;
-
-// Create a "gumnut-textarea" element, which is a multi-line text input.
-const textareaEl = new GumnutTextElement();
-document.body.append(textareaEl);
-
-// Connect the textarea to the field "new-input" of the document we joined before.
-textareaEl.node = doc.useNode("new-input");
 ```
 
 :::
