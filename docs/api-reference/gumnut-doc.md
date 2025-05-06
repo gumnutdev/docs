@@ -3,7 +3,7 @@
 The `GumnutDoc` class represents a document in Gumnut that can contain multiple nodes, and is the primary way to connect and interact with Gumnut.
 It provides methods for managing the document, accessing nodes, and monitoring changes.
 
-A document in Gumnut is analagous to a form in a normal web app.
+A document in Gumnut is analogous to a form in a normal web app.
 It contains multiple nodes (fields), that contain different types of data and can be edited by different users.
 
 ## Import
@@ -19,11 +19,15 @@ const { doc, shutdown } = api;
 
 ## Properties
 
-| Property    | Type            | Description                                                |
-| ----------- | --------------- | ---------------------------------------------------------- |
-| `projectId` | `string`        | The ID of the project that contains this document          |
-| `docId`     | `string`        | The ID of this document                                    |
-| `ready`     | `Promise<void>` | A promise that resolves when the document is ready for use |
+| Property     | Type                       | Description                                                                                      |
+| ------------ | -------------------------- | ------------------------------------------------------------------------------------------------ |
+| `projectId`  | `string`                   | The ID of the project that contains this document                                                |
+| `docId`      | `string`                   | The ID of this document                                                                          |
+| `ready`      | `Promise<void>`            | A promise that resolves when the document is ready for use                                       |
+| `dataFrom`   | `Date`                     | When was the data here from. This may be from your backend, or it may be as a result of a commit |
+| `isShutdown` | `boolean`                  | Whether this doc is dead/shutdown and should be recreated                                        |
+| `error`      | `string\|Error\|undefined` | Any error state currently reported                                                               |
+| `actions`    | `GumnutDocActions`         | Contains methods for loading, reverting, and committing document changes                         |
 
 ## Methods
 
@@ -74,15 +78,17 @@ for (const nodeId of doc.nodes()) {
 }
 ```
 
-### commit()
+### actions.commit()
 
 Requests that the server create a snapshot of the current document state, while giving you a chance to write them to your own backend.
 This can be useful to ensure all changes are persisted.
 
 ```javascript
-doc.commit(async ({ changes }) => {
+doc.actions.commit(async ({ changes, all }) => {
   // TODO: write your changes to your own backend here
   // if this throws, no Gumnut snapshot will be taken
+  // 'changes' contains only the dirty nodes
+  // 'all' contains all nodes
 });
 ```
 
@@ -91,10 +97,67 @@ doc.commit(async ({ changes }) => {
 ```javascript
 // Handle a "save" button
 saveButton.addEventListener("click", async () => {
-  await doc.commit(async ({ changes }) => {
+  await doc.actions.commit(async ({ changes }) => {
     await saveToYourDatabase("your-document-id", changes);
   });
 });
+```
+
+### actions.load(nodes, opts)
+
+Instructs Gumnut to load canonical data into the document.
+
+```javascript
+doc.actions.load({ "node-id": "node value" }, { from: new Date() });
+```
+
+| Parameter | Type                     | Description                                                    |
+| --------- | ------------------------ | -------------------------------------------------------------- |
+| `nodes`   | `Record<string, string>` | Object mapping node IDs to their values                        |
+| `opts`    | `{ from: Date }`         | Options with the timestamp when this data was in your database |
+
+### actions.revertAll()
+
+Reverts all changes to the canonical data, clearing all dirty fields.
+
+```javascript
+doc.actions.revertAll();
+```
+
+### userForClientId(clientId)
+
+Read the user information for a given client ID.
+
+```javascript
+const userInfo = doc.userForClientId("client-123");
+```
+
+| Parameter  | Type     | Description                               |
+| ---------- | -------- | ----------------------------------------- |
+| `clientId` | `string` | The client ID to get user information for |
+
+#### Returns
+
+Returns a `UserInfo` object containing the user's ID and profile information, or `undefined` if the client ID is not found.
+
+### clients()
+
+Take a snapshot of the current clients connected to this document.
+
+```javascript
+const clientIds = doc.clients();
+```
+
+#### Returns
+
+Returns an `Iterable<string>` containing all the client IDs.
+
+### pending()
+
+Returns a Promise that resolves when the state of the document is completely sent off to the server.
+
+```javascript
+await doc.pending();
 ```
 
 ### addListener(type, cb, signal)
@@ -105,13 +168,17 @@ Adds a listener for various events.
 doc.addListener(type, callback, signal);
 ```
 
-| Parameter | Type          | Description                                        |
-| --------- | ------------- | -------------------------------------------------- |
-| `type`    | various       | The type of the event to listen to                 |
-| `cb`      | `() => void`  | Callback function to invoke when something changes |
-| `signal`  | `AbortSignal` | Signal to control the lifecycle of the listener    |
+| Parameter | Type                          | Description                                        |
+| --------- | ----------------------------- | -------------------------------------------------- |
+| `type`    | `'error'\|'ready'\|'clients'` | The type of the event to listen to                 |
+| `cb`      | Function                      | Callback function to invoke when something changes |
+| `signal`  | `AbortSignal`                 | Signal to control the lifecycle of the listener    |
 
-You can listen to the "error" (an error has occured), "ready" (the document is loaded from Gumnut) or "clients" events (different clients are accessing the document).
+#### Event Types
+
+- **error**: Dispatched if an error occurs while running this document. The callback receives `(error: string | Error) => void`.
+- **ready**: Dispatched when the document is ready. This may happen more than once if you're disconnected from the server. The callback receives `() => void`.
+- **clients**: Dispatched when the set of clients connected to the document changes. The callback receives `(delta: ReadonlyMap<string, boolean>) => void`.
 
 #### Example
 
@@ -120,8 +187,9 @@ const controller = new AbortController();
 
 doc.addListener(
   "clients",
-  () => {
+  (delta) => {
     console.log("The current set of clients here is", doc.clients());
+    console.log("Client changes:", delta);
   },
   controller.signal
 );

@@ -21,11 +21,12 @@ const node = doc.useNode("node-id");
 
 ## Properties
 
-| Property    | Type     | Description                                 |
-| ----------- | -------- | ------------------------------------------- |
-| `projectId` | `string` | The ID of the project                       |
-| `docId`     | `string` | The ID of the document containing this node |
-| `node`      | `string` | The ID of this node                         |
+| Property    | Type        | Description                                 |
+| ----------- | ----------- | ------------------------------------------- |
+| `projectId` | `string`    | The ID of the project                       |
+| `docId`     | `string`    | The ID of the document containing this node |
+| `node`      | `string`    | The ID of this node                         |
+| `doc`       | `GumnutDoc` | Reference to the parent document            |
 
 ## Usage with Web Components
 
@@ -38,6 +39,198 @@ const textNode = doc.useNode("text-content");
 // Assign it to a Gumnut component
 document.querySelector("gumnut-text").node = textNode;
 ```
+
+## Methods
+
+The GumnutNode interface combines both read and write operations.
+
+### Reading Node Content
+
+#### contents()
+
+Returns the current content of the node as a string.
+
+```javascript
+const content = node.contents();
+console.log("Node content:", content);
+```
+
+#### length()
+
+Returns the length of the node's content.
+
+```javascript
+const length = node.length();
+console.log("Content length:", length);
+```
+
+#### isDirty()
+
+Checks if the node has been modified from its canonical state.
+
+```javascript
+if (node.isDirty()) {
+  console.log("Node has unsaved changes");
+}
+```
+
+#### clients()
+
+Returns an iterable of client IDs currently focused on this node.
+
+```javascript
+const clients = node.clients();
+for (const clientId of clients) {
+  console.log("Client focused:", clientId);
+}
+```
+
+#### selfCursor()
+
+Retrieves the user's current cursor position in this node.
+
+```javascript
+const cursor = node.selfCursor();
+if (cursor) {
+  console.log(`Cursor at position ${cursor.start} to ${cursor.end}`);
+} else {
+  console.log("No cursor in this node");
+}
+```
+
+### Modifying Node Content
+
+#### replaceWith(text)
+
+Replaces the entire content of the node with the provided text.
+
+```javascript
+node.replaceWith("New content for the node");
+```
+
+#### mod(arg)
+
+Modify the text at the cursor position by deleting characters and/or inserting new text.
+
+```javascript
+// Delete 3 characters from position 5 and insert "Hello"
+node.mod({ at: 5, delete: 3, insert: "Hello" });
+```
+
+| Parameter | Type     | Description                                                 |
+| --------- | -------- | ----------------------------------------------------------- |
+| `at`      | `number` | Optional absolute position to place cursor before modifying |
+| `delete`  | `number` | Number of characters to delete after cursor/selection       |
+| `insert`  | `string` | Optional text to insert at the cursor position              |
+
+#### placeCursor(at, to)
+
+Places the cursor at the specified position within the node.
+
+```javascript
+// Place cursor at position 10
+const position = node.placeCursor(10);
+
+// Create a selection from position 5 to 15
+const endPosition = node.placeCursor(5, 15);
+```
+
+| Parameter | Type     | Description                           |
+| --------- | -------- | ------------------------------------- |
+| `at`      | `number` | Position to place the cursor          |
+| `to`      | `number` | Optional end position for a selection |
+
+#### moveCursor(by, extend)
+
+Moves the cursor by the specified amount.
+
+```javascript
+// Move cursor 5 characters forward
+node.moveCursor(5);
+
+// Extend selection 3 characters forward
+node.moveCursor(3, true);
+```
+
+| Parameter | Type      | Description                                              |
+| --------- | --------- | -------------------------------------------------------- |
+| `by`      | `number`  | Number of characters to move (negative to move backward) |
+| `extend`  | `boolean` | Whether to extend the selection range                    |
+
+#### yieldCursor()
+
+Stops tracking the cursor on this node and notifies other clients.
+
+```javascript
+node.yieldCursor();
+```
+
+### Event Listeners
+
+#### addListener(type, cb, signal)
+
+Adds a listener for various node events.
+
+```javascript
+const controller = new AbortController();
+
+// Listen for value changes
+node.addListener(
+  "value",
+  (known) => {
+    console.log(`Content changed to: ${node.contents()}`);
+    console.log(`Was it our change? ${known}`);
+  },
+  controller.signal
+);
+
+// Listen for client focus changes
+node.addListener(
+  "clients",
+  (delta) => {
+    console.log("Client focus changed:", delta);
+  },
+  controller.signal
+);
+
+// Listen for cursor position changes
+node.addListener(
+  "cursors",
+  (delta) => {
+    console.log("Cursor positions changed:", delta);
+  },
+  controller.signal
+);
+
+// Listen for your own cursor changes
+node.addListener(
+  "selfCursor",
+  (sel) => {
+    if (sel) {
+      console.log(`My cursor moved to ${sel.start}-${sel.end}`);
+    } else {
+      console.log("My cursor is no longer in this node");
+    }
+  },
+  controller.signal
+);
+
+// Later, to remove all listeners
+controller.abort();
+```
+
+| Parameter | Type                                       | Description                                     |
+| --------- | ------------------------------------------ | ----------------------------------------------- |
+| `type`    | `'value'/'clients'/'cursors'/'selfCursor'` | The type of event to listen for                 |
+| `cb`      | Function                                   | Callback function when the event occurs         |
+| `signal`  | `AbortSignal`                              | Signal to control the lifecycle of the listener |
+
+#### Event Types
+
+- **value**: Triggered when the node's content changes. The callback receives `(known: boolean) => void`, where `known` indicates if the change was made by the current client.
+- **clients**: Triggered when the set of clients focused on this node changes. The callback receives `(delta: ReadonlyMap<string, boolean>) => void`.
+- **cursors**: Triggered when cursor positions of other clients change. The callback receives `(delta: ReadonlyMap<string, Sel | false>) => void`.
+- **selfCursor**: Triggered when your own cursor moves unexpectedly. The callback receives `(sel: Sel | false) => void`.
 
 ## Advanced Usage
 
