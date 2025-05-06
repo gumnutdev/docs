@@ -7,7 +7,7 @@ description: "A component for monitoring the if another connection is focusing o
 
 The `<gumnut-focus>` (GumnutFocus in [React](/components/react)) component provides a way to see if someone else is editing a gumnut field.
 
-It takes two configuration options, `name` and `control`.
+The element can be connected to a whole document, or individual nodes within the document (preferred).
 
 ## Usage
 
@@ -17,11 +17,11 @@ It takes two configuration options, `name` and `control`.
 // Import all Gumnut DOM components
 import "@gumnutdev/api/dom";
 
-// assumes connectToGunmnutDoc is done
+// assumes connectToGunmnutDoc is completed
 
 document.getElementById("dogName").node = gumnutDoc.useNode("dogName");
 
-// connect focus element to the
+// IMPORTANT: connect focus element to the gumnut-text node
 document.getElementById("dogName-focus").node = gumnutDoc.useNode("dogName");
 ```
 
@@ -34,46 +34,34 @@ document.getElementById("dogName-focus").node = gumnutDoc.useNode("dogName");
 
 You can put the `<gumnut-focus>` element wherever you like, generally it makes sense to put it next to the field label (in the example above it's one space after).
 
-## Features
+## React
 
-### Connection Status Monitoring
+In [React](/components/react), the `GumnutFocus` attaches the `control` inline. Just make sure the `name` in `GumnutFocus` matches the name in `GumnutText` to show the focus of that field. The same applies to `GumnutData`
 
-The `<gumnut-status>` component automatically:
+```typescript
+import { GumnutFocus, GumnutText } from "@gumnutdev/api";
 
-- Displays errors when documents fail to connect
-- Shows which documents are experiencing issues
-- Updates in real-time as connection status changes
+function YourComponent() {
+  // assumes useGumnutDoc is called and saved as `scope`
 
-### React
+  return (
+    <>
+      <h3>
+        Dog name <GumnutFocus control={scope.control} name="dogName" />
+      </h3>
 
-In [React](/components/react), the `GumnutFocus` attaches the `control` inline.
-
-```js
-import { connectToGumnutDoc, GumnutFocus, GumnutText } from "@gumnutdev/api";
-
-const scope = connectToGumnutDoc("user-123", {
-  name: "user",
-  email: "hi@example.dev",
-})
-
-<h3>Dog name <GumnutFocus control={scope.control} name="dogName" /></h3>
-
-<GumnutText
-  control={scope.control}
-  name="dogName"
-  placeholder="Enter dog name"
-  multiline
-  style={{
-    border: "1px solid #e0e0e0",
-    borderRadius: "4px",
-    width: "100%",
-    padding: "4px",
-  }}
-/>
+      <GumnutText
+        control={scope.control}
+        name="dogName"
+        placeholder="Enter dog name"
+      />
+    </>
+  );
+}
 ```
 
-### Example output
+## Example output
 
-The picture below shows the output with 2 other connections focusing on the `description` field in this form.
+The picture below shows the output with 2 other connections (all the same user) focusing on the `dogName` field in this form.
 
 ![GumnutFocus example](/images/gumnut-focus.png)
