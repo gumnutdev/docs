@@ -20,14 +20,18 @@ You'll also need to sign up for a free account; head to the [Gumnut Dashboard](h
 We're going to add Gumnut's editing features to "Good Dogs with Gumnut", a one page VanillaJS app which you can clone from Gtihub:
 
 ```bash
-git clone https://github.com/gumnutdev/good-dogs-demo.git good-dogs && cd good-dogs
+git clone https://github.com/gumnutdev/good-dogs-demo.git && cd good-dogs-demo
 npm install
 npm run dev
 ```
 
-Great, now our app is running at `localhost:3000`, and it'll live-reload when we save changes (thanks, [Vite](https://vite.dev)!)
+::: tip
+If you want to skip this guide and see a working version, checkout the `walkthrough-complete` branch
+:::
 
-The app consists of a pretty standard `index.html` page, some CSS, and an empty file called `client.js`, all served from the `/src/client` directory. Those are all we need to change; Gumnut is framework agnostic and requires almost no changes to your backend.
+Great, now our app is running at `localhost:5173`, and it'll live-reload when we save changes (thanks, [Vite](https://vite.dev)!)
+
+The app consists of a pretty standard `index.html` page, some CSS, and an empty file called `script.js`, all served from the `/src/` directory. Those are all we need to change; Gumnut is framework agnostic and requires almost no changes to your backend.
 
 We're going to add Gumnut's editing features to all four sets of input:
 
@@ -35,6 +39,9 @@ We're going to add Gumnut's editing features to all four sets of input:
 - The `description` text area
 - Each of the checkboxes under _Winning Features_ (`floppyEars`, `boopableSnoot` and `toeBeans`)
 - The `goodDogRange` slider
+
+- Add [`gumnut-focus`](/components/gumnut-focus) to each element so we can see other users in the form
+- [`gumnut-status`](/components/gumnut-status) to see the connnection status of the page
 
 ## Projects in Gumnut
 
@@ -109,7 +116,9 @@ Next we `connectToGumnutDoc` to tell Gumnut we want to start tracking this docum
 const gumnutDoc = connectToGumnutDoc({
   docId: "good-dogs",
   getToken: () =>
-    buildTestToken("bandit-h", {
+    // undefined here means create a unique user id for each connection
+    // (so the same person appears as a different color)
+    buildTestToken(undefined, {
       name: "Bandit Heeler",
       email: "bandit.h@gumnut.dev",
       // picture: base64 image will include a picture of the user
@@ -139,20 +148,14 @@ Let's start with the `dogName` field. We'll replace the existing element with th
 <!-- Replace this -->
 <input
   type="text"
-  class="p-3 input border-[1px] border-surface-300-700"
+  class="input"
   placeholder="Rover"
   id="dogName"
   name="dogName"
 />
 
 <!-- With this -->
-<gumnut-text
-  type="text"
-  class="p-3 input border-[1px] border-surface-300-700"
-  placeholder="Rover"
-  id="dogName"
-  name="dogName"
-/>
+<gumnut-text class="input" placeholder="Rover" id="dogName" name="dogName" />
 ```
 
 Next, create/retrieve a node from the Document, and associate it with the input field.
@@ -196,33 +199,29 @@ And you're done. That's all it takes to start editing a field with Gumnut. Open 
 
 When a text value changes, we need to know what part of the value (eg, which characters) changed and indicate those changes with a cursor; this is what the `<gumnut-text>` element does for us. For other inputs, we only need to track changes to the value as a whole. That's where the `<gumnut-data>` element comes in. It wraps around `input` or `select` element with atomic values (eg, those which change from one value to another "all at once").
 
-Let's use `<gumnut-data>` elements to track changes to the Winning Features checkboxes and the Good Dog range slider.
+Let's use `<gumnut-data>` elements to track changes to the Winning Features checkboxes and the Good Dog range slider:
 
 ```html
 <gumnut-data id="floppyEars">
   <input class="checkbox" type="checkbox" name="floppyEars" checked />
-  <p class="text-sm">Floppy Ears</p>
 </gumnut-data>
 
 <gumnut-data id="boopableSnoot">
-  <input class="checkbox" type="checkbox" name="boopableSnoot" />
-  <p class="text-sm">Boopable Snoot</p>
+  <input class="checkbox" type="checkbox" name="Boopable Snoot" />
 </gumnut-data>
 
 <gumnut-data id="toeBeans">
-  <input class="checkbox" type="checkbox" name="toeBeans" />
-  <p class="text-sm">Toe Beans</p>
+  <input class="checkbox" type="checkbox" name="ToeBeans" />
 </gumnut-data>
 
-<gumnut-data id="goodDogRange" class="grow">
+<gumnut-data id="goodDog">
   <input
-    class="input"
     type="range"
     id="goodDog"
     name="goodDog"
-    value="150"
-    min="100"
-    max="200"
+    min="0"
+    max="100"
+    value="50"
   />
 </gumnut-data>
 ```

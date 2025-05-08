@@ -14,12 +14,50 @@ const api = connectToGumnutDoc({
   docId: "some-doc",
   getToken: buildTestToken("user-123"),
 });
-const { doc } = api;
+const { doc, shutdown } = api;
 
 const node = doc.useNode("node-id");
 ```
 
-## Properties
+## The GumnutDoc Object
+
+When you call `connectToGumnutDoc()`, it returns an object with a `doc` property that is a `GumnutDoc` instance. Here's what's available on the `doc` object:
+
+### Properties
+
+| Property     | Type                       | Description                                                                  |
+| ------------ | -------------------------- | ---------------------------------------------------------------------------- |
+| `projectId`  | `string`                   | The ID of the project that contains this document                            |
+| `docId`      | `string`                   | The ID of this document                                                      |
+| `ready`      | `Promise<void>`            | A promise that resolves when the document is ready for use                   |
+| `dataFrom`   | `Date`                     | When was the data here from (either from your backend or result of a commit) |
+| `isShutdown` | `boolean`                  | Whether this doc is dead/shutdown and should be recreated                    |
+| `error`      | `string\|Error\|undefined` | Any error state currently reported                                           |
+
+### Methods
+
+| Method                | Description                                                             |
+| --------------------- | ----------------------------------------------------------------------- |
+| `useNode(nodeId)`     | Gets a reference to a node within the document                          |
+| `nodes()`             | Returns an iterable of all node IDs in the document                     |
+| `clients()`           | Returns a snapshot of all clients connected to this document            |
+| `userForClientId(id)` | Returns user information for a specific client ID                       |
+| `pending()`           | Returns a Promise that resolves when all changes are sent to the server |
+| `addListener()`       | Adds an event listener (for 'error', 'ready', or 'clients' events)      |
+
+### Action Methods
+
+These methods are available under the `doc.actions` property:
+
+| Method              | Description                                  |
+| ------------------- | -------------------------------------------- |
+| `commit(callback)`  | Commits current changes and takes a snapshot |
+| `load(nodes, opts)` | Loads canonical data into the document       |
+| `revertAll()`       | Reverts all changes to canonical data        |
+
+For more detailed information on these methods, see the [GumnutDoc API reference](/api-reference/gumnut-doc).
+
+## GumnutNode Properties
 
 | Property    | Type        | Description                                 |
 | ----------- | ----------- | ------------------------------------------- |
