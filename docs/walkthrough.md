@@ -235,6 +235,8 @@ document.getElementById("goodDogRange").node =
   gumnutDoc.useNode("goodDogRange");
 ```
 
+![Whole form working](/images/whole-form.gif)
+
 ### 5. Commiting Changes.
 
 Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/), navigate to your projects, and click the Data tab, and open it side-by-side with your app, you'll see all the changes users are making while they're being made.
