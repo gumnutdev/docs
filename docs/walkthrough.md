@@ -74,9 +74,7 @@ npm install @gumnutdev/api
 Gumnut follows [Semantic Versioning](https://semver.org/) and is under rapid development; You might want to pin a specific version during the beta.
 :::
 
-## Adding basic Gumnut features
-
-### 1. Configure Gumnut
+## 1. Configure Gumnut
 
 The first think we need to do is `configureGumnut`, we need: host server, the projectId, and the apiKey. We can add all our necessary imports and configure Gumnut at the top of `client.js`.
 
@@ -105,7 +103,7 @@ This should connect to your Gumnut project.
 This function can be skipped if you include these values as environment variables.
 :::
 
-### 2. Authenticate and Connect
+## 2. Authenticate and Connect
 
 Next we `connectToGumnutDoc` to tell Gumnut we want to start tracking this document. This methods takes two parameters:
 
@@ -138,7 +136,7 @@ It's worth repeating: don't use `buildTestToken` in Production. Your security te
 
 Gumnut uses the parameters passed to `buildTestToken` to attribute (eg associated) changes to a specific user. The first parameter is the user's unique ID; the second parameter is an object containing the users details, which will be displayed to other users.
 
-### 3. Working with Text Inputs using `<gumnut-text>`
+## 3. Working with Text Inputs using `<gumnut-text>`
 
 For each input we want to collaborate on, we need a Node. Nodes are named properties that store a value your users can edit; Documents are made up of collections of Nodes. Each independent value needs its own Node, which Gumnut creates the first time it's used.
 
@@ -195,7 +193,7 @@ document.getElementById("description").node = gumnutDoc.useNode("description");
 
 And you're done. That's all it takes to start editing a field with Gumnut. Open the page in two browser windows and you should see changes in one window seamlessly replicate in the other.
 
-### 4. Working with Other Inputs using `<gumnut-data>`
+## 4. Working with Other Inputs using `<gumnut-data>`
 
 When a text value changes, we need to know what part of the value (eg, which characters) changed and indicate those changes with a cursor; this is what the `<gumnut-text>` element does for us. For other inputs, we only need to track changes to the value as a whole. That's where the `<gumnut-data>` element comes in. It wraps around `input` or `select` element with atomic values (eg, those which change from one value to another "all at once").
 
@@ -235,9 +233,7 @@ document.getElementById("goodDogRange").node =
   gumnutDoc.useNode("goodDogRange");
 ```
 
-![Whole form working](/images/whole-form.gif)
-
-### 5. Commiting Changes.
+## 5. Commiting Changes.
 
 Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/), navigate to your projects, and click the Data tab, and open it side-by-side with your app, you'll see all the changes users are making while they're being made.
 
@@ -265,8 +261,29 @@ Now, each revision shows up in our dashboard as a Snapshot. Neat!
 
 ![Snapshots capture your form over time](/images/getting-started/step-5-dashboard-snapshots.gif)
 
-### 6. Focus & Status.
+## 6. Focus & Status.
 
 Gumnut also provides two elements which surface information about the current document: `<gumnut-focus>` and `<gumnut-status>`.
 
 When a `<gumnut-focus>` element is assigned to a node, it shows an icon for each user currently editing that node. You can place a `<gumnut-focus>` element anywhere on the page, but it typically makes the most sense to place them next to the input bound to the same node.
+
+The way to do this is the following:
+
+::: code-group
+
+```html
+<gumnut-focus id="dogNameFocus" />
+```
+
+```javascript
+// attach the focus element to the corresponding gumnut node
+document.getElementById("dogNameFocus").node = gumnutDoc.useNode("dogName");
+```
+
+:::
+
+## Finish
+
+Once you've added the focus indicators, it should look like this!
+
+![Whole form working](/images/whole-form.gif)
