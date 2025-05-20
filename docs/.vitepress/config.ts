@@ -72,5 +72,15 @@ export default defineConfig({
       copyright: "Copyright © 2025 Gumnut Dev Pty Ltd",
     },
   },
-  head: [["link", { rel: "icon", href: "/logo/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", href: "/logo/favicon.ico" }],
+    [
+      "script",
+      {
+        defer: "",
+        "data-domain": "blog.gumnut.dev",
+        src: "https://plausible.io/js/script.js",
+      },
+    ],
+  ],
 });
