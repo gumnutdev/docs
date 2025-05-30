@@ -55,7 +55,17 @@ export default defineConfig({
       });
     },
   },
-  head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", href: "/images/favicon.ico" }],
+    [
+      "script",
+      {
+        defer: "",
+        "data-domain": "blog.gumnut.dev",
+        src: "https://plausible.io/js/script.js",
+      },
+    ],
+  ],
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
       // Create content loader for blog posts
@@ -73,7 +83,7 @@ export default defineConfig({
             .sort((a, b) => {
               const dateA = parseDate(a.frontmatter.date);
               const dateB = parseDate(b.frontmatter.date);
-              return dateA.getTime() - dateB.getTime();
+              return dateB.getTime() - dateA.getTime();
             })
             .map((page) => {
               return {
@@ -123,7 +133,7 @@ export default defineConfig({
           .sort((a, b) => {
             const dateA = parseDate(a.frontmatter.date);
             const dateB = parseDate(b.frontmatter.date);
-            return dateA.getTime() - dateB.getTime();
+            return dateB.getTime() - dateA.getTime();
           })
           .map((page) => {
             return {

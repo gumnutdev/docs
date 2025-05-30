@@ -78,7 +78,7 @@ export default defineConfig({
       "script",
       {
         defer: "",
-        "data-domain": "blog.gumnut.dev",
+        "data-domain": "docs.gumnut.dev",
         src: "https://plausible.io/js/script.js",
       },
     ],

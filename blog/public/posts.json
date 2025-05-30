@@ -1,10 +1,19 @@
 [
   {
+    "url": "/articles/working-with-ai.html",
+    "frontmatter": {
+      "title": "Working with AI",
+      "description": "AI typing alongside you",
+      "date": "2025-05-28T00:00:00.000Z"
+    },
+    "excerpt": ""
+  },
+  {
     "url": "/articles/using-ai-to-clone-sites.html",
     "frontmatter": {
       "title": "Using AI to clone sites",
       "description": "How Gumnut uses AI to convert screenshots into interactive web pages",
-      "date": "2024-04-15T00:00:00.000Z"
+      "date": "2025-04-15T00:00:00.000Z"
     },
     "excerpt": ""
   },
