@@ -1,10 +1,10 @@
 ---
 title: Working with AI
-description: AI typing alongside you
+description: Investigating how we can work with AI inside SaaS applications
 date: 2025-05-28
 ---
 
-# Typing alongside AI
+# Working _with_ AI
 
 At [Gumnut](https://gumnut.dev), we have built the modern textbox, adding real-time collaboration to forms. The idea that we want users to be able to work _with_ not _against_ each other in your SaaS.
 

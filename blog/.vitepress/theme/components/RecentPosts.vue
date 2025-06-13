@@ -18,8 +18,8 @@ onMounted(async () => {
       throw new Error(`Failed to load posts: ${response.statusText}`);
     }
     const allPosts = await response.json();
-    // Get the 3 most recent posts
-    posts.value = allPosts.slice(-3);
+    // Get the 6 most recent posts
+    posts.value = allPosts.slice(0, 6);
   } catch (err) {
     console.error('Error loading posts:', err);
     error.value = err.message;
@@ -77,7 +77,7 @@ function formatDate(dateString) {
 
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 1rem;
 }

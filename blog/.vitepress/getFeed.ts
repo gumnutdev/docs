@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 export async function getFeed(posts: Post[]) {
   const feed = new Feed({
-    title: "Gumnut Blog",
+    title: "The Collaborative Textbox",
     description: "Building Gumnut - the modern textbox",
     id: "https://blog.gumnut.dev/",
     link: "https://blog.gumnut.dev/",

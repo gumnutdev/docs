@@ -1,9 +1,27 @@
 [
   {
+    "url": "/articles/future-of-work-ai.html",
+    "frontmatter": {
+      "title": "Beyond the helpdesk - AI human collaboration frontiers",
+      "description": "Solving the interface of human/ai collaboration in modern applications",
+      "date": "2025-06-02T00:00:00.000Z"
+    },
+    "excerpt": ""
+  },
+  {
+    "url": "/articles/new-indian-express-ai-adoption.html",
+    "frontmatter": {
+      "title": "Data on Enterprise AI adoption",
+      "description": "AI agent adoption in enterprises",
+      "date": "2025-06-02T00:00:00.000Z"
+    },
+    "excerpt": ""
+  },
+  {
     "url": "/articles/working-with-ai.html",
     "frontmatter": {
       "title": "Working with AI",
-      "description": "AI typing alongside you",
+      "description": "Investigating how we can work with AI inside SaaS applications",
       "date": "2025-05-28T00:00:00.000Z"
     },
     "excerpt": ""
