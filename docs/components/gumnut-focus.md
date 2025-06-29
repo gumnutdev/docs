@@ -19,10 +19,10 @@ import "@gumnutdev/api/dom";
 
 // assumes connectToGunmnutDoc is completed
 
-document.getElementById("dogName").node = gumnutDoc.useNode("dogName");
+document.getElementById("dogName").model = gumnutDoc.root().value("dogName");
 
 // IMPORTANT: connect focus element to the gumnut-text node
-document.getElementById("dogName-focus").node = gumnutDoc.useNode("dogName");
+document.getElementById("dogName-focus").model = gumnutDoc.root().value("dogName");
 ```
 
 ```html

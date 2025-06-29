@@ -41,8 +41,8 @@ const checkboxNode = await gumnutApi.node("settings-feature-toggle");
 const sliderNode = await gumnutApi.node("settings-volume");
 
 // Connect nodes to the gumnut-data elements
-document.getElementById("my-checkbox-container").node = checkboxNode;
-document.getElementById("my-slider-container").node = sliderNode;
+document.getElementById("my-checkbox-container").model = checkboxNode;
+document.getElementById("my-slider-container").model = sliderNode;
 ```
 
 ## Technical Details

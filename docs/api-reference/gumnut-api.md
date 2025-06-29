@@ -46,26 +46,17 @@ npm install @gumnutdev/api
 import { connectToGumnut, buildTestToken } from "@gumnutdev/api";
 import "@gumnutdev/api/dom";
 
-// Create an AbortController to manage the connection lifecycle
-const controller = new AbortController();
-
 // Connect to Gumnut
-const gumnut = connectToGumnut(controller.signal, {
-  projectId: "your-project-id",
+const gumnut = connectToGumnut({
+  docId: 'doc-123',
+  getToken: () => buildTestToken("user-123", {
+    name: "User Name",
+    email: "user@example.com",
+  }),
 });
-
-// Provide authentication token
-const token = buildTestToken("user-123", {
-  name: "User Name",
-  email: "user@example.com",
-});
-gumnut.provideToken(token);
-
-// Join a document
-const doc = gumnut.join(controller.signal, "doc-123");
 
 // Use the document with a Gumnut component
-document.querySelector("gumnut-text").document = doc.forNode("text-content");
+document.querySelector("gumnut-text").model = doc.root().value("text-content");
 ```
 
 Ready to get started? Check out the [Walkthrough](/walkthrough) for a more detailed walkthrough.

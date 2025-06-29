@@ -24,19 +24,18 @@ const { doc, shutdown } = api;
 | `projectId`  | `string`                   | The ID of the project that contains this document                                                |
 | `docId`      | `string`                   | The ID of this document                                                                          |
 | `ready`      | `Promise<void>`            | A promise that resolves when the document is ready for use                                       |
-| `dataFrom`   | `Date`                     | When was the data here from. This may be from your backend, or it may be as a result of a commit |
-| `isShutdown` | `boolean`                  | Whether this doc is dead/shutdown and should be recreated                                        |
+| `shutdown`   | `boolean`                  | Whether this doc is dead/shutdown and should be recreated                                        |
 | `error`      | `string\|Error\|undefined` | Any error state currently reported                                                               |
 | `actions`    | `GumnutDocActions`         | Contains methods for loading, reverting, and committing document changes                         |
 
 ## Methods
 
-### useNode(node)
+### root().value(node)
 
 Gets a reference to a node within the document. If the node doesn't exist, it will be created automatically when data is written to it.
 
 ```javascript
-const textNode = doc.useNode("text-content");
+const textNode = doc.root().value("text-content");
 ```
 
 | Parameter | Type     | Description                  |
@@ -51,18 +50,18 @@ Returns a [`GumnutNode`](/api-reference/gumnut-node) instance representing the r
 
 ```javascript
 // Access a text node
-const mainText = doc.useNode("main-text");
+const mainText = doc.root().value("main-text");
 
 // Access a data node
-const settingsNode = doc.useNode("settings");
+const settingsNode = doc.root().value("settings");
 ```
 
-### nodes()
+### keys()
 
-Returns an iterable of all node IDs in the document.
+Returns an iterable of all keys on the root object.
 
 ```javascript
-const nodeIds = doc.nodes();
+const nodeIds = doc.root.keys();
 ```
 
 #### Returns
@@ -73,7 +72,7 @@ Returns an `Iterable<string>` containing all the node IDs.
 
 ```javascript
 // List all nodes in the document
-for (const nodeId of doc.nodes()) {
+for (const nodeId of doc.root.keys()) {
   console.log(`Node: ${nodeId}`);
 }
 ```
@@ -84,7 +83,7 @@ Requests that the server create a snapshot of the current document state, while 
 This can be useful to ensure all changes are persisted.
 
 ```javascript
-doc.actions.commit(async ({ changes, all }) => {
+doc.actions.commit(async ({ dirty, all }) => {
   // TODO: write your changes to your own backend here
   // if this throws, no Gumnut snapshot will be taken
   // 'changes' contains only the dirty nodes
@@ -97,7 +96,7 @@ doc.actions.commit(async ({ changes, all }) => {
 ```javascript
 // Handle a "save" button
 saveButton.addEventListener("click", async () => {
-  await doc.actions.commit(async ({ changes }) => {
+  await doc.actions.commit(async ({ dirty }) => {
     await saveToYourDatabase("your-document-id", changes);
   });
 });
@@ -108,13 +107,12 @@ saveButton.addEventListener("click", async () => {
 Instructs Gumnut to load canonical data into the document.
 
 ```javascript
-doc.actions.load({ "node-id": "node value" }, { from: new Date() });
+doc.actions.load({ "node-id": "node value" });
 ```
 
 | Parameter | Type                     | Description                                                    |
 | --------- | ------------------------ | -------------------------------------------------------------- |
 | `nodes`   | `Record<string, string>` | Object mapping node IDs to their values                        |
-| `opts`    | `{ from: Date }`         | Options with the timestamp when this data was in your database |
 
 ### actions.revertAll()
 
@@ -151,14 +149,6 @@ const clientIds = doc.clients();
 #### Returns
 
 Returns an `Iterable<string>` containing all the client IDs.
-
-### pending()
-
-Returns a Promise that resolves when the state of the document is completely sent off to the server.
-
-```javascript
-await doc.pending();
-```
 
 ### addListener(type, cb, signal)
 

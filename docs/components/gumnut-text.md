@@ -23,10 +23,10 @@ import "@gumnutdev/api/dom";
 ```javascript
 // Get a node from a Gumnut document
 const doc = connectToGumnutDoc({ docId: 'some-doc', getToken: ... });
-const textNode = doc.useNode('text-content');
+const textNode = doc.root().value('text-content');
 
 // Assign the node to the textarea
-document.getElementById('editor').node = textNode;
+document.getElementById('editor').model = textNode;
 ```
 
 ## Attributes
@@ -105,7 +105,7 @@ The component inherits standard events from the underlying textarea element:
   const { doc } = api;
 
   // Join document and connect to textarea
-  document.getElementById("editor").node = doc.useNode("input1");
+  document.getElementById("editor").model = doc.root().value("input1");
 </script>
 ```
 
@@ -116,7 +116,7 @@ The component inherits standard events from the underlying textarea element:
 
 <script type="module">
   // After connecting to Gumnut and joining a document
-  document.getElementById("viewer").node = doc.useNode("content");
+  document.getElementById("viewer").model = doc.root().value("content");
 
   // You can also toggle readonly programmatically
   document.getElementById("edit-button").addEventListener("click", () => {
@@ -176,9 +176,9 @@ As well as support for many built-in properties, you can also set the following 
 const doc = gumnut.join(controller.signal, "multi-section-document");
 
 // Connect different textareas to different nodes
-document.getElementById("title-editor").node = doc.useNode("title");
-document.getElementById("introduction-editor").node =
-  doc.useNode("introduction");
-document.getElementById("content-editor").node = doc.useNode("content");
-document.getElementById("conclusion-editor").node = doc.useNode("conclusion");
+document.getElementById("title-editor").model = doc.root().value("title");
+document.getElementById("introduction-editor").model =
+  doc.root().value("introduction");
+document.getElementById("content-editor").model = doc.root().value("content");
+document.getElementById("conclusion-editor").model = doc.root().value("conclusion");
 ```

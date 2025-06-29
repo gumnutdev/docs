@@ -16,7 +16,7 @@ const api = connectToGumnutDoc({
 });
 const { doc, shutdown } = api;
 
-const node = doc.useNode("node-id");
+const node = doc.root().value("node-id");
 ```
 
 ## The GumnutDoc Object
@@ -72,10 +72,10 @@ The most common way to use GumnutNode is with Gumnut's custom elements:
 
 ```javascript
 // Get a reference to a node
-const textNode = doc.useNode("text-content");
+const textNode = doc.root().value("text-content");
 
 // Assign it to a Gumnut component
-document.querySelector("gumnut-text").node = textNode;
+document.querySelector("gumnut-text").model = textNode;
 ```
 
 ## Methods
@@ -292,7 +292,7 @@ If you need to work with nodes programmatically without using Gumnut's web compo
 ### Get Node Content
 
 ```javascript
-const textNode = doc.useNode("text-content");
+const textNode = doc.root().value("text-content");
 console.log("Node content:", textNode.contents());
 ```
 

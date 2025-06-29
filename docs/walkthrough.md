@@ -13,7 +13,7 @@ This guide will walk you through the process of enhancing an existing project wi
 - npm (or your package manager of choice)
 - A basic understanding of JavaScript and web components
 
-You'll also need to sign up for a free account; head to the [Gumnut Dashboard](https://dashboard.dev.gumnut.dev/) to make one.
+You'll also need to sign up for a free account; head to the [Gumnut Dashboard](https://hackathon.gumnut.dev/) to make one.
 
 ## The Example Site
 
@@ -91,8 +91,7 @@ import {
 import "@gumnutdev/api/dom";
 
 configureGumnut({
-  remoteHost: "v0-collab.dev.gumnut.dev",
-  projectId: "your-project-id", // Demo uses 'good-dogs'
+  projectId: "your-project-id",
   localDevKey: "your-api-key", // Paste your Local Dev Key here
 });
 ```
@@ -159,7 +158,7 @@ Let's start with the `dogName` field. We'll replace the existing element with th
 Next, create/retrieve a node from the Document, and associate it with the input field.
 
 ```javascript
-document.getElementById("dogName").node = gumnutDoc.useNode("dogName");
+document.getElementById("dogName").model = gumnutDoc.root().value("dogName");
 ```
 
 That should be all you need to see it works! Let's check by opening a new tab and typing stuff.
@@ -188,7 +187,7 @@ Next, let's do the same for the `description` textarea. The process is the same,
 ```
 
 ```javascript
-document.getElementById("description").node = gumnutDoc.useNode("description");
+document.getElementById("description").model = gumnutDoc.root().value("description");
 ```
 
 And you're done. That's all it takes to start editing a field with Gumnut. Open the page in two browser windows and you should see changes in one window seamlessly replicate in the other.
@@ -225,17 +224,17 @@ Let's use `<gumnut-data>` elements to track changes to the Winning Features chec
 ```
 
 ```javascript
-document.getElementById("floppyEars").node = gumnutDoc.useNode("floppyEars");
-document.getElementById("boopableSnoot").node =
-  gumnutDoc.useNode("boopableSnoot");
-document.getElementById("toeBeans").node = gumnutDoc.useNode("toeBeans");
-document.getElementById("goodDogRange").node =
-  gumnutDoc.useNode("goodDogRange");
+document.getElementById("floppyEars").model = gumnutDoc.root().value("floppyEars");
+document.getElementById("boopableSnoot").model =
+  gumnutDoc.root().value("boopableSnoot");
+document.getElementById("toeBeans").model = gumnutDoc.root().value("toeBeans");
+document.getElementById("goodDogRange").model =
+  gumnutDoc.root().value("goodDogRange");
 ```
 
 ## 5. Commiting Changes.
 
-Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://dashboard.dev.gumnut.dev/), navigate to your projects, and click the Data tab, and open it side-by-side with your app, you'll see all the changes users are making while they're being made.
+Great! Now all of our inputs are syncing across browsers. Not only that; all of your changes are captured by Gumnut. If you open the [Data Index panel](https://hackathon.gumnut.dev/), navigate to your projects, and click the Data tab, and open it side-by-side with your app, you'll see all the changes users are making while they're being made.
 
 ![Changes are reflected in the dashboard as users type](/images/getting-started/step-5-dashboard-pending.gif)
 
@@ -277,7 +276,7 @@ The way to do this is the following:
 
 ```javascript
 // attach the focus element to the corresponding gumnut node
-document.getElementById("dogNameFocus").node = gumnutDoc.useNode("dogName");
+document.getElementById("dogNameFocus").model = gumnutDoc.root().value("dogName");
 ```
 
 :::

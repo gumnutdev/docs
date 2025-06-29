@@ -5,9 +5,11 @@ description: "React components for Gumnut"
 
 # React
 
-Gumnut provides a set of ready-to-use React components that make it easy to integrate collaborative form editing experiences into your applicaitons.
+Gumnut provides a set of ready-to-use React components that make it easy to integrate collaborative form editing experiences into your applications.
 
-Its API is much like a "form management library", but it backs onto collaborative state.
+::: tip
+Gumnut's API is much like a "form management library", but it backs onto collaborative state.
+:::
 
 ## Getting Started
 
@@ -33,10 +35,7 @@ At a high-level, you have to perform a few steps to use Gumnut:
 Before you start, you'll need to:
 
 - add "@gumnutdev/react" to your React project using your favorite package manager (we prefer [pnpm](https://pnpm.io/))
-- create a project on [the dashboard](https://dashboard.dev.gumnut.dev), including creating a "local dev key" under API Keys
-
-Note also that this library has not been completely tested with SSR approaches to React.
-Please contact us if you have trouble—we'd love to fix it.
+- create a project on [the dashboard](https://hackathon.gumnut.dev), including creating a "local dev key" under API Keys
 
 ### 1. Provide Global Configuration
 
@@ -47,12 +46,12 @@ import { configureGumnut } from "@gumnutdev/react";
 
 configureGumnut({
   projectId: "your-project-id-here",
-  localDevKey: "...", // get this from dashboard during local dev only
+  localDevKey: "...", // get this from API Keys in dashboard during local dev only
 });
 ```
 
 Alternatively, you can also expose the environment variables `GUMNUT_PROJECT_ID` and `GUMNUT_LOCAL_DEV_KEY` though your dev environment.
-This might be safer than specifying this in code, as your `localDevKey` gives dangerous levels of access to your project.
+This might be safer than specifying this in code, as your `localDevKey` gives dangerous levels of access to your project during testing.
 
 ### 2. Call `useGumnutDoc`
 
@@ -69,7 +68,7 @@ function YourComponent() {
 ```
 
 For now, you'll use `buildTestToken` to generate a dummy local token with acess to all documents.
-If you like, this method accepts arguments such as a fixed UID and the user's name/email.
+If you like, this method accepts arguments such as a fixed UID and the user's name/email (otherwise each connection will be "a different user").
 
 ### 3. Add Compoonents
 
@@ -109,7 +108,7 @@ function YourComponent() {
 Unlike regular form elements, you do not provide a `value` here—this is automatically bound to the Gumnut state.
 
 Now, you should open your page in several tabs and try typing: you should see your other selves' cursors!
-Be sure to also open [the dashboard](https://dashboard.dev.gumnut.dev) and watch the edits on the "Data Index" page.
+Be sure to also open [the dashboard](https://hackathon.gumnut.dev) and watch the edits on the "Data Index" page.
 
 #### 3a. Troubleshooting
 
@@ -155,8 +154,7 @@ Be sure to load up its documentation by ctrl-clicking in VSCode or your preferre
 
 Gumnut is a convenient collaborative editor, but the point of it is to edit your existing data.
 
-Right now, that data is a simple `Record<string, string>` of field names to text.
-Gumnut at launch does not support structured JSON.
+Right now, that data is a simple `Record<string, any>` of structured data.
 
 The easiest way to ensure that your data is loaded is to call `actions.load()` as a result of having the server data available.
 What this looks like will vary widely based on your stack.
@@ -179,6 +177,7 @@ function YourComponent() {
 
 Data that is dirty will not be replaced on additional loads.
 This is a complex concept; try Gumnut out to get a clearer sense of it.
+The key is that you can safely call `.load` as part of your client's side-effects: this is what makes integrating Gumnut easy.
 
 ### 5. Call `actions.commit()`
 
@@ -190,9 +189,9 @@ function YourComponent() {
   const scope = useGumnutDoc(...);
 
   const handleSubmit = async () => {
-    scope.actions.commit(async ({ changes }) => {
-      // "changes" contains just the dirty fields
-      await doLongRunningSaveToYourServer(changes);
+    scope.actions.commit(async ({ dirty, all }) => {
+      // "dirty" contains just the changed fields
+      await doLongRunningSaveToYourServer(dirty);
     });
   };
 
@@ -203,7 +202,7 @@ function YourComponent() {
 ```
 
 If the callback you pass to `commit()` throws an exception, Gumnut will not take a snapshot.
-If, however, it succeeds, all your fields will be marked "clean" and the snapshot will appear in [the dashboard](https://dashboard.dev.gumnut.dev).
+If, however, it succeeds, all your fields will be marked "clean" and the snapshot will appear in [the dashboard](https://hackathon.gumnut.dev).
 
 You can also call `revertAll()` to abandon all changes and reset to your last loaded state (e.g., you might wire this up to a form reset button).
 

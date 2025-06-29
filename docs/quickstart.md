@@ -30,7 +30,6 @@ import {
 import { GumnutTextElement } from "@gumnutdev/api/dom";
 
 configureGumnut({
-  remoteHost: "v0-collab.dev.gumnut.dev",
   projectId: "your-project-id",
   localDevKey: "your-dev-key",
 });
@@ -42,12 +41,13 @@ const doc = connectToGumnutDoc({
   getToken: token,
 }).doc;
 
-// Create a "gumnut-textarea" element, which is a multi-line text input.
+// Create a "gumnut-text" element, which is a powerful plain-text input.
 const textareaEl = new GumnutTextElement();
+textareaEl.multiline = true
 document.body.append(textareaEl);
 
 // Connect the textarea to the field "new-input" of the document we joined before.
-textareaEl.node = doc.useNode("new-input");
+textareaEl.model = doc.root().value("new-input");
 ```
 
 ```html [index.html]
@@ -92,12 +92,12 @@ gumnut-text {
 To get it working
 
 1. Copy these 3 files into a directory
-2. update `projectId` and `localDevKey` from your [dashboard](https://dashboard.gumnut.dev).
+2. update `projectId` and `localDevKey` from your [dashboard](https://hackathon.gumnut.dev).
 3. `npm install @gumnutdev/api`
 4. Run a local web server (we use `vite`)
 
 If you do all those things it should Just Work™!
 
-Login to the [dashboard](https://dashboard.gumnut.dev) and see yourself typing in real-time on the server. It's fun and gives you a satisfied feeling inside.
+Login to the [dashboard](https://hackathon.gumnut.dev) and see yourself typing in real-time on the server. It's fun and gives you a satisfied feeling inside.
 
 If you'd like to integrate with React, check out [its API docs](/components/react).
