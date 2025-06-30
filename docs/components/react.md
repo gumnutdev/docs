@@ -51,7 +51,12 @@ configureGumnut({
 ```
 
 Alternatively, you can also expose the environment variables `GUMNUT_PROJECT_ID` and `GUMNUT_LOCAL_DEV_KEY` though your dev environment.
-This might be safer than specifying this in code, as your `localDevKey` gives dangerous levels of access to your project during testing.
+This is a better idea long-term, as the `localDevKey` gives dangerous levels of access to your project during testing: you _should not_ commit it to a repo.
+
+::: tip
+If you're using Next.JS, you must call `configureGumnut` from within a `"use client"` file, perhaps as part of a `...Providers` component.
+You can safely call it at the top of the file&mdash;you don't need to put it inside the component itself.
+:::
 
 ### 2. Call `useGumnutDoc`
 
@@ -61,14 +66,15 @@ In a component, such as a form, set up a connection to a document of your choice
 import { useGumnutDoc, buildTestToken } from "@gumnutdev/react";
 
 function YourComponent() {
-  const getToken = () => buildTestToken();
+  const getToken = () => buildTestToken('some-fake-uid');
   const scope = useGumnutDoc({ getToken, docId: "your-document-id" });
   // ...
 }
 ```
 
 For now, you'll use `buildTestToken` to generate a dummy local token with acess to all documents.
-If you like, this method accepts arguments such as a fixed UID and the user's name/email (otherwise each connection will be "a different user").
+This works because of the `localDevKey` you set, earlier.
+You can also specify extra arguments such as the fake user's name and email.
 
 ### 3. Add Compoonents
 
@@ -147,6 +153,9 @@ function YourComponent() {
 }
 ```
 
+You should also use `GumnutData` when you just want to render the value of some field: the value is in `arg.field.value`.
+This is required as it might change remotely, and the component will re-run `render` whenever the underlying value changes.
+
 While out of scope of this brief tutorial, `<GumnutData>` can also power focus indicators and the "dirty bit": it does not have to render data or components at all, but rather, it can render metadata for this node, such as who has their cursor here.
 Be sure to load up its documentation by ctrl-clicking in VSCode or your preferred editor.
 
@@ -178,6 +187,11 @@ function YourComponent() {
 Data that is dirty will not be replaced on additional loads.
 This is a complex concept; try Gumnut out to get a clearer sense of it.
 The key is that you can safely call `.load` as part of your client's side-effects: this is what makes integrating Gumnut easy.
+
+::: tip
+The load call should be used when you 'start' an editing session and the data you're loading first arrives from the server.
+Don't call it every time your data changes.
+:::
 
 ### 5. Call `actions.commit()`
 

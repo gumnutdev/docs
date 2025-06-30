@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@gumnutdev/api':
-        specifier: ^0.3.16
-        version: 0.3.16
       markdown-it-implicit-figures:
         specifier: ^0.12.0
         version: 0.12.0
@@ -282,9 +279,6 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
-
-  '@gumnutdev/api@0.3.16':
-    resolution: {integrity: sha512-gOaceHmjPqWYuTWRuSdqdEyXmm0UvsryS3xtG3manTTjZIhzrWpI7lHxdGijG+xnuJ1jGii3WnkO83HoVZZEZQ==}
 
   '@iconify-json/simple-icons@1.2.31':
     resolution: {integrity: sha512-xBUPtvkcSAiXs9DfVtudhLddQtQYin3I3Ph/W5FNYA0oE6r2hmLB8TgOog9OjOt1Sxn3IB5+4n5+64DMf2xNmQ==}
@@ -1047,8 +1041,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.21.5':
     optional: true
-
-  '@gumnutdev/api@0.3.16': {}
 
   '@iconify-json/simple-icons@1.2.31':
     dependencies:
