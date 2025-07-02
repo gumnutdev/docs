@@ -88,8 +88,8 @@ const { doc, control } = useGumnutDoc({
 
 1. Create an AI agent at https://hackathon.gumnut.dev/.
 
-   This agent can - translate to French, make sure a field is filled out, do te4xt transformation, and so on.
-
+   This agent can - translate to French, make sure a field is filled out, do text transformation, and so on.
+  
 ::: tip
 Right now, agents are limited in their abilities/context.
 The hackathon is about how it feels to collaborate with agents in your forms.
@@ -135,3 +135,16 @@ We have a low-level API at [`@gumnutdev/api`](http://npmjs.com/package/@gumnutde
 If you'd like to use it, let us know!
 
 It's fairly similar: you still need to call `useGumnutDoc` and so on, but you'll be poking more directly into Gumnut's internal data structure to wire up your components, which are all custom elementrs (e.g. `gumnut-text`).
+
+## Skip To The End
+
+Both Vue and React demos above have a branch called `use-gumnut`.
+Check it out, run `pnpm install` and `pnpm start` - you'll be already wired up to Gumnut.
+
+These projects are configured with our internal key, so you might want to change their `configureGumnut` call to use your own project/key, so you can create new types of agents.
+
+## Thanks!
+
+Have fun!
+Please give us feedback - directly or via hello@gumnut.dev.
+Thanks again.
