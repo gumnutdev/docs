@@ -76,10 +76,11 @@ For now, you'll use `buildTestToken` to generate a dummy local token with acess 
 This works because of the `localDevKey` you set, earlier.
 You can also specify extra arguments such as the fake user's name and email.
 
-### 3. Add Compoonents
+### 3. Add Components
 
-To use Gumnut, you'll have to add a collaborative component, such as `<GumnutText>`.
-This has a number of options including auto-resize and multiline.
+To use Gumnut, you'll have to add a collaborative component, such as `<GumnutText>`, which may replace your classic input components.
+This has a number of modern convenience options including auto-resize and multiline.
+You might want to try `resize="auto" wrap` for a growing textarea.
 
 ::: warning
 Note that this is completely unstyled by default, so the example below includes a `border` quite literally so you can see where the component is!
@@ -90,6 +91,7 @@ import { useGumnutDoc, buildTestToken, GumnutText } from "@gumnutdev/react";
 
 function YourComponent() {
   // ... setup here
+  const scope = useGumnutDoc({ getToken, docId: "your-document-id" });
 
   return (
     <>
@@ -219,6 +221,45 @@ If the callback you pass to `commit()` throws an exception, Gumnut will not take
 If, however, it succeeds, all your fields will be marked "clean" and the snapshot will appear in [the dashboard](https://hackathon.gumnut.dev).
 
 You can also call `revertAll()` to abandon all changes and reset to your last loaded state (e.g., you might wire this up to a form reset button).
+Think of this as resetting all the changes in the active editing branch.
+
+## AI Agents
+
+Once you have access to a `GumnutDoc` instance, you can call its methods to trigger and observe agents.
+(If your agents are set to "Always On", they may already be modifying your data.)
+
+Be sure to read the [Agent](../guides/agent) guide for how you set up and configure agents.
+
+Here's an example component which you can use to trigger an agent:
+
+```tsx
+function YourComponent() {
+  const scope = useGumnutDoc({ getToken, docId });
+
+  const triggerAgentHandler = () => {
+    scope.doc.triggerAgent('agent-id-here');
+  };
+
+  // We use AbortController/Signal heavily; here's a snippet to wire up an event during this component's lifecycle
+  useEffect(() => {
+    const c = new AbortController();
+    scope.doc.addListener(
+      'agentAction',
+      (status) => {
+        // announce status through e.g., a toast
+      },
+      c.signal,
+    );
+    return () => c.abort();
+  });
+
+  return <>
+    <Button @click={triggerAgentHandler>Do Agent Thing</Button>
+  </>;
+}
+```
+
+The agent will join the current doc just like any other participant and collaborate on the fields.
 
 ## Fin
 

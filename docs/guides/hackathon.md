@@ -103,7 +103,35 @@ If you e.g., are interested in providing agents with millions of legal documents
 
 3. Set the agent to "Always-On", so it works on any open document; or, create a button in your UI that calls `doc.triggerAgent` for a once-off run.
 
-## Specific Framework Guides
+## Projects + Framework
 
-- [Vue](../components/vue)
-- [React](../components/react)
+We have two different demo projects written in Vue and React.
+Both have roots in "vibe coding" 🤖
+
+You're also very welcome to use your own application in one of these frameworks, or use the lower-level API.
+
+All APIs have fairly clear docs built-in: if you're confused, ctrl/cmd-click on a symbol.
+
+### Vue
+
+Check out [the guide](../componets/vue) for Vue!
+Our library for Vue is at [`@gumnutdev/vue`](http://npmjs.com/package/@gumnutdev/vue).
+
+We also have [a demo app](https://github.com/gumnutdev/vue-demo) you can check out.
+The `main` branch _does not_ have Gumnut but is something you can add it to tonight.
+
+### React
+
+Check out [the guide](../componets/react) for React!
+Our library for React is at [`@gumnutdev/react`](http://npmjs.com/package/@gumnutdev/react).
+
+React's [demo app](https://github.com/gumnutdev/quick-notes) is much the same.
+It's actually a Next.JS app.
+The `main` branch is ready to be modified.
+
+## Low-Level API
+
+We have a low-level API at [`@gumnutdev/api`](http://npmjs.com/package/@gumnutdev/api).
+If you'd like to use it, let us know!
+
+It's fairly similar: you still need to call `useGumnutDoc` and so on, but you'll be poking more directly into Gumnut's internal data structure to wire up your components, which are all custom elementrs (e.g. `gumnut-text`).

@@ -37,6 +37,7 @@ export default defineConfig({
             items: [
               { text: "Authentication", link: "/guides/authentication" },
               { text: "Hackathon", link: "/guides/hackathon" },
+              { text: "Agent", link: "/guides/agent" },
             ],
           },
           {
