@@ -114,7 +114,7 @@ All APIs have fairly clear docs built-in: if you're confused, ctrl/cmd-click on 
 
 ### Vue
 
-Check out [the guide](../componets/vue) for Vue!
+Check out [the guide](../components/vue) for Vue!
 Our library for Vue is at [`@gumnutdev/vue`](http://npmjs.com/package/@gumnutdev/vue).
 
 We also have [a demo app](https://github.com/gumnutdev/vue-demo) you can check out.
@@ -122,7 +122,7 @@ The `main` branch _does not_ have Gumnut but is something you can add it to toni
 
 ### React
 
-Check out [the guide](../componets/react) for React!
+Check out [the guide](../components/react) for React!
 Our library for React is at [`@gumnutdev/react`](http://npmjs.com/package/@gumnutdev/react).
 
 React's [demo app](https://github.com/gumnutdev/quick-notes) is much the same.
