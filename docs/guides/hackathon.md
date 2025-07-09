@@ -54,21 +54,21 @@ There's a few steps to get started.
 
    ```ts
    configureGumnut({
-     projectId: 'your-project-id',
-     localDevKey: '<key>',
+     projectId: "your-project-id",
+     localDevKey: "<key>",
    });
    ```
 
 3. When you want to use a document - and typically a document maps 1:1 to a database row you're editing - call `useGumnutDoc` or similar:
 
-  ```ts
-  const { doc } = useGumnutDoc({
-    docId: `whatever/doc/id/you/like`,
-    getToken: () => buildTestToken('fake-user', { name: 'Sam' }),
-  });
-  ```
+```ts
+const { doc, control } = useGumnutDoc({
+  docId: `whatever/doc/id/you/like`,
+  getToken: () => buildTestToken("fake-user", { name: "Sam" }),
+});
+```
 
-  (In local dev mode, you can use `buildTestToken` to claim you're anyone).
+(In local dev mode, you can use `buildTestToken` to claim you're anyone).
 
 4. Replace your existing `<Input>` or similar with `<GumnutText>`.
 
@@ -89,7 +89,7 @@ There's a few steps to get started.
 1. Create an AI agent at https://hackathon.gumnut.dev/.
 
    This agent can - translate to French, make sure a field is filled out, do te4xt transformation, and so on.
-  
+
 ::: tip
 Right now, agents are limited in their abilities/context.
 The hackathon is about how it feels to collaborate with agents in your forms.
@@ -101,7 +101,7 @@ If you e.g., are interested in providing agents with millions of legal documents
 
 3. Listen to the `doc.agentAction` event in your pages, potentially showing the message to your end-users: this describes what the agent is going to do.
 
-3. Set the agent to "Always-On", so it works on any open document; or, create a button in your UI that calls `doc.triggerAgent` for a once-off run.
+4. Set the agent to "Always-On", so it works on any open document; or, create a button in your UI that calls `doc.triggerAgent` for a once-off run.
 
 ## Projects + Framework
 

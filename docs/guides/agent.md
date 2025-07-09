@@ -56,7 +56,7 @@ We think it's still compelling at the top-level.
 Broadly, once you have a `GumnutDoc`, you can trigger an agent like this:
 
 ```ts
-doc.triggerAgent('agent-id', 'optional extra context to start with');
+doc.triggerAgent("agent-id", "optional extra context to start with");
 ```
 
 The same agent is either on or off for a given document - there cannot be several of the same agent running on the same document at once.
@@ -69,12 +69,13 @@ You might have seen these in our demos.
 Be sure to wire them up too:
 
 ```ts
-doc.value.addListener(
-  'agentAction',
+const c = new AbortController();
+doc.addListener(
+  "agentAction",
   (m) => {
-    console.info('Agent action', m);
+    console.info("Agent action", m);
     // maybe announce to a toast
   },
-  c.signal,
+  c.signal
 );
 ```
