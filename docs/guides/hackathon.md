@@ -14,6 +14,8 @@ This guide is a high-level introdocution to Gumnut and what you'll do in the hac
 Skip to [Projects + Framework](#projects-framework) to find the React and Vue guides and samples.
 :::
 
+![High level elements](/images/layout.png)
+
 ## What is Gumnut
 
 Gumnut is a developer tool which:
