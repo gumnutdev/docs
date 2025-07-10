@@ -9,6 +9,11 @@ There's two parts to the event, and you can do either or both.
 We hope you have fun!
 Be sure to ask us (folks in Gumnut t-shirts) if you have any questions.
 
+::: tip
+This guide is a high-level introdocution to Gumnut and what you'll do in the hackathon.
+Skip to [Projects + Framework](#projects-framework) to find the React and Vue guides and samples.
+:::
+
 ## What is Gumnut
 
 Gumnut is a developer tool which:
