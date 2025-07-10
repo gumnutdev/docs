@@ -89,7 +89,7 @@ const { doc, control } = useGumnutDoc({
 1. Create an AI agent at https://hackathon.gumnut.dev/.
 
    This agent can - translate to French, make sure a field is filled out, do text transformation, and so on.
-  
+
 ::: tip
 Right now, agents are limited in their abilities/context.
 The hackathon is about how it feels to collaborate with agents in your forms.
@@ -146,5 +146,5 @@ These projects are configured with our internal key, so you might want to change
 ## Thanks!
 
 Have fun!
-Please give us feedback - directly or via hello@gumnut.dev.
+Please give us feedback - directly or via [hello@gumnut.dev](mailto:hello@gumnut.dev).
 Thanks again.
