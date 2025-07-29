@@ -22,8 +22,8 @@ function parseDate(dateStr: any): Date {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Gumnut Blog",
-  description: "Building Gumnut - the modern textbox",
+  title: "Gumnut",
+  description: "Modernize SaaS - for teams",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
@@ -32,8 +32,10 @@ export default defineConfig({
       alt: "Gumnut Logo",
     },
     nav: [
-      { text: "Home", link: "/" },
-      { text: "Articles", link: "/articles" },
+      { text: "Pricing", link: "/pricing" },
+      { text: "Blog", link: "/blog" },
+      { text: "Case Studies", link: "/case-studies" },
+      { text: "Docs", link: "https://docs.gumnut.dev" },
     ],
 
     socialLinks: [
@@ -47,6 +49,8 @@ export default defineConfig({
       },
     ],
   },
+  ignoreDeadLinks: true,
+  cleanUrls: true,
   markdown: {
     config: (md) => {
       md.use(implicitFigures, {
@@ -66,6 +70,11 @@ export default defineConfig({
       },
     ],
   ],
+  vite: {
+    css: {
+      devSourcemap: true,
+    },
+  },
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
       // Create content loader for blog posts
@@ -121,6 +130,61 @@ export default defineConfig({
         JSON.stringify(posts, null, 2)
       );
     }
+
+    if (pageData.relativePath.startsWith("case-studies/")) {
+      // Create content loader for case studies
+      if (pageData.frontmatter.image) {
+        pageData.frontmatter.class = "has-header-image";
+      }
+
+      // Create content loader for case studies
+      const caseStudiesLoader = createContentLoader("case-studies/*.md", {
+        includeSrc: true,
+        render: true,
+        excerpt: true,
+        transform(rawData) {
+          return rawData
+            .sort((a, b) => {
+              const dateA = parseDate(a.frontmatter.date);
+              const dateB = parseDate(b.frontmatter.date);
+              return dateB.getTime() - dateA.getTime();
+            })
+            .map((page) => {
+              return {
+                url: page.url,
+                frontmatter: page.frontmatter,
+                excerpt: page.excerpt,
+              };
+            });
+        },
+      });
+
+      // Load case studies data
+      const caseStudies = await caseStudiesLoader.load();
+
+      // Write case studies data to a JSON file for the Vue component
+      // Write to both the dist directory and the public directory
+      const distDir = resolve(__dirname, "dist");
+      const publicDir = resolve(__dirname, "..", "public");
+
+      if (!fs.existsSync(distDir)) {
+        fs.mkdirSync(distDir, { recursive: true });
+      }
+
+      if (!fs.existsSync(publicDir)) {
+        fs.mkdirSync(publicDir, { recursive: true });
+      }
+
+      fs.writeFileSync(
+        resolve(distDir, "case-studies.json"),
+        JSON.stringify(caseStudies, null, 2)
+      );
+
+      fs.writeFileSync(
+        resolve(publicDir, "case-studies.json"),
+        JSON.stringify(caseStudies, null, 2)
+      );
+    }
   },
   async buildEnd() {
     // Create content loader for blog posts
@@ -145,8 +209,33 @@ export default defineConfig({
       },
     });
 
+    // Create content loader for case studies
+    const caseStudiesLoader = createContentLoader("case-studies/*.md", {
+      includeSrc: true,
+      render: true,
+      excerpt: true,
+      transform(rawData) {
+        return rawData
+          .sort((a, b) => {
+            const dateA = parseDate(a.frontmatter.date);
+            const dateB = parseDate(b.frontmatter.date);
+            return dateB.getTime() - dateA.getTime();
+          })
+          .map((page) => {
+            return {
+              url: page.url,
+              frontmatter: page.frontmatter,
+              excerpt: page.excerpt,
+            };
+          });
+      },
+    });
+
     // Load posts data
     const posts = await postsLoader.load();
+
+    // Load case studies data
+    const caseStudies = await caseStudiesLoader.load();
 
     // Write posts data to a JSON file for the Vue component
     const publicDir = resolve(__dirname, "..", "public");
@@ -157,6 +246,11 @@ export default defineConfig({
     fs.writeFileSync(
       resolve(publicDir, "posts.json"),
       JSON.stringify(posts, null, 2)
+    );
+
+    fs.writeFileSync(
+      resolve(publicDir, "case-studies.json"),
+      JSON.stringify(caseStudies, null, 2)
     );
 
     // Generate RSS feed

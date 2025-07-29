@@ -3,19 +3,19 @@
 layout: home
 
 hero:
-  name: "Building Gumnut"
-  text: "the modern textbox"
-  tagline: Adventures in building a real-time editor
+  name: "Modernize SaaS"
+  text: "for teams"
+  tagline:
   image:
     src: ./images/hero.svg
-    alt: Building Gumnut hero image
+    alt: Gumnut
   actions:
     - theme: brand
-      text: Articles
-      link: /articles
-    - theme: alt
-      text: Docs
+      text: 📄 Docs
       link: https://docs.gumnut.dev
+    - theme: alt
+      text: 🧑‍💻 Book a call
+      link: https://calendly.com/owen-gumnut/30min
 ---
 
 <script setup>

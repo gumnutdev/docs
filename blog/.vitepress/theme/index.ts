@@ -1,5 +1,6 @@
 import DefaultTheme from "vitepress/theme";
 import "./style.css";
+import "./custom.css";
 import { inBrowser } from "vitepress";
 
 export default {

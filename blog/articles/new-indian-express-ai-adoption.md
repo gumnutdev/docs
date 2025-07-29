@@ -2,6 +2,7 @@
 title: Data on Enterprise AI adoption
 description: AI agent adoption in enterprises
 date: 2025-06-02
+author: "Owen Brasier"
 ---
 
 # AI agent adoption in enterprise

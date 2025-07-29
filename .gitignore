@@ -5,3 +5,4 @@ blog/.vitepress/dist
 blog/.vitepress/cache
 node_modules/
 .firebase/*
+draft/

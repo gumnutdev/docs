@@ -1,5 +1,5 @@
 ---
-title: Articles
+title: Blog
 ---
 
 <script setup>

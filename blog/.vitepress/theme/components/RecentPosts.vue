@@ -41,7 +41,7 @@ function formatDate(dateString) {
 
 <template>
   <div class="recent-posts">
-    <h2>Recent Articles</h2>
+    <h2>Recent Blog Posts</h2>
     
     <div v-if="loading" class="loading">
       Loading posts...

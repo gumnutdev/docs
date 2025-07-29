@@ -1,0 +1,12 @@
+[
+  {
+    "url": "/case-studies/sample-case-study",
+    "frontmatter": {
+      "title": "Sample Case Study: Building a Real-time Editor",
+      "description": "A detailed look at how we built Gumnut, a modern real-time collaborative text editor",
+      "date": "2024-01-15T00:00:00.000Z",
+      "author": "Gumnut Team"
+    },
+    "excerpt": ""
+  }
+]

@@ -1,0 +1,194 @@
+/* Pricing Page Styles */
+/* Override VitePress default content width for pricing page */
+.pricing-page {
+  max-width: 1200px !important;
+  margin: 0 auto;
+}
+
+/* More specific targeting for pricing page */
+.VPDoc.has-aside .content-container,
+.VPDoc:not(.has-aside) .content-container {
+  max-width: 1200px !important;
+}
+
+/* Target the main content area */
+.VPDoc .content {
+  max-width: 1200px !important;
+}
+
+/* Remove max-width constraint entirely */
+:root {
+  --vp-layout-max-width: none; /* Removes the max-width constraint */
+}
+
+/* Alternatively, for more specific control if needed */
+.VPDocContent {
+  max-width: none !important;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.pricing-card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--vp-c-brand);
+  background: var(--vp-c-brand-soft);
+  transform: scale(1.05);
+}
+
+.pricing-card.featured::before {
+  content: "Most Popular";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--vp-c-brand);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pricing-header h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.price {
+  margin-bottom: 2rem;
+}
+
+.amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--vp-c-brand);
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+}
+
+.pricing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  text-align: left;
+}
+
+.pricing-features li {
+  padding: 0.5rem 0;
+  color: var(--vp-c-text-1);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.pricing-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--vp-c-brand);
+  font-weight: bold;
+}
+
+.pricing-action {
+  margin-top: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  text-decoration: none !important;
+}
+
+.btn-primary {
+  background: var(--vp-c-brand);
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--vp-c-brand-2) !important;
+  border-color: var(--vp-c-brand-2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--vp-c-brand);
+  border-color: var(--vp-c-brand);
+}
+
+.btn-outline:hover {
+  background: var(--vp-c-brand);
+  color: white !important;
+}
+
+/* Features comparison table */
+.pricing-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.pricing-page th,
+.pricing-page td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.pricing-page th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+
+.pricing-page th:first-child,
+.pricing-page td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Hide header anchors on pricing page */
+.pricing-page .header-anchor {
+  visibility: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card.featured {
+    transform: none;
+  }
+
+  .amount {
+    font-size: 2.5rem;
+  }
+}
