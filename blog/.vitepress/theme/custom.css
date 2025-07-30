@@ -5,6 +5,17 @@
   margin: 0 auto;
 }
 
+/* Navbar Logo Styling */
+.VPNav .VPNavBar .container .title .logo {
+  height: 32px !important;
+  width: auto !important;
+}
+
+.VPNav .VPNavBar .container .title .logo img {
+  height: 32px !important;
+  width: auto !important;
+}
+
 /* More specific targeting for pricing page */
 .VPDoc.has-aside .content-container,
 .VPDoc:not(.has-aside) .content-container {

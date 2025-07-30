@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Modernize SaaS"
+  name: "Modern SaaS"
   text: "for teams"
-  tagline:
+  tagline: A devtool that enables real-time collaboration, auditing, version history and AI agents, in your app, in minutes.
   image:
     src: ./images/hero.svg
     alt: Gumnut
@@ -19,7 +19,14 @@ hero:
 ---
 
 <script setup>
-import RecentPosts from './.vitepress/theme/components/RecentPosts.vue'
+import DemoSection from './.vitepress/theme/components/DemoSection.vue'
+import SocialProofSection from './.vitepress/theme/components/SocialProofSection.vue'
+import CaseStudiesSection from './.vitepress/theme/components/CaseStudiesSection.vue'
+import FeaturesOverviewSection from './.vitepress/theme/components/FeaturesOverviewSection.vue'
+import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailSection.vue'
 </script>
 
-<RecentPosts />
+<DemoSection />
+<FeaturesOverviewSection />
+<CaseStudiesSection />
+<FeaturesDetailSection />

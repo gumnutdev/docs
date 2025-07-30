@@ -26,6 +26,7 @@ export default defineConfig({
   description: "Modernize SaaS - for teams",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    siteTitle: false,
     logo: {
       light: "/logo/light.svg",
       dark: "/logo/dark.svg",
