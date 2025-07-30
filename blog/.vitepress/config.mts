@@ -27,6 +27,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     siteTitle: false,
+    externalLinkIcon: false,
     logo: {
       light: "/logo/light.svg",
       dark: "/logo/dark.svg",
@@ -37,6 +38,7 @@ export default defineConfig({
       { text: "Blog", link: "/blog" },
       { text: "Case Studies", link: "/case-studies" },
       { text: "Docs", link: "https://docs.gumnut.dev" },
+      { text: "Login", link: "https://dashboard.gumnut.dev" },
     ],
 
     socialLinks: [
