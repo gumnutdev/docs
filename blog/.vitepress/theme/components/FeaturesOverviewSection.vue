@@ -3,24 +3,29 @@
     <div class="container">
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>Real-time Collaboration</h3>
-          <p>Multiple users can edit simultaneously with live updates and conflict resolution</p>
+          <div class="feature-icon">
+            <img src="/website/rtc-icon.png" alt="real-time collaboration" class="feature-icon-img">
+          </div>
+          <p><strong>Real-time <span class="primary-color">collaboration</span></strong></p>
+          <p><strong>work together!—not against each other</strong></p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3>Enterprise Security</h3>
-          <p>Bank-grade security with end-to-end encryption and compliance standards</p>
+          <div class="feature-icon">
+            <img src="/website/history-icon.png" alt="version history" class="feature-icon-img">
+          </div>
+          <p><strong>Complete <span class="primary-color">version history</span> every time you commit</strong></p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>Lightning Fast</h3>
-          <p>Optimized performance with sub-100ms latency for seamless user experience</p>
+          <div class="feature-icon">
+            <img src="/website/ai-agent-icon.png" alt="AI agents" class="feature-icon-img">
+          </div>
+          <p><strong>Drop-in <span class="primary-color">AI agents</span> which understand your forms and context to work with you</strong></p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔧</div>
-          <h3>Easy Integration</h3>
-          <p>Simple API integration with popular frameworks and platforms</p>
+          <div class="feature-icon">
+            <img src="/website/attribution-icon.png" alt="character-level attribution" class="feature-icon-img">
+          </div>
+          <p><strong>Chracter-level attribution to see <span class="primary-color">exactly</span> who typed what</strong></p>
         </div>
       </div>
     </div>
@@ -86,6 +91,18 @@ h2::before {
 .feature-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+}
+
+.feature-icon-img {
+  width: 5rem; /* Adjust as needed to match the font-size of the icon */
+  height: 5rem; /* Adjust as needed to match the font-size of the icon */
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.primary-color {
+  color: var(--vp-c-brand-1);
 }
 
 .feature-card h3 {
