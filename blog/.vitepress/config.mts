@@ -22,7 +22,7 @@ function parseDate(dateStr: any): Date {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Gumnut",
+  title: "Gumnut 🦩",
   description: "Modernize SaaS - for teams",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -35,7 +35,13 @@ export default defineConfig({
     },
     nav: [
       { text: "Pricing", link: "/pricing" },
-      { text: "Blog", link: "/blog" },
+      {
+        text: "Resources",
+        items: [
+          { text: "Blog", link: "/blog" },
+          { text: "Questions Hub", link: "/questions" },
+        ],
+      },
       { text: "Case Studies", link: "/case-studies" },
       { text: "Docs", link: "https://docs.gumnut.dev" },
       { text: "Login", link: "https://dashboard.gumnut.dev" },

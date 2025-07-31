@@ -204,6 +204,37 @@
   }
 }
 
+/* Ensure consistent heading alignment across all pages */
+.VPDoc .content h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.VPDoc.has-aside .content h1,
+.VPDoc:not(.has-aside) .content h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Ensure consistent content alignment */
+.VPDoc .content {
+  padding-left: 0 !important;
+}
+
+.VPDoc.has-aside .content,
+.VPDoc:not(.has-aside) .content {
+  padding-left: 0 !important;
+}
+
+/* Prevent scrollbar from affecting layout */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-y: scroll;
+}
+
 /* Hide external link arrows */
 .VPNavBarMenuLink .icon,
 .VPNavBarMenuLink .external-link-icon,

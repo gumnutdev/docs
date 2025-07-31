@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Modern SaaS"
-  text: "for teams"
-  tagline: A devtool that enables real-time collaboration, auditing, version history and AI agents, in your app, in minutes.
+  text: "to work together"
+  tagline: Add real-time collaboration, auditing, version history and AI agents, in your app, in minutes.
   image:
     src: ./images/hero.svg
     alt: Gumnut
