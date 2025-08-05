@@ -242,17 +242,17 @@ body {
   display: none !important;
 }
 
-/* Style the Login navigation link */
+/* Style the Book a demo navigation link */
 .VPNav
   .VPNavBar
   .container
   .content
   .VPNavBarMenu
-  .VPNavBarMenuLink[href*="dashboard.gumnut.dev"] {
+  .VPNavBarMenuLink[href*="calendly.com"] {
   background: var(--vp-c-brand);
   color: white !important;
   border-radius: 4px;
-  padding: 6px 12px;
+  padding: 4px 8px;
   margin-left: 8px;
   height: auto !important;
   line-height: 1.2;
@@ -267,7 +267,7 @@ body {
   .container
   .content
   .VPNavBarMenu
-  .VPNavBarMenuLink[href*="dashboard.gumnut.dev"]:hover {
+  .VPNavBarMenuLink[href*="calendly.com"]:hover {
   background: var(--vp-c-brand-2);
   color: white !important;
 }

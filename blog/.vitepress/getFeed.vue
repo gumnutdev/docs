@@ -1,34 +1,54 @@
+<template>
+  <div class="blog-posts">
+    <div id="blog-posts-container">
+      <div class="loading">Loading posts...</div>
+    </div>
+  </div>
+</template>
+
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useData } from 'vitepress';
+import { onMounted } from 'vue'
 
-const { site } = useData();
-const posts = ref([]);
-const loading = ref(true);
-const error = ref(null);
+onMounted(() => {
+  console.log('Component mounted, executing loadPosts');
+  loadPosts();
+})
 
-onMounted(async () => {
+// Vanilla JavaScript that works in MPA mode
+let posts = [];
+let loading = true;
+let error = null;
+
+async function loadPosts() {
+  console.log('loadPosts called');
   try {
-    // Use absolute path to fetch posts.json
+    console.log('Fetching posts.json...');
     const response = await fetch('/posts.json');
+    console.log('Response status:', response.status);
+    
     if (!response.ok) {
       if (response.status === 404) {
-        // If posts.json doesn't exist yet, show empty state
-        posts.value = [];
+        console.log('posts.json not found');
+        posts = [];
+        renderPosts();
         return;
       }
       throw new Error(`Failed to load posts: ${response.statusText}`);
     }
-    posts.value = await response.json();
+    
+    posts = await response.json();
+    console.log('Posts loaded:', posts.length);
+    renderPosts();
   } catch (err) {
     console.error('Error loading posts:', err);
-    error.value = err.message;
+    error = err.message;
+    renderPosts();
   } finally {
-    loading.value = false;
+    loading = false;
+    renderPosts();
   }
-});
+}
 
-// Format date to a readable string
 function formatDate(dateString) {
   if (!dateString) return '';
   const date = new Date(dateString);
@@ -38,34 +58,48 @@ function formatDate(dateString) {
     day: 'numeric' 
   });
 }
-</script>
 
-<template>
-  <div class="blog-posts">
+function renderPosts() {
+  console.log('renderPosts called, loading:', loading, 'error:', error, 'posts length:', posts.length);
+  const container = document.getElementById('blog-posts-container');
+  if (!container) {
+    console.log('Container not found');
+    return;
+  }
+
+  if (loading) {
+    container.innerHTML = '<div class="loading">Loading posts...</div>';
+    return;
+  }
+
+  if (error) {
+    container.innerHTML = `<div class="error">${error}</div>`;
+    return;
+  }
+
+  if (posts.length === 0) {
+    container.innerHTML = '<p>No posts found. Check back soon for new articles!</p>';
+    return;
+  }
+
+  const postsHtml = posts.map(post => `
+    <li>
+      <a href="${post.url}">${post.frontmatter.title || 'Untitled'}</a>
+      <div class="post-meta">
+        ${post.frontmatter.date ? `<span class="date">${formatDate(post.frontmatter.date)}</span>` : ''}
+        ${post.frontmatter.author ? `<span class="author">by ${post.frontmatter.author}</span>` : ''}
+      </div>
+      ${post.frontmatter.description ? `<p>${post.frontmatter.description}</p>` : ''}
+    </li>
+  `).join('');
+
+  container.innerHTML = `
     <h1>All Blog Posts</h1>
-    
-    <div v-if="loading" class="loading">
-      Loading posts...
-    </div>
-    
-    <div v-else-if="error" class="error">
-      {{ error }}
-    </div>
-    
-    <ul v-else-if="posts.length > 0">
-      <li v-for="post in posts" :key="post.url">
-        <a :href="post.url">{{ post.frontmatter.title || 'Untitled' }}</a>
-        <div class="post-meta">
-          <span v-if="post.frontmatter.date" class="date">{{ formatDate(post.frontmatter.date) }}</span>
-          <span v-if="post.frontmatter.author" class="author">by {{ post.frontmatter.author }}</span>
-        </div>
-        <p v-if="post.frontmatter.description">{{ post.frontmatter.description }}</p>
-      </li>
-    </ul>
-    
-    <p v-else>No posts found. Check back soon for new articles!</p>
-  </div>
-</template>
+    <ul>${postsHtml}</ul>
+  `;
+  console.log('Posts rendered');
+}
+</script>
 
 <style scoped>
 .blog-posts {

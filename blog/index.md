@@ -4,14 +4,14 @@ layout: home
 
 hero:
   name: "Modern SaaS"
-  text: "to work *together*"
+  text: "for teams"
   tagline: Add real-time collaboration, auditing, version history and AI agents to your app, in minutes.
   image:
     src: ./images/hero.svg
     alt: Gumnut
   actions:
     - theme: brand
-      text: 📄 Docs
+      text: 📄 API Docs
       link: https://docs.gumnut.dev
     - theme: alt
       text: 🧑‍💻 Book a call
@@ -27,6 +27,7 @@ import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailS
 </script>
 
 <DemoSection />
-<FeaturesOverviewSection />
+<SocialProofSection />
 <CaseStudiesSection />
+<FeaturesOverviewSection />
 <FeaturesDetailSection />

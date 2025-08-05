@@ -15,10 +15,36 @@
       "target": "blog",
       "public": "blog/.vitepress/dist",
       "ignore": [],
+      "cleanUrls": true,
+      "trailingSlash": false,
       "rewrites": [
         {
-          "source": "**",
+          "source": "/blog",
+          "destination": "/blog.html"
+        },
+        {
+          "source": "/case-studies",
+          "destination": "/case-studies.html"
+        },
+        {
+          "source": "/pricing",
+          "destination": "/pricing.html"
+        },
+        {
+          "source": "/questions",
+          "destination": "/questions.html"
+        },
+        {
+          "source": "/articles/**",
+          "destination": "/articles/**"
+        },
+        {
+          "source": "/",
           "destination": "/index.html"
+        },
+        {
+          "source": "**",
+          "destination": "/404.html"
         }
       ]
     }

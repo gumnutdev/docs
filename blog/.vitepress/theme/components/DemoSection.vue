@@ -3,18 +3,18 @@
     <div class="demo-container">
       <!-- Demo video or interactive demo will go here -->
       <div class="demo-placeholder">
-        <p>{{ demoText }}</p>
+        <p id="demo-text">Create demo: Build collaborative forms and documents</p>
       </div>
       
       <!-- Demo buttons -->
       <div class="demo-buttons">
-        <button class="demo-btn active" @click="switchDemo('create')">
+        <button class="demo-btn active" onclick="switchDemo('create', this)">
           <span class="btn-title">Create</span>
         </button>
-        <button class="demo-btn" @click="switchDemo('configure')">
+        <button class="demo-btn" onclick="switchDemo('configure', this)">
           <span class="btn-title">Configure</span>
         </button>
-        <button class="demo-btn" @click="switchDemo('support')">
+        <button class="demo-btn" onclick="switchDemo('support', this)">
           <span class="btn-title">Support</span>
         </button>
       </div>
@@ -22,35 +22,34 @@
   </section>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
-
-const currentDemo = ref('create')
-
-const demoText = computed(() => {
-  switch (currentDemo.value) {
-    case 'create':
-      return 'Create demo: Build collaborative forms and documents'
-    case 'configure':
-      return 'Configure demo: Set up workflows and integrations'
-    case 'support':
-      return 'Support demo: Get help and documentation'
-    default:
-      return 'Demo video/interactive demo'
+<script>
+// Make function globally available
+if (typeof window !== 'undefined') {
+  window.switchDemo = function(demoType, button) {
+    // Remove active class from all buttons
+    document.querySelectorAll('.demo-btn').forEach(btn => {
+      btn.classList.remove('active')
+    })
+    
+    // Add active class to clicked button
+    button.classList.add('active')
+    
+    // Update demo text
+    const demoText = document.getElementById('demo-text')
+    switch (demoType) {
+      case 'create':
+        demoText.textContent = 'Create demo: Build collaborative forms and documents'
+        break
+      case 'configure':
+        demoText.textContent = 'Configure demo: Set up workflows and integrations'
+        break
+      case 'support':
+        demoText.textContent = 'Support demo: Get help and documentation'
+        break
+      default:
+        demoText.textContent = 'Demo video/interactive demo'
+    }
   }
-})
-
-function switchDemo(demoType) {
-  // Remove active class from all buttons
-  document.querySelectorAll('.demo-btn').forEach(btn => {
-    btn.classList.remove('active')
-  })
-  
-  // Add active class to clicked button
-  event.target.closest('.demo-btn').classList.add('active')
-  
-  currentDemo.value = demoType
-  console.log('Switching to demo:', demoType)
 }
 </script>
 

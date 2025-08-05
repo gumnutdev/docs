@@ -15,7 +15,7 @@ Choose the perfect plan for your team's collaborative editing needs.
 <div class="pricing-grid">
   <div class="pricing-card">
     <div class="pricing-header">
-      <h3>Free</h3>
+      <h3>Featherweight (Free)</h3>
       <div class="price">
         <span class="amount">$0</span>
         <span class="period">/month</span>
@@ -36,9 +36,9 @@ Choose the perfect plan for your team's collaborative editing needs.
 
   <div class="pricing-card featured">
     <div class="pricing-header">
-      <h3>Pro</h3>
+      <h3>Flamboyant (Production)</h3>
       <div class="price">
-        <span class="amount">$29</span>
+        <span class="amount">$100</span>
         <span class="period">/month</span>
       </div>
     </div>
@@ -59,7 +59,7 @@ Choose the perfect plan for your team's collaborative editing needs.
 
   <div class="pricing-card">
     <div class="pricing-header">
-      <h3>Enterprise</h3>
+      <h3>Flock Leader (Enterprise)</h3>
       <div class="price">
         <span class="amount">Custom</span>
         <span class="period">/month</span>

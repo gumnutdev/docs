@@ -4,7 +4,7 @@
       <div class="footer-content">
         <div class="footer-section">
           <h4>Gumnut</h4>
-          <p>Modern SaaS to work together</p>
+          <p>Modern SaaS for teams</p>
           <div class="social-links">
             <a href="https://linkedin.com/company/gumnut-dev" target="_blank" aria-label="LinkedIn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -23,7 +23,7 @@
           <h4>Product</h4>
           <ul>
             <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/docs">Documentation</a></li>
+            <li><a href="https://docs.gumnut.dev/introduction">API Docs</a></li>
             <li><a href="/case-studies">Case Studies</a></li>
             <li><a href="/blog">Blog</a></li>
           </ul>
