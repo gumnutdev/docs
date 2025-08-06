@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Modern SaaS"
   text: "for teams"
-  tagline: Add real-time collaboration, auditing, version history and AI agents to your app, in minutes.
+  tagline: Your app is multi-user, now help them work <em>together</em>.<br>Turn your product into a real-time workspace with editing, history, audits, and AI agents—fast.
   image:
     src: ./images/hero.svg
     alt: Gumnut
@@ -27,7 +27,7 @@ import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailS
 </script>
 
 <DemoSection />
+<FeaturesOverviewSection />
 <SocialProofSection />
 <CaseStudiesSection />
-<FeaturesOverviewSection />
 <FeaturesDetailSection />

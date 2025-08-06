@@ -1,11 +1,10 @@
 <template>
   <section class="features-detail-section">
     <div class="container">
-      <h2>Powerful Features for Modern Teams</h2>
       <div class="feature-detail-grid">
         <div class="feature-detail">
           <div class="feature-content">
-            <h3>Real-time Cursor Tracking</h3>
+            <h3>Cursors and Focus Indicators</h3>
             <p>See exactly where your teammates are working with live cursor positions and selections. Never lose context during collaborative sessions.</p>
             <ul>
               <li>Live cursor positions</li>
@@ -20,12 +19,11 @@
         
         <div class="feature-detail">
           <div class="feature-content">
-            <h3>Conflict Resolution</h3>
-            <p>Advanced conflict resolution algorithms ensure data integrity even during simultaneous edits. No more lost work or data corruption.</p>
+            <h3>Diagrams and Rich Text</h3>
+            <p>Create collaborative diagrams and rich text documents like Figma. Perfect for flowcharts, mind maps, and detailed documentation.</p>
             <ul>
-              <li>Operational transformation</li>
-              <li>Automatic conflict resolution</li>
-              <li>Version history tracking</li>
+              <li>Interactive flowcharts</li>
+              <li>Rich text editing</li>
             </ul>
           </div>
           <div class="feature-visual">
@@ -35,12 +33,11 @@
         
         <div class="feature-detail">
           <div class="feature-content">
-            <h3>Custom Integrations</h3>
+            <h3>Works with Every Stack</h3>
             <p>Seamlessly integrate with your existing tech stack. From React to Vue, Angular to vanilla JS - we've got you covered.</p>
             <ul>
               <li>Framework agnostic</li>
-              <li>RESTful API</li>
-              <li>WebSocket support</li>
+              <li>Easy integration</li>
             </ul>
           </div>
           <div class="feature-visual">
@@ -91,7 +88,7 @@
   content: '';
   position: absolute;
   top: 60%;
-  left: 10%;
+  left: 40%;
   width: 40%;
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--vp-c-brand-3) 30%, var(--vp-c-brand-3) 70%, transparent 100%);

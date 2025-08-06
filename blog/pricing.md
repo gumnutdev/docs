@@ -53,8 +53,7 @@ Flexible pricing for modern teams.
       <ul>
         <li>Production key</li>
         <li>Up to 10 collaborators</li>
-        <li>1000 documents</li>
-        <li>500 monthly active users</li>
+        <li>Pay for what you use</li>
         <li>Version history</li>
         <li>Priority support</li>
       </ul>
@@ -79,8 +78,8 @@ Flexible pricing for modern teams.
     </div>
     <div class="pricing-features">
       <ul>
-        <li>Everything in Production tier</li>
         <li>Unlimited collaborators</li>
+        <li>Volume discount</li>
         <li>Choose region</li>
         <li>Custom deployment</li>
         <li>Dedicated support</li>

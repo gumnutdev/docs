@@ -2,8 +2,15 @@
   <section class="demo-section">
     <div class="demo-container">
       <!-- Demo video or interactive demo will go here -->
-      <div class="demo-placeholder">
+      <div class="demo-placeholder" id="demo-content">
         <p id="demo-text">Create demo: Build collaborative forms and documents</p>
+        
+        <!-- Support video (hidden by default) -->
+        <div id="support-video" class="demo-video" style="display: none;">
+          <div style="position: relative; padding-bottom: 57.05229793977813%; height: 0;">
+            <iframe src="https://www.loom.com/embed/3b6bbe39171f45ebb61aff2f8ac7da8c?sid=fbcfd7af-bed2-4a49-8618-ca501726e61a" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+          </div>
+        </div>
       </div>
       
       <!-- Demo buttons -->
@@ -34,8 +41,15 @@ if (typeof window !== 'undefined') {
     // Add active class to clicked button
     button.classList.add('active')
     
-    // Update demo text
+    // Get elements
     const demoText = document.getElementById('demo-text')
+    const supportVideo = document.getElementById('support-video')
+    
+    // Hide video by default
+    supportVideo.style.display = 'none'
+    demoText.style.display = 'block'
+    
+    // Update demo content
     switch (demoType) {
       case 'create':
         demoText.textContent = 'Create demo: Build collaborative forms and documents'
@@ -44,7 +58,8 @@ if (typeof window !== 'undefined') {
         demoText.textContent = 'Configure demo: Set up workflows and integrations'
         break
       case 'support':
-        demoText.textContent = 'Support demo: Get help and documentation'
+        demoText.style.display = 'none'
+        supportVideo.style.display = 'block'
         break
       default:
         demoText.textContent = 'Demo video/interactive demo'
@@ -100,7 +115,7 @@ if (typeof window !== 'undefined') {
   background: var(--vp-c-bg);
   border: 2px dashed var(--vp-c-divider);
   border-radius: 12px;
-  padding: 8rem 2rem;
+  padding: 2rem;
   color: var(--vp-c-text-2);
   font-size: 1.1rem;
   text-align: center;
@@ -163,5 +178,17 @@ if (typeof window !== 'undefined') {
 
 .demo-btn.active .btn-title {
   color: var(--vp-c-brand-1);
+}
+
+.demo-video {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-video iframe {
+  border-radius: 8px;
 }
 </style> 
