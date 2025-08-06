@@ -18,7 +18,7 @@ defineComponent({
 
 <template>
   <div v-if="page?.frontmatter?.image" class="blog-header-image">
-    <img :src="`/images/${page.frontmatter.image}`" :alt="page.frontmatter.title" />
+    <img :src="page.frontmatter.image" :alt="page.frontmatter.title" />
   </div>
 </template>
 
@@ -28,6 +28,7 @@ defineComponent({
   max-height: 400px;
   overflow: hidden;
   margin-bottom: 2rem;
+  border-radius: 8px;
 }
 
 .blog-header-image img {
