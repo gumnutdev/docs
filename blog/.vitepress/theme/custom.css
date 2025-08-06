@@ -42,20 +42,36 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin: 2rem 0;
+  align-items: stretch;
 }
 
 .pricing-card {
-  background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   padding: 2rem;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--vp-c-bg);
   position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  transition: box-shadow 0.2s ease;
+}
+
+.tier-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--vp-c-brand);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 1;
 }
 
 .pricing-card:hover {
-  transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -77,16 +93,37 @@
   border-radius: 12px;
   font-size: 0.8rem;
   font-weight: 600;
+  z-index: 1;
+}
+
+.pricing-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pricing-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pricing-icon img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
 }
 
 .pricing-header h3 {
-  margin: 0 0 1rem 0;
+  margin: 0;
   font-size: 1.5rem;
   color: var(--vp-c-text-1);
 }
 
 .price {
-  margin-bottom: 2rem;
+  margin: 0;
 }
 
 .amount {
@@ -98,6 +135,12 @@
 .period {
   font-size: 1rem;
   color: var(--vp-c-text-2);
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .pricing-features ul {
@@ -123,6 +166,9 @@
 }
 
 .pricing-action {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   margin-top: auto;
 }
 
@@ -132,9 +178,9 @@
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease;
   border: 2px solid transparent;
   text-decoration: none !important;
+  transition: all 0.2s ease;
 }
 
 .btn-primary {

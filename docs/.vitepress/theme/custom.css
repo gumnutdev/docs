@@ -36,3 +36,11 @@
 }
 
 /* Add any additional custom styles below */
+
+/* Pricing page styles */
+.tier-description.small {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+  margin: 0.5rem 0;
+  font-weight: 400;
+}

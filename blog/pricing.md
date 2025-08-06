@@ -6,16 +6,19 @@ aside: false
 
 # Pricing
 
-Choose the perfect plan for your team's collaborative editing needs.
+Flexible pricing for modern teams.
 
 <div class="pricing-page">
 
-## Plans
-
 <div class="pricing-grid">
   <div class="pricing-card">
+    <div class="tier-label">Free</div>
     <div class="pricing-header">
-      <h3>Featherweight (Free)</h3>
+      <div class="pricing-icon">
+        <img src="/website/free-icon.png" alt="Free tier icon" />
+      </div>
+      <h3>Featherweight</h3>
+      <p class="tier-description small">For testing and local development</p>
       <div class="price">
         <span class="amount">$0</span>
         <span class="period">/month</span>
@@ -23,20 +26,24 @@ Choose the perfect plan for your team's collaborative editing needs.
     </div>
     <div class="pricing-features">
       <ul>
-        <li>Up to 3 collaborators</li>
-        <li>Basic real-time editing</li>
-        <li>Standard support</li>
-        <li>Community features</li>
+        <li>Development key</li>
+        <li>5 connections</li>
+        <li>20 documents</li>
       </ul>
     </div>
     <div class="pricing-action">
-      <a href="#" class="btn btn-outline">Get Started</a>
+      <a href="#" class="btn btn-primary">Get Started</a>
     </div>
   </div>
 
-  <div class="pricing-card featured">
+  <div class="pricing-card">
+    <div class="tier-label">Pro</div>
     <div class="pricing-header">
-      <h3>Flamboyant (Production)</h3>
+      <div class="pricing-icon">
+        <img src="/website/production-icon.png" alt="Production tier icon" />
+      </div>
+      <h3>Flamboyant</h3>
+      <p class="tier-description small">Pricing based on usage and size</p>
       <div class="price">
         <span class="amount">$100</span>
         <span class="period">/month</span>
@@ -44,22 +51,27 @@ Choose the perfect plan for your team's collaborative editing needs.
     </div>
     <div class="pricing-features">
       <ul>
+        <li>Production key</li>
         <li>Up to 10 collaborators</li>
-        <li>Advanced real-time editing</li>
-        <li>Priority support</li>
+        <li>1000 documents</li>
+        <li>500 monthly active users</li>
         <li>Version history</li>
-        <li>Custom integrations</li>
-        <li>Advanced analytics</li>
+        <li>Priority support</li>
       </ul>
     </div>
     <div class="pricing-action">
-      <a href="#" class="btn btn-primary">Start Free Trial</a>
+      <a href="#" class="btn btn-primary">Get Started</a>
     </div>
   </div>
 
   <div class="pricing-card">
+    <div class="tier-label">Enterprise</div>
     <div class="pricing-header">
-      <h3>Flock Leader (Enterprise)</h3>
+      <div class="pricing-icon">
+        <img src="/website/enterprise-icon.png" alt="Enterprise tier icon" />
+      </div>
+      <h3>Flock Leader</h3>
+      <p class="tier-description small">Chief Flamingo Officer</p>
       <div class="price">
         <span class="amount">Custom</span>
         <span class="period">/month</span>
@@ -67,57 +79,22 @@ Choose the perfect plan for your team's collaborative editing needs.
     </div>
     <div class="pricing-features">
       <ul>
+        <li>Everything in Production tier</li>
         <li>Unlimited collaborators</li>
-        <li>Enterprise-grade security</li>
-        <li>Dedicated support</li>
+        <li>Choose region</li>
         <li>Custom deployment</li>
-        <li>SLA guarantees</li>
-        <li>Advanced admin controls</li>
+        <li>Dedicated support</li>
+        <li>99.9% SLA uptime</li>
       </ul>
     </div>
     <div class="pricing-action">
-      <a href="#" class="btn btn-outline">Contact Sales</a>
+      <a href="#" class="btn btn-primary">Contact Sales</a>
     </div>
   </div>
 </div>
 
-## Features Comparison
-
-| Feature             | Free  | Pro      | Enterprise |
-| ------------------- | ----- | -------- | ---------- |
-| Collaborators       | 3     | 10       | Unlimited  |
-| Real-time editing   | Basic | Advanced | Enterprise |
-| Version history     | ❌    | ✅       | ✅         |
-| Custom integrations | ❌    | ✅       | ✅         |
-| Priority support    | ❌    | ✅       | ✅         |
-| Dedicated support   | ❌    | ❌       | ✅         |
-| SLA guarantees      | ❌    | ❌       | ✅         |
-| Custom deployment   | ❌    | ❌       | ✅         |
-
-## Frequently Asked Questions
-
-### Can I change plans at any time?
-
-Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.
-
-### Do you offer refunds?
-
-We offer a 30-day money-back guarantee for all paid plans.
-
-### Is there a free trial?
-
-Yes, Pro plans come with a 14-day free trial. No credit card required.
-
-### What payment methods do you accept?
-
-We accept all major credit cards, PayPal, and bank transfers for Enterprise plans.
-
-### Can I cancel anytime?
-
-Yes, you can cancel your subscription at any time with no cancellation fees.
-
 ## Need Help?
 
-If you have questions about pricing or need help choosing the right plan, [contact our sales team](mailto:sales@gumnut.dev) or join our [Discord community](https://discord.gg/yu3u87AUNR).
+If you have questions about pricing or need help choosing the right plan, [send an email](mailto:hello@gumnut.dev) or join our [Discord community](https://discord.gg/yu3u87AUNR).
 
 </div>
