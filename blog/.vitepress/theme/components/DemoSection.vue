@@ -3,26 +3,30 @@
     <div class="demo-container">
       <!-- Demo video or interactive demo will go here -->
       <div class="demo-placeholder" id="demo-content">
-        <p id="demo-text">Create demo: Build collaborative forms and documents</p>
+        <p id="demo-text" style="display: none;">Create demo: Build collaborative forms and documents</p>
         
-        <!-- Support video (hidden by default) -->
-        <div id="support-video" class="demo-video" style="display: none;">
-          <div style="position: relative; padding-bottom: 57.05229793977813%; height: 0;">
-            <iframe src="https://www.loom.com/embed/3b6bbe39171f45ebb61aff2f8ac7da8c?sid=fbcfd7af-bed2-4a49-8618-ca501726e61a" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-          </div>
+        <!-- Support video (visible by default) -->
+        <div id="support-video" class="demo-video">
+          <video 
+            id="demo-video"
+            controls
+            style="width: 100%; height: 100%; border-radius: 8px;">
+            <source src="/website/video/support-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
       
       <!-- Demo buttons -->
       <div class="demo-buttons">
-        <button class="demo-btn active" onclick="switchDemo('create', this)">
+        <button class="demo-btn active" onclick="switchDemo('support', this)">
+          <span class="btn-title">Support</span>
+        </button>
+        <button class="demo-btn" onclick="switchDemo('create', this)">
           <span class="btn-title">Create</span>
         </button>
         <button class="demo-btn" onclick="switchDemo('configure', this)">
           <span class="btn-title">Configure</span>
-        </button>
-        <button class="demo-btn" onclick="switchDemo('support', this)">
-          <span class="btn-title">Support</span>
         </button>
       </div>
     </div>
@@ -32,7 +36,53 @@
 <script>
 // Make function globally available
 if (typeof window !== 'undefined') {
+  
+  // Function to pause video
+  function pauseVideo() {
+    const video = document.getElementById('demo-video');
+    if (video) {
+      video.pause();
+    }
+  }
+  
+  // Initialize demo on page load
+  function initializeDemo() {
+    const demoText = document.getElementById('demo-text');
+    const supportVideo = document.getElementById('support-video');
+    
+    if (demoText && supportVideo) {
+      // Ensure video is visible and text is hidden
+      demoText.style.display = 'none';
+      supportVideo.style.display = 'block';
+    }
+  }
+  
+  // Pause video when tab loses focus
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      pauseVideo();
+    }
+  });
+  
+  // Pause video when window loses focus
+  window.addEventListener('blur', function() {
+    pauseVideo();
+  });
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDemo);
+  } else {
+    initializeDemo();
+  }
+  
+  // Also initialize after a short delay to ensure everything is loaded
+  setTimeout(initializeDemo, 500);
+  
   window.switchDemo = function(demoType, button) {
+    // Pause video when switching demos
+    pauseVideo();
+    
     // Remove active class from all buttons
     document.querySelectorAll('.demo-btn').forEach(btn => {
       btn.classList.remove('active')
@@ -188,7 +238,9 @@ if (typeof window !== 'undefined') {
   justify-content: center;
 }
 
-.demo-video iframe {
+.demo-video video {
   border-radius: 8px;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style> 
