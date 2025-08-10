@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Modern SaaS"
   text: "for teams"
-  tagline: Your app is multi-user, now help them work <em>together</em>.<br>Turn your product into a real-time workspace with editing, history, audits, and AI agents—fast.
+  tagline: Your app is multi-user, make it <em>multiplayer</em>.<br>Turn your product into a real-time workspace with live co-editing, version history, audit trails, and AI agents—in minutes.
   image:
     src: ./images/hero.svg
     alt: Gumnut
