@@ -277,6 +277,7 @@
 /* Ensure consistent content alignment */
 .VPDoc .content {
   padding-left: 0 !important;
+  position: relative;
 }
 
 .VPDoc.has-aside .content,
@@ -287,6 +288,7 @@
 /* Prevent scrollbar from affecting layout */
 html {
   scrollbar-gutter: stable;
+  position: relative;
 }
 
 body {
@@ -295,24 +297,25 @@ body {
   overflow-x: hidden;
 }
 
-/* Background patterns that span the entire page */
+/* Third prominent accent around demo/features area */
 html::after {
   content: "";
   position: absolute;
-  top: 70vh;
-  right: -35%;
-  width: 175%;
-  height: 4px;
+  top: 108vh;
+  left: 20%;
+  width: 75%;
+  height: 3px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--vp-c-brand-2) 15%,
-    var(--vp-c-brand-2) 85%,
+    var(--vp-c-brand-2) 20%,
+    var(--vp-c-brand-2) 80%,
     transparent 100%
   );
-  opacity: 0.12;
-  transform: rotate(8deg);
+  opacity: 0.8;
+  transform: rotate(10deg);
   z-index: -1;
+  pointer-events: none;
 }
 
 body::before {
@@ -338,10 +341,10 @@ body::before {
 .VPDoc::before {
   content: "";
   position: absolute;
-  top: 35vh;
-  left: -40%;
-  width: 180%;
-  height: 3px;
+  top: 132vh;
+  right: -12%;
+  width: 65%;
+  height: 4px;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -349,9 +352,52 @@ body::before {
     var(--vp-c-brand-1) 80%,
     transparent 100%
   );
-  opacity: 0.15;
-  transform: rotate(-5deg);
+  opacity: 0.85;
+  transform: rotate(-8deg);
   z-index: -1;
+}
+
+/* Global demo-section background accents (separate elements for varied angles) */
+html::before {
+  content: "";
+  position: absolute;
+  top: 52vh;
+  right: -10%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-1) 20%,
+    var(--vp-c-brand-1) 80%,
+    transparent 100%
+  );
+  opacity: 0.8;
+  transform: rotate(-15deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Additional prominent accents are layered into html::before above */
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 148vh;
+  left: -5%;
+  width: 70%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-2) 20%,
+    var(--vp-c-brand-2) 80%,
+    transparent 100%
+  );
+  opacity: 0.6;
+  transform: rotate(25deg);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Direct tagline styling */

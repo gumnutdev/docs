@@ -127,32 +127,6 @@ if (typeof window !== 'undefined') {
   margin-left: calc(-50vw + 50%);
 }
 
-.demo-section::before {
-  content: '';
-  position: absolute;
-  top: 20%;
-  right: -10%;
-  width: 80%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent 0%, var(--vp-c-brand-1) 20%, var(--vp-c-brand-1) 80%, transparent 100%);
-  opacity: 0.8;
-  transform: rotate(-15deg);
-  z-index: 0;
-}
-
-.demo-section::after {
-  content: '';
-  position: absolute;
-  bottom: 30%;
-  left: -5%;
-  width: 70%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent 0%, var(--vp-c-brand-2) 20%, var(--vp-c-brand-2) 80%, transparent 100%);
-  opacity: 0.6;
-  transform: rotate(25deg);
-  z-index: 0;
-}
-
 .demo-container {
   max-width: 800px;
   margin: 0 auto;

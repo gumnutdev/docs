@@ -75,12 +75,16 @@ h2::before {
 }
 
 .feature-card {
-  background: var(--vp-c-bg-soft);
+  background: rgba(255, 255, 255, 0.03) !important;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   padding: 2rem;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
 }
 
 .feature-card:hover {
