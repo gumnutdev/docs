@@ -13,7 +13,7 @@
             </ul>
           </div>
           <div class="feature-visual">
-            <!-- Feature visualization will go here -->
+            <img src="/website/cursors-focus.png" alt="Cursors and Focus Indicators" class="feature-image" />
           </div>
         </div>
         
@@ -41,7 +41,12 @@
             </ul>
           </div>
           <div class="feature-visual">
-            <!-- Feature visualization will go here -->
+            <div class="stack-logos">
+              <img src="/website/React-light.svg" alt="React" class="logo react react-light" />
+              <img src="/website/React-dark.svg" alt="React" class="logo react react-dark" />
+              <img src="/website/Vue.svg" alt="Vue" class="logo vue" />
+              <img src="/website/JavaScript.svg" alt="JavaScript" class="logo js" />
+            </div>
           </div>
         </div>
       </div>
@@ -243,6 +248,74 @@ h2::before {
   align-items: center;
   justify-content: center;
   color: var(--vp-c-text-2);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.feature-visual > img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+/* Make the screenshot fill the frame without distortion (may crop slightly) */
+.feature-visual .feature-image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.stack-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.stack-logos .logo {
+  height: 80px;
+  width: auto;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.stack-logos .logo:hover {
+  transform: translateY(-2px) scale(1.06);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+}
+
+.dark .stack-logos .logo:hover {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.stack-logos .logo:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Default to light React logo */
+.stack-logos .react-dark {
+  display: none;
+}
+
+/* In dark mode, show dark React and hide light */
+:deep(.dark) .feature-visual .react-light {
+  display: none;
+}
+
+:deep(.dark) .feature-visual .react-dark {
+  display: inline-block;
 }
 
 .feature-content {
