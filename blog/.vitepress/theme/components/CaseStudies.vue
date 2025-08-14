@@ -84,21 +84,19 @@ import { data as caseStudies } from '../../case-studies.data.mts'
 
 .study-image {
   width: 100%;
-  height: 200px;
-  overflow: hidden;
+  aspect-ratio: 16 / 9;
   background: var(--vp-c-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .study-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s ease;
+  object-fit: contain;
 }
 
-.study-card:hover .study-image img {
-  transform: scale(1.05);
-}
 
 .study-content {
   padding: 1.5rem;
@@ -192,8 +190,5 @@ import { data as caseStudies } from '../../case-studies.data.mts'
     padding: 1rem;
   }
   
-  .study-image {
-    height: 180px;
-  }
 }
 </style> 

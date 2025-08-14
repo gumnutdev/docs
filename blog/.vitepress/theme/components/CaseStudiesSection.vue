@@ -4,27 +4,24 @@
       <div class="case-studies-grid">
         <div class="case-study-card">
           <div class="case-study-header">
-            <h3>TechCorp</h3>
-            <span class="industry">SaaS Platform</span>
+            <h3>Social Media Management</h3>
           </div>
-          <p>How TechCorp increased team collaboration by 60% with real-time editing</p>
-          <a href="/case-studies/techcorp" class="read-more">Read Case Study →</a>
+          <p>How Gumnut supercharges social media management</p>
+          <a href="/case-studies/social-media-management" class="read-more">Read Case Study →</a>
         </div>
         <div class="case-study-card">
           <div class="case-study-header">
-            <h3>StartupXYZ</h3>
-            <span class="industry">E-commerce</span>
+            <h3>Relevance AI</h3>
           </div>
-          <p>StartupXYZ reduced form abandonment by 45% with collaborative forms</p>
-          <a href="/case-studies/startupxyz" class="read-more">Read Case Study →</a>
+          <p>How Gumnut transformed Relevance AI into a realtime workspace</p>
+          <a href="/case-studies/relevance-ai" class="read-more">Read Case Study →</a>
         </div>
         <div class="case-study-card">
           <div class="case-study-header">
-            <h3>ScaleUp</h3>
-            <span class="industry">FinTech</span>
+            <h3>Insurance</h3>
           </div>
-          <p>ScaleUp improved customer onboarding with real-time collaboration</p>
-          <a href="/case-studies/scaleup" class="read-more">Read Case Study →</a>
+          <p>How Gumnut transformed customer support for an insurance company</p>
+          <a href="/case-studies/insurance" class="read-more">Read Case Study →</a>
         </div>
       </div>
     </div>
