@@ -47,9 +47,13 @@ Find answers to common questions about Gumnut and collaborative editing.
   </div>
 </div>
 
+<div class="questions-cta">
+
 ## Still Have Questions?
 
 If you can't find the answer you're looking for, [contact our support team](mailto:support@gumnut.dev) or join our [Discord community](https://discord.gg/yu3u87AUNR).
+
+</div>
 
 </div>
 
@@ -140,5 +144,37 @@ function toggleFaq(event) {
 
 .faq-answer p:last-child {
   margin-bottom: 0;
+}
+
+.questions-cta {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.questions-cta h2 {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  color: var(--vp-c-text-1);
+}
+
+.questions-cta p {
+  color: var(--vp-c-text-2);
+}
+
+.questions-cta a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.questions-cta a:hover {
+  color: var(--vp-c-brand-2);
 }
 </style>

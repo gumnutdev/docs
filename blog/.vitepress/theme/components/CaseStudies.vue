@@ -5,16 +5,14 @@
     </div>
     
     <article v-for="study in caseStudies" :key="study.url" class="case-study">
-      <div class="study-card">
+      <a :href="study.url" class="study-card" :aria-label="`Read case study: ${study.title}`">
         <div v-if="study.image" class="study-image">
           <img :src="study.image" :alt="study.title" />
         </div>
         
         <div class="study-content">
           <header class="study-header">
-            <h2 class="study-title">
-              <a :href="study.url">{{ study.title }}</a>
-            </h2>
+            <h2 class="study-title">{{ study.title }}</h2>
             <div class="study-meta">
               <time v-if="study.date" :datetime="study.date" class="study-date">
                 {{ new Date(study.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
@@ -31,7 +29,7 @@
             <span v-for="tag in study.tags" :key="tag" class="tag">{{ tag }}</span>
           </div>
         </div>
-      </div>
+      </a>
     </article>
   </div>
 </template>
@@ -75,11 +73,22 @@ import { data as caseStudies } from '../../case-studies.data.mts'
   display: flex;
   flex-direction: column;
   border: 1px solid var(--vp-c-divider);
+  color: inherit;
+  text-decoration: none;
 }
 
 .study-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.study-card:visited {
+  color: inherit;
+}
+
+.study-card:hover,
+.study-card:focus {
+  text-decoration: none;
 }
 
 .study-image {
@@ -122,15 +131,7 @@ import { data as caseStudies } from '../../case-studies.data.mts'
   border-bottom: none;
 }
 
-.study-title a {
-  color: var(--vp-c-text-1);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.study-title a:hover {
-  color: var(--vp-c-brand-1);
-}
+/* retain default title styling without link overrides */
 
 .study-meta {
   display: flex;

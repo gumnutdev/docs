@@ -28,6 +28,6 @@ import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailS
 
 <DemoSection />
 <FeaturesOverviewSection />
-<SocialProofSection />
+<!-- <SocialProofSection /> -->
 <CaseStudiesSection />
 <FeaturesDetailSection />

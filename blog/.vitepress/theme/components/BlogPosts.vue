@@ -5,16 +5,14 @@
     </div>
     
     <article v-for="post in posts" :key="post.url" class="blog-post">
-      <div class="post-card">
+      <a :href="post.url" class="post-card" :aria-label="`Read article: ${post.title}`">
         <div v-if="post.image" class="post-image">
           <img :src="post.image" :alt="post.title" />
         </div>
         
         <div class="post-content">
           <header class="post-header">
-            <h2 class="post-title">
-              <a :href="post.url">{{ post.title }}</a>
-            </h2>
+            <h2 class="post-title">{{ post.title }}</h2>
             <div class="post-meta">
               <time v-if="post.date" :datetime="post.date" class="post-date">
                 {{ new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
@@ -31,7 +29,7 @@
             <span v-for="tag in post.tags" :key="tag" class="tag">{{ tag }}</span>
           </div>
         </div>
-      </div>
+      </a>
     </article>
   </div>
 </template>
@@ -74,11 +72,22 @@ import { data as posts } from '../../posts.data.mts'
   height: 100%;
   display: flex;
   flex-direction: column;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
 }
 
 .post-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.post-card:link,
+.post-card:visited,
+.post-card:hover,
+.post-card:focus,
+.post-card:active {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
 }
 
 .post-image {
@@ -97,6 +106,12 @@ import { data as posts } from '../../posts.data.mts'
 
 .post-card:hover .post-image img {
   transform: scale(1.05);
+}
+
+/* Change heading color on hover/focus of the whole card */
+.post-card:hover .post-title,
+.post-card:focus-visible .post-title {
+  color: var(--vp-c-brand-1);
 }
 
 .post-content {
@@ -121,17 +136,10 @@ import { data as posts } from '../../posts.data.mts'
   border: none;
   border-top: none;
   border-bottom: none;
-}
-
-.post-title a {
   color: var(--vp-c-text-1);
-  text-decoration: none;
-  transition: color 0.2s ease;
 }
 
-.post-title a:hover {
-  color: var(--vp-c-brand-1);
-}
+/* removed legacy link-specific title styles */
 
 .post-meta {
   display: flex;

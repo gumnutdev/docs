@@ -11,10 +11,10 @@
         </div>
         <div class="case-study-card">
           <div class="case-study-header">
-            <h3>Relevance AI</h3>
+            <h3>Grant Application SaaS</h3>
           </div>
-          <p>How Gumnut transformed Relevance AI into a realtime workspace</p>
-          <a href="/case-studies/relevance-ai" class="read-more">Read Case Study →</a>
+          <p>How Gumnut makes Grant applications instantly multiplayer</p>
+          <a href="/case-studies/grant-software" class="read-more">Read Case Study →</a>
         </div>
         <div class="case-study-card">
           <div class="case-study-header">
@@ -31,7 +31,6 @@
 <style scoped>
 .case-studies-section {
   padding: 4rem 0;
-  background: var(--vp-c-bg-soft);
   width: 100vw;
   margin-left: calc(-50vw + 50%);
 }
