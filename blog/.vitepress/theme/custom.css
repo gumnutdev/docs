@@ -1,0 +1,443 @@
+/* Pricing Page Styles */
+/* Override VitePress default content width for pricing page */
+.pricing-page {
+  max-width: 1200px !important;
+  margin: 0 auto;
+}
+
+/* Navbar Logo Styling */
+.VPNav .VPNavBar .container .title .logo {
+  height: 32px !important;
+  width: auto !important;
+}
+
+.VPNav .VPNavBar .container .title .logo img {
+  height: 32px !important;
+  width: auto !important;
+}
+
+/* More specific targeting for pricing page */
+.VPDoc.has-aside .content-container,
+.VPDoc:not(.has-aside) .content-container {
+  max-width: 1200px !important;
+}
+
+/* Target the main content area */
+.VPDoc .content {
+  max-width: 1200px !important;
+}
+
+/* Remove max-width constraint entirely */
+:root {
+  --vp-layout-max-width: none; /* Removes the max-width constraint */
+}
+
+/* Alternatively, for more specific control if needed */
+.VPDocContent {
+  max-width: none !important;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+  align-items: stretch;
+}
+
+.pricing-card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 2rem;
+  background: var(--vp-c-bg);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  transition: box-shadow 0.2s ease;
+}
+
+.tier-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--vp-c-brand);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.pricing-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--vp-c-brand);
+  background: var(--vp-c-brand-soft);
+  transform: scale(1.05);
+}
+
+.pricing-card.featured::before {
+  content: "Most Popular";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--vp-c-brand);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.pricing-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pricing-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pricing-icon img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+
+.pricing-header h3 {
+  margin: 0;
+  margin-bottom: -0.25rem;
+  font-size: 1.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.tier-description {
+  margin: 0;
+  margin-top: -0.25rem;
+}
+
+.price {
+  margin: 0;
+}
+
+.amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--vp-c-brand);
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pricing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  text-align: left;
+}
+
+.pricing-features li {
+  padding: 0.25rem 0;
+  color: var(--vp-c-text-1);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.pricing-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--vp-c-brand);
+  font-weight: bold;
+}
+
+.pricing-action {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid transparent;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--vp-c-brand);
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--vp-c-brand-2) !important;
+  border-color: var(--vp-c-brand-2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--vp-c-brand);
+  border-color: var(--vp-c-brand);
+}
+
+.btn-outline:hover {
+  background: var(--vp-c-brand);
+  color: white !important;
+}
+
+/* Features comparison table */
+.pricing-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.pricing-page th,
+.pricing-page td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.pricing-page th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+
+.pricing-page th:first-child,
+.pricing-page td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Hide header anchors on pricing page */
+.pricing-page .header-anchor {
+  visibility: hidden;
+}
+
+/* Hide header anchors on h1 and h2 headings on pricing page */
+.pricing-page h1 .header-anchor,
+.pricing-page h2 .header-anchor {
+  visibility: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card.featured {
+    transform: none;
+  }
+
+  .amount {
+    font-size: 2.5rem;
+  }
+}
+
+/* Ensure consistent heading alignment across all pages */
+.VPDoc .content h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.VPDoc.has-aside .content h1,
+.VPDoc:not(.has-aside) .content h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Ensure consistent content alignment */
+.VPDoc .content {
+  padding-left: 0 !important;
+  position: relative;
+}
+
+.VPDoc.has-aside .content,
+.VPDoc:not(.has-aside) .content {
+  padding-left: 0 !important;
+}
+
+/* Prevent scrollbar from affecting layout */
+html {
+  scrollbar-gutter: stable;
+  position: relative;
+}
+
+body {
+  overflow-y: scroll;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Third prominent accent around demo/features area */
+html::after {
+  content: "";
+  position: absolute;
+  top: 108vh;
+  left: 20%;
+  width: 75%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-2) 20%,
+    var(--vp-c-brand-2) 80%,
+    transparent 100%
+  );
+  opacity: 0.8;
+  transform: rotate(10deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 50vh;
+  left: -45%;
+  width: 190%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-3) 25%,
+    var(--vp-c-brand-3) 75%,
+    transparent 100%
+  );
+  opacity: 0.1;
+  transform: rotate(-3deg);
+  z-index: -1;
+}
+
+/* Pattern for features-overview section */
+.VPDoc::before {
+  content: "";
+  position: absolute;
+  top: 132vh;
+  right: -12%;
+  width: 65%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-1) 20%,
+    var(--vp-c-brand-1) 80%,
+    transparent 100%
+  );
+  opacity: 0.85;
+  transform: rotate(-8deg);
+  z-index: -1;
+}
+
+/* Global demo-section background accents (separate elements for varied angles) */
+html::before {
+  content: "";
+  position: absolute;
+  top: 52vh;
+  right: -10%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-1) 20%,
+    var(--vp-c-brand-1) 80%,
+    transparent 100%
+  );
+  opacity: 0.8;
+  transform: rotate(-15deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Additional prominent accents are layered into html::before above */
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 148vh;
+  left: -5%;
+  width: 70%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--vp-c-brand-2) 20%,
+    var(--vp-c-brand-2) 80%,
+    transparent 100%
+  );
+  opacity: 0.6;
+  transform: rotate(25deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Direct tagline styling */
+.tagline {
+  font-size: 1.2rem !important;
+}
+
+/* Hide external link arrows */
+.VPNavBarMenuLink .icon,
+.VPNavBarMenuLink .external-link-icon,
+.VPNavBarMenuLink::after {
+  display: none !important;
+}
+
+/* Style the Book a demo navigation link */
+.VPNav
+  .VPNavBar
+  .container
+  .content
+  .VPNavBarMenu
+  .VPNavBarMenuLink[href*="calendly.com"] {
+  background: var(--vp-c-brand);
+  color: white !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-left: 8px;
+  height: auto !important;
+  line-height: 1.2;
+  display: inline-block;
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.VPNav
+  .VPNavBar
+  .container
+  .content
+  .VPNavBarMenu
+  .VPNavBarMenuLink[href*="calendly.com"]:hover {
+  background: var(--vp-c-brand-2);
+  color: white !important;
+}

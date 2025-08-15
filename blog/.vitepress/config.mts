@@ -1,8 +1,6 @@
 import { defineConfig } from "vitepress";
 import { getFeed } from "./getFeed";
 import { createContentLoader } from "vitepress";
-import fs from "fs";
-import { resolve } from "path";
 import implicitFigures from "markdown-it-implicit-figures";
 // Helper function to parse dates consistently
 function parseDate(dateStr: any): Date {
@@ -22,18 +20,32 @@ function parseDate(dateStr: any): Date {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Gumnut Blog",
-  description: "Building Gumnut - the modern textbox",
+  title: "Gumnut 🦩",
+  description: "Modern SaaS for teams",
+  ignoreDeadLinks: true,
+  cleanUrls: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    siteTitle: false,
+    externalLinkIcon: false,
     logo: {
       light: "/logo/light.svg",
       dark: "/logo/dark.svg",
       alt: "Gumnut Logo",
     },
     nav: [
-      { text: "Home", link: "/" },
-      { text: "Articles", link: "/articles" },
+      { text: "Pricing", link: "/pricing" },
+      {
+        text: "Resources",
+        items: [
+          { text: "Blog", link: "/blog" },
+          { text: "Questions Hub", link: "/questions" },
+        ],
+      },
+      { text: "Case Studies", link: "/case-studies" },
+      { text: "API Docs", link: "https://docs.gumnut.dev" },
+      { text: "Login", link: "https://dashboard.gumnut.dev" },
+      { text: "Book a demo", link: "https://calendly.com/owen-gumnut/30min" },
     ],
 
     socialLinks: [
@@ -66,64 +78,26 @@ export default defineConfig({
       },
     ],
   ],
+  vite: {
+    css: {
+      devSourcemap: true,
+    },
+  },
   async transformPageData(pageData) {
     if (pageData.relativePath.startsWith("articles/")) {
-      // Create content loader for blog posts
       if (pageData.frontmatter.image) {
         pageData.frontmatter.class = "has-header-image";
       }
+    }
 
-      // Create content loader for blog posts
-      const postsLoader = createContentLoader("articles/*.md", {
-        includeSrc: true,
-        render: true,
-        excerpt: true,
-        transform(rawData) {
-          return rawData
-            .sort((a, b) => {
-              const dateA = parseDate(a.frontmatter.date);
-              const dateB = parseDate(b.frontmatter.date);
-              return dateB.getTime() - dateA.getTime();
-            })
-            .map((page) => {
-              return {
-                url: page.url,
-                frontmatter: page.frontmatter,
-                excerpt: page.excerpt,
-              };
-            });
-        },
-      });
-
-      // Load posts data
-      const posts = await postsLoader.load();
-
-      // Write posts data to a JSON file for the Vue component
-      // Write to both the dist directory and the public directory
-      const distDir = resolve(__dirname, "dist");
-      const publicDir = resolve(__dirname, "..", "public");
-
-      if (!fs.existsSync(distDir)) {
-        fs.mkdirSync(distDir, { recursive: true });
+    if (pageData.relativePath.startsWith("case-studies/")) {
+      if (pageData.frontmatter.image) {
+        pageData.frontmatter.class = "has-header-image";
       }
-
-      if (!fs.existsSync(publicDir)) {
-        fs.mkdirSync(publicDir, { recursive: true });
-      }
-
-      fs.writeFileSync(
-        resolve(distDir, "posts.json"),
-        JSON.stringify(posts, null, 2)
-      );
-
-      fs.writeFileSync(
-        resolve(publicDir, "posts.json"),
-        JSON.stringify(posts, null, 2)
-      );
     }
   },
   async buildEnd() {
-    // Create content loader for blog posts
+    // Create content loader for blog posts for RSS feed
     const postsLoader = createContentLoader("articles/*.md", {
       includeSrc: true,
       render: true,
@@ -145,21 +119,7 @@ export default defineConfig({
       },
     });
 
-    // Load posts data
     const posts = await postsLoader.load();
-
-    // Write posts data to a JSON file for the Vue component
-    const publicDir = resolve(__dirname, "..", "public");
-    if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir, { recursive: true });
-    }
-
-    fs.writeFileSync(
-      resolve(publicDir, "posts.json"),
-      JSON.stringify(posts, null, 2)
-    );
-
-    // Generate RSS feed
     await getFeed(posts);
   },
 });

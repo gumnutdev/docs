@@ -68,6 +68,19 @@
   --vp-c-danger-2: var(--vp-c-red-2);
   --vp-c-danger-3: var(--vp-c-red-3);
   --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  /* Make text-2 brighter */
+  --vp-c-text-2: #9ca3af;
+}
+
+/* Light mode */
+:root {
+  --vp-c-text-2: #6b7280;
+}
+
+/* Dark mode */
+.dark {
+  --vp-c-text-2: #9ca3af;
 }
 
 /**
@@ -166,4 +179,103 @@ figure figcaption {
   max-height: 400px;
   object-fit: cover;
   margin-bottom: 2rem;
+}
+
+/**
+ * Component: Pricing Page
+ * -------------------------------------------------------------------------- */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.pricing-card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.pricing-card.featured {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 12px rgba(218, 80, 154, 0.15);
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pricing-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.pricing-features {
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+.pricing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-features li {
+  padding: 0.5rem 0;
+}
+
+.pricing-features li::before {
+  content: "✓";
+  color: var(--vp-c-brand-1);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.pricing-action {
+  margin-top: auto;
+  text-align: center;
+}
+
+.pricing-action .btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pricing-action .btn-primary {
+  background-color: var(--vp-c-brand-1);
+  color: white;
+  border: 1px solid var(--vp-c-brand-1);
+}
+
+.pricing-action .btn-outline {
+  background-color: transparent;
+  color: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-brand-1);
+}
+
+.price {
+  margin: 1rem 0;
+}
+
+.price .amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+}
+
+.price .period {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
 }

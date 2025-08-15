@@ -3,23 +3,31 @@
 layout: home
 
 hero:
-  name: "Building Gumnut"
-  text: "the modern textbox"
-  tagline: Adventures in building a real-time editor
+  name: "Modern SaaS"
+  text: "for teams"
+  tagline: Your app is multi-user, make it <em>multiplayer</em>.<br>Turn your product into a real-time workspace with live co-editing, version history, audit trails, and AI agents—in minutes.
   image:
     src: ./images/hero.svg
-    alt: Building Gumnut hero image
+    alt: Gumnut
   actions:
     - theme: brand
-      text: Articles
-      link: /articles
-    - theme: alt
-      text: Docs
+      text: 📄 API Docs
       link: https://docs.gumnut.dev
+    - theme: alt
+      text: 🧑‍💻 Book a call
+      link: https://calendly.com/owen-gumnut/30min
 ---
 
 <script setup>
-import RecentPosts from './.vitepress/theme/components/RecentPosts.vue'
+import DemoSection from './.vitepress/theme/components/DemoSection.vue'
+import SocialProofSection from './.vitepress/theme/components/SocialProofSection.vue'
+import CaseStudiesSection from './.vitepress/theme/components/CaseStudiesSection.vue'
+import FeaturesOverviewSection from './.vitepress/theme/components/FeaturesOverviewSection.vue'
+import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailSection.vue'
 </script>
 
-<RecentPosts />
+<DemoSection />
+<FeaturesOverviewSection />
+<!-- <SocialProofSection /> -->
+<CaseStudiesSection />
+<FeaturesDetailSection />
