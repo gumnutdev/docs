@@ -4,6 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Docs",
   description: "Documentation for Gumnut - the modern textbox",
+  cleanUrls: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
@@ -87,5 +88,4 @@ export default defineConfig({
       },
     ],
   ],
-  cleanUrls: true,
 });

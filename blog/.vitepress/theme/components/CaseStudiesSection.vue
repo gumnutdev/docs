@@ -2,27 +2,27 @@
   <section class="case-studies-section">
     <div class="container">
       <div class="case-studies-grid">
-        <div class="case-study-card">
+        <a href="/case-studies/social-media-management" class="case-study-card" aria-label="Read case study: Social Media Management">
           <div class="case-study-header">
             <h3>Social Media Management</h3>
           </div>
           <p>How Gumnut supercharges social media management</p>
-          <a href="/case-studies/social-media-management" class="read-more">Read Case Study →</a>
-        </div>
-        <div class="case-study-card">
+          <span class="read-more">Read Case Study →</span>
+        </a>
+        <a href="/case-studies/grant-software" class="case-study-card" aria-label="Read case study: Grant Application SaaS">
           <div class="case-study-header">
             <h3>Grant Application SaaS</h3>
           </div>
           <p>How Gumnut makes Grant applications instantly multiplayer</p>
-          <a href="/case-studies/grant-software" class="read-more">Read Case Study →</a>
-        </div>
-        <div class="case-study-card">
+          <span class="read-more">Read Case Study →</span>
+        </a>
+        <a href="/case-studies/insurance" class="case-study-card" aria-label="Read case study: Insurance">
           <div class="case-study-header">
             <h3>Insurance</h3>
           </div>
           <p>How Gumnut transformed customer support for an insurance company</p>
-          <a href="/case-studies/insurance" class="read-more">Read Case Study →</a>
-        </div>
+          <span class="read-more">Read Case Study →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -62,11 +62,23 @@
   padding: 2rem;
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  display: block;
 }
 
 .case-study-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.case-study-card:link,
+.case-study-card:visited,
+.case-study-card:hover,
+.case-study-card:focus,
+.case-study-card:active {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
 }
 
 .case-study-header {
@@ -99,12 +111,11 @@
 
 .read-more {
   color: var(--vp-c-brand-1);
-  text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
-.read-more:hover {
+.case-study-card:hover .read-more {
   color: var(--vp-c-brand-2);
 }
 </style> 

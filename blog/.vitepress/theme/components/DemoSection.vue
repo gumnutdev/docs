@@ -12,12 +12,17 @@
             controls
             style="width: 100%; height: 100%; border-radius: 8px;">
             <source src="/website/video/support-demo.mp4" type="video/mp4">
+            <track 
+              kind="subtitles" 
+              src="/website/video/support-demo.vtt" 
+              srclang="en" 
+              label="English">
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
       
-      <!-- Demo buttons -->
+      <!-- Demo buttons 
       <div class="demo-buttons">
         <button class="demo-btn active" onclick="switchDemo('support', this)">
           <span class="btn-title">Support</span>
@@ -29,6 +34,7 @@
           <span class="btn-title">Configure</span>
         </button>
       </div>
+      -->
     </div>
   </section>
 </template>
