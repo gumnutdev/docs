@@ -3,6 +3,9 @@ title: Working with AI
 description: Investigating how we can work with AI inside SaaS applications
 date: 2025-05-28
 author: "Owen Brasier"
+sidebar: false
+prev: false
+next: false
 ---
 
 # Working _with_ AI

@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 📄 API Docs
-      link: /introduction
+      link: /docs/
     - theme: alt
       text: 🧑‍💻 Book a call
       link: https://calendly.com/owen-gumnut/30min

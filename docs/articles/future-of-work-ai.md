@@ -2,6 +2,9 @@
 title: Beyond the helpdesk - AI human collaboration frontiers
 description: Solving the interface of human/ai collaboration in modern applications
 date: 2025-06-13
+sidebar: false
+prev: false
+next: false
 ---
 
 # Beyond the helpdesk - AI human collaboration frontiers

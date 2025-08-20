@@ -23,7 +23,7 @@
           <h4>Product</h4>
           <ul>
             <li><a href="/pricing">Pricing</a></li>
-            <li><a href="https://docs.gumnut.dev/introduction">API Docs</a></li>
+            <li><a href="/docs/">API Docs</a></li>
             <li><a href="/case-studies">Case Studies</a></li>
             <li><a href="/blog">Blog</a></li>
           </ul>
@@ -51,6 +51,8 @@
   border-top: 1px solid var(--vp-c-divider);
   padding: 3rem 0 1rem;
   margin-top: 4rem;
+  position: relative;
+  z-index: 100;
 }
 
 .container {

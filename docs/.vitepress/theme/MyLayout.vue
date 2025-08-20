@@ -11,6 +11,9 @@ const { page } = useData()
 const isBlogPost = page.value?.relativePath?.startsWith('articles/') && 
                   page.value?.relativePath?.includes('.md') &&
                   !page.value?.relativePath?.endsWith('index.md')
+
+// Check if this is a docs page (docs directory)
+const isDocsPage = page.value?.relativePath?.startsWith('docs/')
 </script>
 
 <template>
@@ -19,7 +22,7 @@ const isBlogPost = page.value?.relativePath?.startsWith('articles/') &&
       <BlogHeader v-if="isBlogPost" />
     </template>
     <template #layout-bottom>
-      <SiteFooter />
+      <SiteFooter v-if="!isDocsPage" />
     </template>
   </Layout>
 </template> 

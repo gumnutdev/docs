@@ -15,6 +15,6 @@ It'll often reflect a database row.
 :::
 
 Ready to get started?
-The [Quick Start](quickstart) demonstrates the basics of integrating Gumnut, head to the [Walkthrough](/walkthrough) for a step-by-step example.
+The [Quick Start](quickstart) demonstrates the basics of integrating Gumnut, head to the [Walkthrough](walkthrough) for a step-by-step example.
 
-You can also head right over to the docs on our [React API](/components/react).
+You can also head right over to the docs on our [React API](components/react).

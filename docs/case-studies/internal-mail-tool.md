@@ -4,6 +4,9 @@ description: "How Gumnut transforms an internal mail tool of a major tech compan
 date: 2024-01-15
 author: "Owen Brasier"
 image: /images/email.webp
+sidebar: false
+prev: false
+next: false
 ---
 
 A major tech company was exploring ways to improve how internal teams collaborate on drafting and reviewing emails. Their internal email tool was used across departments for everything from project updates to leadership comms. But the process often felt disjointed—content lived in separate docs, feedback was scattered, and aligning on tone or structure was time-consuming. They wanted a more fluid, collaborative way to write together inside their existing workflow.

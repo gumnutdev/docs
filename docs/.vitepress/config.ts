@@ -64,33 +64,33 @@ export default defineConfig({
           {
             text: "Get Started",
             items: [
-              { text: "Introduction", link: "/introduction" },
-              { text: "Quick Start", link: "/quickstart" },
-              { text: "Walkthrough", link: "/walkthrough" },
+              { text: "Introduction", link: "/docs/" },
+              { text: "Quick Start", link: "/docs/quickstart" },
+              { text: "Walkthrough", link: "/docs/walkthrough" },
             ],
           },
           {
             text: "Guides",
             items: [
-              { text: "Authentication", link: "/guides/authentication" },
-              { text: "Hackathon", link: "/guides/hackathon" },
-              { text: "Agent", link: "/guides/agent" },
+              { text: "Authentication", link: "/docs/guides/authentication" },
+              { text: "Hackathon", link: "/docs/guides/hackathon" },
+              { text: "Agent", link: "/docs/guides/agent" },
             ],
           },
           {
             text: "Frameworks",
             items: [
-              { text: "React", link: "/components/react" },
-              { text: "Vue", link: "/components/vue" },
+              { text: "React", link: "/docs/components/react" },
+              { text: "Vue", link: "/docs/components/vue" },
             ],
           },
           {
             text: "Components",
             items: [
-              { text: "Gumnut Data", link: "/components/gumnut-data" },
-              { text: "Gumnut Focus", link: "/components/gumnut-focus" },
-              { text: "Gumnut Status", link: "/components/gumnut-status" },
-              { text: "Gumnut Text", link: "/components/gumnut-text" },
+              { text: "Gumnut Data", link: "/docs/components/gumnut-data" },
+              { text: "Gumnut Focus", link: "/docs/components/gumnut-focus" },
+              { text: "Gumnut Status", link: "/docs/components/gumnut-status" },
+              { text: "Gumnut Text", link: "/docs/components/gumnut-text" },
             ],
           },
         ],
@@ -101,17 +101,14 @@ export default defineConfig({
           {
             text: "API Documentation",
             items: [
-              { text: "Gumnut API", link: "/api-reference/gumnut-api" },
-              { text: "Gumnut Doc", link: "/api-reference/gumnut-doc" },
-              { text: "Gumnut Node", link: "/api-reference/gumnut-node" },
+              { text: "Gumnut API", link: "/docs/api-reference/gumnut-api" },
+              { text: "Gumnut Doc", link: "/docs/api-reference/gumnut-doc" },
+              { text: "Gumnut Node", link: "/docs/api-reference/gumnut-node" },
             ],
           },
         ],
       },
     ],
-    footer: {
-      copyright: "Copyright © 2025 Gumnut Dev Pty Ltd",
-    },
   },
   markdown: {
     config: (md) => {

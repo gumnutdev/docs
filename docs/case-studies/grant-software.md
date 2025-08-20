@@ -4,6 +4,9 @@ description: "Grant forms became a breeze"
 date: 2025-07-15
 author: "Owen Brasier"
 image: /images/grant-flamingo.webp
+sidebar: false
+prev: false
+next: false
 ---
 
 # Case Study: Gumnut meets Grant application software

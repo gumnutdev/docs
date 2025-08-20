@@ -2,6 +2,9 @@
 title: Using AI to clone sites
 description: How Gumnut uses AI to convert screenshots into interactive web pages
 date: 2025-04-15
+sidebar: false
+prev: false
+next: false
 ---
 
 # Using AI to clone sites

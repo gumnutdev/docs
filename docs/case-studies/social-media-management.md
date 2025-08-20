@@ -4,6 +4,9 @@ description: "How Gumnut supercharged a social media management company"
 date: 2025-07-15
 author: "Owen Brasier"
 image: /images/social-juggler.webp
+sidebar: false
+prev: false
+next: false
 ---
 
 # Case Study: Social Media Management meets Gumnut

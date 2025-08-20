@@ -2,6 +2,9 @@
 title: Hello World
 date: 2025-04-09
 description: Welcome to the Gumnut blog
+sidebar: false
+prev: false
+next: false
 ---
 
 # Welcome to the Gumnut Blog
