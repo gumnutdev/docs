@@ -3,28 +3,31 @@
 layout: home
 
 hero:
-  name: "Gumnut"
-  text: "The modern textbox"
-  tagline: "Add real-time collaboration anywhere"
+  name: "Modern SaaS"
+  text: "for teams"
+  tagline: Your app is multi-user, make it <em>multiplayer</em>.<br>Turn your product into a real-time workspace with live co-editing, version history, audit trails, and AI agents—in minutes.
+  image:
+    src: ./images/hero.svg
+    alt: Gumnut
   actions:
     - theme: brand
-      text: Get Started
+      text: 📄 API Docs
       link: /introduction
     - theme: alt
-      text: Sign up
-      link: https://gumnut.dev
-
-features:
-  - icon: ⚡️
-    title: Real-time Collaboration
-    details: Simultaneous editing, change attribution, and version history
-  - icon: 🔒
-    title: Full revision history
-    details: Get full version history of all documents out of the box
-  - icon: 🚀
-    title: Easy Integration
-    details: Quick integration with React, Vue or pure JS
-  - icon: 🛠️
-    title: Complete document attribution
-    details: Know exactly who-typed-what for audit and compliance purposes
+      text: 🧑‍💻 Book a call
+      link: https://calendly.com/owen-gumnut/30min
 ---
+
+<script setup>
+import DemoSection from './.vitepress/theme/components/DemoSection.vue'
+import SocialProofSection from './.vitepress/theme/components/SocialProofSection.vue'
+import CaseStudiesSection from './.vitepress/theme/components/CaseStudiesSection.vue'
+import FeaturesOverviewSection from './.vitepress/theme/components/FeaturesOverviewSection.vue'
+import FeaturesDetailSection from './.vitepress/theme/components/FeaturesDetailSection.vue'
+</script>
+
+<DemoSection />
+<FeaturesOverviewSection />
+<!-- <SocialProofSection /> -->
+<CaseStudiesSection />
+<FeaturesDetailSection />
