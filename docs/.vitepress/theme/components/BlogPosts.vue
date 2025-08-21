@@ -40,10 +40,10 @@ import { data as posts } from '../../posts.data.mts'
 
 <style scoped>
 .blog-posts {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   padding: 1rem;
 }
@@ -188,6 +188,15 @@ import { data as posts } from '../../posts.data.mts'
   font-weight: 500;
 }
 
+/* Tablet layout */
+@media (max-width: 1024px) {
+  .blog-posts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile layout */
 @media (max-width: 768px) {
   .blog-posts {
     grid-template-columns: 1fr;

@@ -13,12 +13,6 @@
         <div class="study-content">
           <header class="study-header">
             <h2 class="study-title">{{ study.title }}</h2>
-            <div class="study-meta">
-              <time v-if="study.date" :datetime="study.date" class="study-date">
-                {{ new Date(study.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
-              </time>
-              <span v-if="study.author" class="study-author">by {{ study.author }}</span>
-            </div>
           </header>
           
           <div v-if="study.description || study.excerpt" class="study-excerpt">
@@ -40,7 +34,7 @@ import { data as caseStudies } from '../../case-studies.data.mts'
 
 <style scoped>
 .case-studies {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -157,11 +151,14 @@ import { data as caseStudies } from '../../case-studies.data.mts'
   color: var(--vp-c-text-2);
   line-height: 1.6;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .study-excerpt p {
   margin: 0;
   font-size: 0.9rem;
+  flex: 1;
 }
 
 .study-tags {

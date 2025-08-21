@@ -44,6 +44,7 @@ export default defineConfig({
         ],
       },
       { text: "Case Studies", link: "/case-studies" },
+      { text: "Docs", link: "/docs" },
       { text: "Login", link: "https://dashboard.gumnut.dev" },
       { text: "Book a demo", link: "https://calendly.com/owen-gumnut/30min" },
     ],

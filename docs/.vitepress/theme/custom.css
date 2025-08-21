@@ -38,3 +38,94 @@
   margin: 0.5rem 0;
   font-weight: 400;
 }
+
+/* Consistent page layout for pricing and questions pages */
+.pricing-page,
+.questions-page {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 1rem !important;
+}
+
+/* Override VitePress default content width constraints */
+.VPDoc .content-container {
+  max-width: none !important;
+}
+
+.VPDoc .content {
+  max-width: none !important;
+}
+
+/* Force wider layout for blog and case studies pages */
+.blog-posts,
+.case-studies {
+  max-width: 1600px !important;
+  width: 100% !important;
+}
+
+/* Align headings with content for pricing and questions pages */
+.VPDoc .content h1 {
+  margin-left: 1rem !important;
+  padding-left: 0 !important;
+}
+
+/* Align h1 headings with content for blog and case studies pages */
+.blog-posts h1,
+.case-studies h1,
+.VPDoc .content h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Hide external link arrows */
+.VPNavBarMenuLink .icon,
+.VPNavBarMenuLink .external-link-icon,
+.VPNavBarMenuLink::after {
+  display: none !important;
+}
+
+/* Style the Book a demo navigation link */
+.VPNav
+  .VPNavBar
+  .container
+  .content
+  .VPNavBarMenu
+  .VPNavBarMenuLink[href*="calendly.com"] {
+  background: var(--vp-c-brand-1);
+  color: white !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-left: 8px;
+  height: auto !important;
+  line-height: 1.2;
+  display: inline-block;
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.VPNav
+  .VPNavBar
+  .container
+  .content
+  .VPNavBarMenu
+  .VPNavBarMenuLink[href*="calendly.com"]:hover {
+  background: var(--vp-c-brand-2);
+  color: white !important;
+}
+
+/* Direct tagline styling */
+.tagline {
+  font-size: 1.2rem !important;
+}
+
+/* Navbar Logo Styling */
+.VPNav .VPNavBar .container .title .logo {
+  height: 32px !important;
+  width: auto !important;
+}
+
+.VPNav .VPNavBar .container .title .logo img {
+  height: 32px !important;
+  width: auto !important;
+}

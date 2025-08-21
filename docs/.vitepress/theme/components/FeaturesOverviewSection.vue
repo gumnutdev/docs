@@ -88,8 +88,12 @@ h2::before {
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode hover effect */
+.dark .feature-card:hover {
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
 }
 
 .feature-icon {
