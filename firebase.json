@@ -1,19 +1,8 @@
 {
   "hosting": [
     {
-      "target": "docs",
-      "public": "docs/.vitepress/dist",
-      "ignore": [],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "blog",
-      "public": "blog/.vitepress/dist",
+      "public": "docs/.vitepress/dist",
       "ignore": [],
       "cleanUrls": true,
       "trailingSlash": false,
@@ -37,6 +26,14 @@
         {
           "source": "/articles/**",
           "destination": "/articles/**"
+        },
+        {
+          "source": "/case-studies/**",
+          "destination": "/case-studies/**"
+        },
+        {
+          "source": "/docs/**",
+          "destination": "/docs/**"
         },
         {
           "source": "/",

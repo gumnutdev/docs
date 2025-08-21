@@ -1,0 +1,65 @@
+WEBVTT
+
+00:00:00.880 --> 00:00:06.879
+ We made this for an insurance company where they wanted to use Gumnut to improve their support
+
+00:00:06.879 --> 00:00:13.279
+ processes to support customers filling in a long complicated form. So this is a long health
+
+00:00:13.279 --> 00:00:25.160
+ insurance form and like everything in Gumnut it's multi-user so if I open another tab and see the same fields you'll see the other users connected to this
+
+00:00:25.160 --> 00:00:33.000
+ form and this form has conditionals across the tabs so you'll see that
+
+00:00:33.000 --> 00:00:37.460
+ different sub options are rendered across multiple tabs depending on which
+
+00:00:37.460 --> 00:00:41.000
+ user fills them in and of course all the other fields could be filled in on any
+
+00:00:41.000 --> 00:00:46.320
+ on any page but the thing that we added for them
+
+00:00:46.320 --> 00:00:48.659
+ is there's some support features.
+
+00:00:48.659 --> 00:00:51.979
+ And so on their admin page,
+
+00:00:54.659 --> 00:00:57.659
+ these are the same fields, but in a different UI.
+
+00:01:00.600 --> 00:01:02.780
+ And so what they've got on the right-hand side
+
+00:01:02.780 --> 00:01:05.000
+ is the support page, on the left hand side is the field.
+
+00:01:05.000 --> 00:01:10.000
+ So when the support user opens the tab, you'll see them join.
+
+00:01:10.000 --> 00:01:15.000
+ But we added some features to them, which was sometimes these fields are long and complicated,
+
+00:01:15.000 --> 00:01:22.000
+ and finding a user inside their system is actually quite not necessarily easy.
+
+00:01:22.000 --> 00:01:28.000
+ So we added a jump to user button so they can jump to the user or even follow the user around.
+
+00:01:28.000 --> 00:01:33.299
+ So as they navigate the field, they can fill in all of the questions
+
+00:01:33.299 --> 00:01:39.200
+ over the phone with the customer and make sure they get all of the information that's correct.
+
+00:01:40.400 --> 00:01:44.900
+ Either of them can type it in so they can type in the correct numbers
+
+00:01:44.900 --> 00:01:47.219
+ and that the support staff can type it in so they can type in the correct numbers and that the support staff can type it in for them
+
+00:01:47.219 --> 00:01:52.680
+ And they can collaborate to ensure the customer has a great experience using their product
+
