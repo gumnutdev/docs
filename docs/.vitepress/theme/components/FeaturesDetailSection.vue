@@ -42,10 +42,16 @@
           </div>
           <div class="feature-visual">
             <div class="stack-logos">
-              <img src="/website/React-light.svg" alt="React" class="logo react react-light" />
-              <img src="/website/React-dark.svg" alt="React" class="logo react react-dark" />
-              <img src="/website/Vue.svg" alt="Vue" class="logo vue" />
-              <img src="/website/JavaScript.svg" alt="JavaScript" class="logo js" />
+              <a href="/docs/components/react" target="_blank" rel="noopener">
+                <img src="/website/React-light.svg" alt="React" class="logo react react-light" />
+                <img src="/website/React-dark.svg" alt="React" class="logo react react-dark" />
+              </a>
+              <a href="/docs/components/vue" target="_blank" rel="noopener">
+                <img src="/website/Vue.svg" alt="Vue" class="logo vue" />
+              </a>
+              <a href="/docs/walkthrough" target="_blank" rel="noopener">
+                <img src="/website/JavaScript.svg" alt="JavaScript" class="logo js" />
+              </a>
             </div>
           </div>
         </div>
