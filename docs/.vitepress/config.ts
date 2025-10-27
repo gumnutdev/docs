@@ -22,7 +22,7 @@ function parseDate(dateStr: any): Date {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Gumnut 🦩",
-  description: "Modern SaaS for teams",
+  description: "The real-time workspace",
   ignoreDeadLinks: true,
   cleanUrls: true,
   themeConfig: {
@@ -45,7 +45,7 @@ export default defineConfig({
       },
       { text: "Case Studies", link: "/case-studies" },
       { text: "Docs", link: "/docs" },
-      { text: "Login", link: "https://dashboard.gumnut.dev" },
+      //{ text: "Login", link: "https://dashboard.gumnut.dev" },
       { text: "Book a demo", link: "https://calendly.com/owen-gumnut/30min" },
     ],
     socialLinks: [

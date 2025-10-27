@@ -4,23 +4,23 @@
       <div class="case-studies-grid">
         <a href="/case-studies/social-media-management" class="case-study-card" aria-label="Read case study: Social Media Management">
           <div class="case-study-header">
-            <h3>Social Media Management</h3>
+            <h3>Multiplater editing</h3>
           </div>
-          <p>How Gumnut supercharges social media management</p>
+          <p>How to enable real-time collaboration in complex apps in a few lines of code</p>
           <span class="read-more">Read Case Study →</span>
         </a>
         <a href="/case-studies/grant-software" class="case-study-card" aria-label="Read case study: Grant Application SaaS">
           <div class="case-study-header">
-            <h3>Grant Application SaaS</h3>
+            <h3>Version history and audit trails</h3>
           </div>
-          <p>How Gumnut makes Grant applications instantly multiplayer</p>
+          <p>Using Gumnut to enable undo, full version history and user attribution</p>
           <span class="read-more">Read Case Study →</span>
         </a>
         <a href="/case-studies/insurance" class="case-study-card" aria-label="Read case study: Insurance">
           <div class="case-study-header">
-            <h3>Insurance</h3>
+            <h3>Customer support</h3>
           </div>
-          <p>How Gumnut transformed customer support for an insurance company</p>
+          <p>Using Gumnut to get rid of teamviewer and allow native customer support</p>
           <span class="read-more">Read Case Study →</span>
         </a>
       </div>

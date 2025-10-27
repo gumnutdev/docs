@@ -1,6 +1,6 @@
 ---
 title: "Internal mailing tool"
-description: "How Gumnut transforms an internal mail tool of a major tech company"
+description: "How Gumnut transformed an internal mail tool of a major tech company"
 date: 2024-01-15
 author: "Owen Brasier"
 image: /images/email.webp

@@ -25,7 +25,7 @@
           <div class="feature-icon">
             <img src="/website/attribution-icon.png" alt="character-level attribution" class="feature-icon-img">
           </div>
-          <p><strong>Chracter-level attribution to see <span class="primary-color">exactly</span> who typed what</strong></p>
+          <p><strong>Character-level attribution to see <span class="primary-color">exactly</span> who typed what</strong></p>
         </div>
       </div>
     </div>
