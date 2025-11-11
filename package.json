@@ -7,10 +7,10 @@
     "vue": "^3.5.13"
   },
   "scripts": {
-    "build": "vitepress build docs",
-    "dev": "vitepress dev docs",
-    "preview": "vitepress preview docs",
-    "deploy": "vitepress build docs && firebase deploy --only hosting:blog"
+    "build": "vitepress build website",
+    "dev": "vitepress dev website",
+    "preview": "vitepress preview website",
+    "deploy": "vitepress build website && firebase deploy --only hosting:blog"
   },
   "dependencies": {
     "markdown-it-implicit-figures": "^0.12.0",

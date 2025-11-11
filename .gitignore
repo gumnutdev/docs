@@ -1,8 +1,6 @@
 .DS_Store
-docs/.vitepress/dist
-docs/.vitepress/cache
-blog/.vitepress/dist
-blog/.vitepress/cache
+website/.vitepress/dist
+website/.vitepress/cache
 node_modules/
 .firebase/*
 draft/
