@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "types": ["vitepress/client", "vue"],
-    "strict": true,
-    "skipLibCheck": true
-  }
-}
