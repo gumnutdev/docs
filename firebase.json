@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "blog",
-      "public": "docs/.vitepress/dist",
+      "public": "website/.vitepress/dist",
       "ignore": [],
       "cleanUrls": true,
       "trailingSlash": false,
