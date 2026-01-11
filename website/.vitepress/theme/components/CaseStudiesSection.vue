@@ -4,7 +4,7 @@
       <div class="case-studies-grid">
         <a href="/case-studies/social-media-management" class="case-study-card" aria-label="Read case study: Social Media Management">
           <div class="case-study-header">
-            <h3>Multiplater editing</h3>
+            <h3>Multiplayer editing</h3>
           </div>
           <p>How to enable real-time collaboration in complex apps in a few lines of code</p>
           <span class="read-more">Read Case Study →</span>
